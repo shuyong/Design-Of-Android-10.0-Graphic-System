@@ -36,10 +36,10 @@ gralloc(graphics alloc) 模块管理着 Buffer 资源(buffer_handle_t)，声明�
   - 在 Android 7.0 及以后的版本中，在 gralloc1 模块中，这两个函数改名为：retain() / release()。一个是增加引用计数，一个是减少引用计数。这样更能体现设计本义。
 
 下面是 gralloc v0 模块的类图：
-![gralloc 模块的类图](Gralloc%20Class%20Diagram.svg)
+![gralloc 模块的类图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/hal-design/hardware_gralloc%20Class%20Diagram.svg)
 
 下面是 gralloc v1 模块的类图：
-![gralloc1 模块的类图](Gralloc%20Class%20Diagram.svg)
+![gralloc1 模块的类图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/hal-design/hardware_gralloc1%20Class%20Diagram.svg)
 
 ## 共享机制
 
