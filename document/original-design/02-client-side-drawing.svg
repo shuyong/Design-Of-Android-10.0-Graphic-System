@@ -1,6 +1,6 @@
-<?xml version="1.0" standalone="no"?>
-<!-- Creator: fig2dev Version 3.2.6a -->
-<!-- CreationDate: 2019-01-10 11:48:51 -->
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Creator: fig2dev Version 3.2.7b-dev -->
+<!-- CreationDate: 2020-05-27 12:53:47 -->
 <!-- Magnification: 1.05 -->
 <svg	xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -159,8 +159,6 @@
 <!-- Text -->
 <text xml:space="preserve" x="8325" y="4950" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Content</text>
 <!-- Text -->
-<text xml:space="preserve" x="11250" y="4950" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Conten</text>
-<!-- Text -->
 <text xml:space="preserve" x="12375" y="4950" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Displayer hardware</text>
 <!-- Text -->
 <text xml:space="preserve" x="3825" y="4500" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Drawing</text>
@@ -188,5 +186,7 @@
 <text xml:space="preserve" x="5535" y="900" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">OS</text>
 <!-- Text -->
 <text xml:space="preserve" x="5175" y="675" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Client side drawing / rendering</text>
+<!-- Text -->
+<text xml:space="preserve" x="11250" y="4950" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Content</text>
 </g>
 </svg>

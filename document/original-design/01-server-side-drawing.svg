@@ -1,6 +1,6 @@
-<?xml version="1.0" standalone="no"?>
-<!-- Creator: fig2dev Version 3.2.6a -->
-<!-- CreationDate: 2019-01-10 11:48:34 -->
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Creator: fig2dev Version 3.2.7b-dev -->
+<!-- CreationDate: 2020-05-27 12:52:33 -->
 <!-- Magnification: 1.05 -->
 <svg	xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -157,13 +157,11 @@
 <!-- Text -->
 <text xml:space="preserve" x="6750" y="3825" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Drawing</text>
 <!-- Text -->
-<text xml:space="preserve" x="9675" y="3825" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Cut &#38; paste</text>
+<text xml:space="preserve" x="9675" y="3825" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Cut &amp; paste</text>
 <!-- Text -->
 <text xml:space="preserve" x="12600" y="3825" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Control</text>
 <!-- Text -->
 <text xml:space="preserve" x="8325" y="4725" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Content</text>
-<!-- Text -->
-<text xml:space="preserve" x="11250" y="4725" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Conten</text>
 <!-- Text -->
 <text xml:space="preserve" x="8550" y="3150" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="192" text-anchor="start">+</text>
 <!-- Text -->
@@ -180,5 +178,7 @@
 <text xml:space="preserve" x="5535" y="900" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">OS</text>
 <!-- Text -->
 <text xml:space="preserve" x="5175" y="450" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Server side drawing / rendering</text>
+<!-- Text -->
+<text xml:space="preserve" x="11250" y="4725" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Content</text>
 </g>
 </svg>
