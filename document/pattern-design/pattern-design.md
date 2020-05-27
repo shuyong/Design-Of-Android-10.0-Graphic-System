@@ -219,7 +219,7 @@ Binder 是很典型的跨进程/线程访问对象的应用。
 
 Producer–Consumer 模式，核心类的就是中间的 BufferQueue 类，实质就是一个 Buffer Pool 的管理。 
 
-![Producer-Consumer-01](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/pattern-design/01-bufferqueue-01.svg) 
+![Producer-Consumer-01](./01-bufferqueue-01.svg) 
 
 在 Android 图形系统中，有限的资源是 Graphic Buffer，相对无限的任务是客户生产的内容。因此，Buffer 在 Resource Pool (BufferQueue) 中是循环使用的。同时，从 Graphic Buffer 的状态图得知，它有四种基本状态：Dequeued / Enqueued / Acquired / Free。
 
@@ -257,7 +257,7 @@ Pool 模式的本质就是使用有限的资源去处理相对无限的任务。
 
 另外，饭店里也有一道菜很能体现 Fence 的功能，就是大家经常吃的“铁板烧”。厨师将准备好的配料倒入烧热的铁板里，盖上盖子就可以上菜了。“铁板烧”端到顾客面前时，菜还没有熟。顾客要等待一会儿，等到店小二开盖的时候，表明菜熟了。这时候，顾客关注的是菜什么时候熟，而厨师早就在忙下一道菜了。这里，厨师代表的是生产端的 CPU，顾客代表的是消费端的 CPU，烧热的铁板代表的是 GPU，配料代表配置，菜代表最终的内容，店小二代表 OS。菜是在传菜和顾客的等待中烧熟的。店小二根据信息(如时间和温度)知道菜熟了就开盖，顾客就可以在第一时间知道菜熟了。但是厨师并不关心这道菜真正烧熟的瞬间，他关心的是下一道菜该怎么处理。
 
-因此，Consumer 类会生成一个新的 Fence 类，在 Release() 操作时，跨越进程/线程传递给 Producer 类。Producer 类在 Dequeue() 操作后，在使用 Buffer 类前，需要检查Fence类，查看前一阶段对该 Buffer 对象的操作是否真正完成。
+因此，Consumer 类会生成一个新的 Fence 类，在 Release() 操作时，跨越进程/线程传递给 Producer 类。Producer 类在 Dequeue() 操作后，在使用 Buffer 类前，需要检查 Fence 类，查看前一阶段对该 Buffer 对象的操作是否真正完成。
 
 ![Fence](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/pattern-design/04-bufferqueue-04.svg)
 
