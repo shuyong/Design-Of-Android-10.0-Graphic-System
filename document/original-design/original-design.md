@@ -6,7 +6,7 @@
 在设计 X11 的年代，网络刚刚兴起，大型主机配上图形终端是用户使用计算机的普遍模式，所以采用 Client / Server 架构是很自然的事情。但是随着 PC 的兴起和大型主机的没落，在 PC 本地采用 C/S 架构设计图形系统，不但是多此一举的事情，而且还会影响性能。因此受到诸多人的指责。
 
 原始的 X Server 的设计，可以简单的总结为客户端请求绘图/服务端执行绘图并显示这样的模式。见下面的示意图1。 
-![server side drawing](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/original-design/01-server-side-drawing.fig)
+![server side drawing](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/original-design/01-server-side-drawing.svg)
 
 在这种模式中，客户端软件是不知道自己绘图的效果的，除非它向图形服务器发出请求，要求服务器回传当前的图形缓冲区回来。因此，有些功能就很难实现。例如，如果应用软件想录制当前的操作画面，需要操作完成后再要服务器回传回来才知道效果，就会很影响效率。 
 
@@ -18,7 +18,7 @@
 # 新的设计的想法
 
 于是有人针对上述问题提出了客户端绘图方案。见下面的示意图2。 
-![client side drawing](02-client-side-drawing.svg)
+![client side drawing](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/original-design/02-client-side-drawing.svg)
 
 在新方案中，出现了两个大的变化。 
 
@@ -45,7 +45,7 @@
 
 我们先看在图形系统中一个窗口的抽象设计。见下图。
 
-![窗口抽象示意图](03-window.svg)
+![窗口抽象示意图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/original-design/03-window.svg)
 
 一个窗口一般会分成两个部分：一个窗口本身的管理结构(struct)，一个是可以存放绘图内容的内存块，一般称为缓冲区(buffer)。在习惯上，一般在讨论这块内存本身的特性和功能时，会称之为缓冲区(buffer)；如果内存上面已经带有内容，则称之为帧(frame)。 
 
@@ -60,7 +60,7 @@
 
 如果我们采用类似 X Window 的原始的 C/S 架构设计，见下图： 
 
-![two stage copy](04-two-stage-copy.svg)
+![two stage copy](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/original-design/04-two-stage-copy.svg)
 
 这样的设计简单，但是会造成对同一个内容占用两块内存，并且会有两次拷贝的问题。这既浪费内存又浪费时间。于是有人提出了零拷贝(zero-copy)方案。 
 
@@ -98,12 +98,12 @@ BufferQueue 类在 Android 图形系统里是核心类，管理着一个可变�
 
 因此，窗口对象新的设计示意图如下：
 
-![zero-copy & BufferQueue](05-zero-copy.svg)
+![zero-copy & BufferQueue](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/original-design/05-zero-copy.svg)
 
 在新的设计里：
 * Client Window 从 BufferQueue 得到的永远是 back buffer。客户端软件将在上面生成新的内容。
 * Server Composer 从 BufferQueue 得到的永远 是 front buffer。服务端软件将从中得到客户已经生成的内容。
-* Client / BufferQueue / Server 三方，分别处于不同的进程/线程中。三方之间的状态同步，使用 IPC(binder) 进行通信。同时，尽管跨越了进程，Zero-Copy 的技术保证了一份内容只有一个拷贝。这极大地减少了内存消耗也极大地提高了效率。
+* Client / BufferQueue / Server 三方，分别处于不同的进程/线程中。三方之间的状态同步，使用 IPC(binder) 进行通信。同时，尽管跨越了进程，zero-copy 的技术保证了一份内容只有一个拷贝。这极大地减少了内存消耗也极大地提高了效率。
 * Buffer & Pool本身的管理，包括 size / count / status 等，将由 BufferQueue 管理。这样减轻了两端的工作量。
 
 # 小结
@@ -111,6 +111,6 @@ BufferQueue 类在 Android 图形系统里是核心类，管理着一个可变�
 最终，Android 图形系统在设计上最基本的思路和功能就是： 
 * 客户端完成绘图或渲染功能。特点是采用 GPU 绘图或渲染，为此在 EGL / OpenGLES 方面提供了基于 Android 的扩展。经典的实现是 skia 和 hwui 库。 
 * 服务端实现完整的合成功能。标志是提供了完整的矩阵变换、Porter-Duff 合成算法、颜色空间转换功能。 
-* C/S 架构之间采用 Zero-Copy 方式同步数据。就是用文件句柄传输功能、IPC(binder) 和 Fence 功能来实现共享内存机制。
+* C/S 架构之间采用 zero-copy 方式同步数据。就是用文件句柄传输功能、IPC(binder) 和 Fence 功能来实现共享内存机制。
 * Client / BufferQueue / Server 三方协同工作，在设计模式中就是一个经典的 Producer-Consumer 模式。我们将在下一章简单回顾在 Android 图形系统中常用的设计模式。
 
