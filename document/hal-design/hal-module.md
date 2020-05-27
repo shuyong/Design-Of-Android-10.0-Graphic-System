@@ -49,7 +49,7 @@ Android 的图形系统的 HAL 接口(interface)类的声明所涉及到的头�
   + hardware/libhardware/include/hardware/hwcomposer_defs.h
   + hardware/libhardware/include/hardware/hwcomposer.h
 * VSYNC 信号：只是一个函数指针藏在 HWComposer 模块里。
-* Power 模块
+* power 模块
   + hardware/libhardware/include/hardware/power.h
 
 最终，Producer 端用 gralloc 模块要实现的 Framework Interface 为 ANativeWindowBuffer / ANativeWindow，声明位于这里：
@@ -77,6 +77,12 @@ HWComposer 是 SurfaceFlinger 对于整个硬件显示子系统的抽象，包�
 # [hwcomposer 模块](hwcomposer.md)
 
 # [VSYNC 信号](VSYNC.md)
+
+# power 模块
+
+显示设备是手机里的用电大户。power 模块相对简单，就是提供给 hwcomposer 模块开关设备。主要就是在休眠/唤醒时被 hwcomposer 模块使用到。
+
+![power_module_t类图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/hal-design/hardware_powe%20Class%20Diagram.svg)
 
 # [代码复用](reuse.md)
 

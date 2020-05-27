@@ -120,7 +120,7 @@ FIXME: crop 图
   - GLES 需要一个 EGLSurface，所以该层一定属于一种 Surface，背后有一个 BufferQueue。
   - 这种特殊的 FramebufferSurface 和普通的 Surface 最大的不同在于：
     + 普通的 Surface 可以更改几何尺寸和颜色格式。而 FramebufferSurface 初始化完以后就不可更改。因为显示设备的分辨率和颜色格式不容易更改，而且 Android 目前还没有支持动态分辨率。
-    + 普通的 Surface 可以改变 BufferQueue 的大小，缺省是3个 Buffer。而 FramebufferSurface 不可改变 BufferQueue 的大小，缺省是2个 Buffer。
+    + 普通的 Surface 可以改变 BufferQueue 的大小，缺省是 3 个 Buffer。而 FramebufferSurface 不可改变 BufferQueue 的大小，缺省是2个 Buffer。
 * 底层 HWC 底层能处理的 HWC_OVERLAY 层，可以假定其合成结果也存放到 HWC_FRAMEBUFFER_TARGET 层上。
 * 所以，合成次序是先用 GPU 合成再用 2D engine 合成。最后由 (*set)() 将 HWC_FRAMEBUFFER_TARGET 层送到显示设备上显示。
 * 所以，不论是 GLES 路径还是 2D engine 路径，最终的合成结果都会来到 HWC_FRAMEBUFFER_TARGET 层上。所谓的退出栅栏(Retire fence)信号，就是该 HWC_FRAMEBUFFER_TARGET 层显示到屏幕上时，底层 HWC 发出的信号。
