@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+# VIM Edit Results
+*~
+.*.un~
