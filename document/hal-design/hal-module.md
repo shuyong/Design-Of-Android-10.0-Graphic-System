@@ -66,7 +66,7 @@ Consumer 端用 hwcomposer 模块要实现的类为 HWComposer，声明位于这
 
 HWComposer 是 SurfaceFlinger 对于整个硬件显示子系统的抽象，包括显示设备，是所有 Android 合成操作的核心。
 
-从系统总体实现的角度看，Interface 是最重要的。它们是功能锚点，定义了系统功能。在图形系统中，目标就是用 HAL Interface 实现 Framework Interface。至于中间层的实现(Implementation)，可以各用各的软件包，各有各的实现。Android Framework 只是其中一个经典实现。而[Sailfish OS](https://sailfishos.org/)则用 Qt5 做了另外的实现，并且在 Consumer 端没有使用 surfaceflinger service，而是实现了 wayland server。也就是，在执行 queueBuffer() 的时刻，Buffer 被送给了另外的 HWComposer 实现。当然，最终 wayland server 还是调用了 hwcomposer 模块，将应用所绘制的内容交给了显示设备。
+从系统总体实现的角度看，Interface 是最重要的。它们是功能锚点，定义了系统功能。在图形系统中，目标就是用 HAL Interface 实现 Framework Interface。至于中间层的实现(Implementation)，可以各用各的软件包，各有各的实现。Android Framework 只是其中一个经典实现。而 [Sailfish OS](https://sailfishos.org/) 则用 Qt5 做了另外的实现，并且在 Consumer 端没有使用 surfaceflinger service，而是实现了 wayland server。也就是，在执行 queueBuffer() 的时刻，Buffer 被送给了另外的 HWComposer 实现。当然，最终 wayland server 还是调用了 hwcomposer 模块，将应用所绘制的内容交给了显示设备。
 
 本章只关注接口(interface)的约定，具体的实现将在后面的文章讨论。下面是这些模块的功能介绍。 
 

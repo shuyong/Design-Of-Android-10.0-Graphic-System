@@ -5,8 +5,6 @@ Android OS 是一个极其成功的项目。Google 公司不但凭着高深的�
 
 于是有人就想着借着 Android 系统里的板子和驱动，去推广传统 Linux 系统。因为第一个拦路虎没有了，板子和驱动都是现成的，推广传统 Linux 系统的难度大大降低。不过，在这种尝试过程中，也出现了问题。
 
-# 复用的层次
-
 # 现有的问题
 
 Android 系统，不知是有意无意，全部采用了有别于传统 Linux 系统的不同的技术方案。可以说，除了 Linux Kernel 相似之外，其它的地方都不同。这就形成了很高的技术壁垒，让传统 Linux 系统很难复用 Android 系统里的代码模块。
@@ -77,4 +75,16 @@ FireFox OS 复用 Android 代码库，也有自己的特色，就是尽可能复
 但是不管怎么样，这种技术路线可以带来工作量小，可靠性高的好处。不过有一点值得注意，采用这种技术路线可能会带来法律问题。这个问题不在这里讨论。
 
 # 其它的可能性
+
+## 复用的层次
+
+现在复用 Android 代码，基本上都是从 HAL 层的代码开始。然后根据 Android 的实现，推测上层的接口所需要的功能，以及相应的有限状态机，然后做新的实现。
+
+其实从编译器和编译依赖系统的角度看，整个 Android 公开的代码，去除最底层的 C run-time library : bionic，是完全可以用 gcc / glibc 重新编译的。但是是什么东西阻止了 Android 代码的复用？其实就是 HAL 层中的那些厂商的 close-module。就是因为闭源代码的存在，整个 HAL 层必须被原封不动地复用。
+
+如果再想在更高层复用 Android 代码，则会碰到修改编译依赖系统 ninjia 的配置文件的问题。这也是一个庞大的工程。另外，Android 代码里复杂的 C++ namespace，也是令人头痛的问题。
+
+## Binder Interface 的复用
+
+如果是 glibc 空间的程序，想从高层，如 HIDL 或 Framework 层复用 Android 代码，有一种方法就是重新编译 Binder Interface 中的 Bp 类这一半。这样从远程调用 HAL 模块，这也是一种可能。这样一直到 Framework 层的代码再用 gcc / glibc 重新编译，glibc 空间的程序就可以复用 Android 系统而没有任何冲突。不过修改编译依赖系统 ninjia 的配置文件的工作量实在太大了。所有现在可行的方案还是复用 [Mer Project](http://www.merproject.org/) 方案。
 

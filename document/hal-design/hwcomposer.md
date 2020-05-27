@@ -33,14 +33,14 @@ Android 的图形系统的底层会涉及到以下设备：
 
 HWC 的设计也是围绕着用 C 语言结构定义的两个接口(interface)展开：
 * hwc_composer_device_1 代表着 HWC 的硬件抽象。继承自 hw_device_t 接口，由 HAL 底层模块实现。
-* hwc_procs 调用 HWC 接口的调用者必须实现并向 HWC 传入这个接口，代表着调用者必须监听并处理 HWC 上报的3个事件：
+* hwc_procs 调用 HWC 接口的调用者必须实现并向 HWC 传入这个接口，代表着调用者必须监听并处理 HWC 上报的 3 个事件：
   - invalidate
   - vsync
   - hotplug
 
-![HWC device](hwc%20composer%20device%20Class%20Diagram.svg)
+![HWC device](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/hal-design/hardware_hwcomposer%20Class%20Diagram.svg)
 
-hwc_composer_device_1 接口(interface)周期性调用的是2个方法：
+hwc_composer_device_1 接口(interface)周期性调用的是 2 个方法：
 * (*prepare)() 调用者与 HWC 协商，准备调用 HWC。
   - 调用者在每个层(layer)的参数"hwc_layer_t::compositionType"里要求 HWC 采用 GPU 或 2D engine 处理该层。
   - HWC 在返回参数里提示调用者，因为资源的限制，有些层由调用者采用 GPU 处理，有些层由 HWC 采用 2D engine 处理。
@@ -55,16 +55,16 @@ hwc_composer_device_1 接口(interface)周期性调用的是2个方法：
 * GPU 是通用型的，可以实现各种颜色格式的各种合成算法。而 2D engine 能实现的算法是有限的，通道资源是有限的。
 * 因为厂商实现的不同，有些类型的合成操作，这家采用 GPU 更好，那家采用 2D engine 更快更省电。
 
-上面2个方法的参数，就它们可以同时向给多个显示设备输送内容。在 Android 6.0 里，可以有3种类型的显示设备：
+上面 2 个方法的参数，就它们可以同时向给多个显示设备输送内容。在 Android 显示设备模型里，可以有3种类型的显示设备：
 * 主显示设备(LCD)
 * 扩展显示设备(热插拔的 HDMI)
 * 虚拟显示设备(抓屏或无线屏显)
 
-在 Android 6.0 里，必须存在一个主显示设备，否则系统在初始化时会崩溃。在手机设备里，这大多是 LCD 设备。在 PC 机里，则是 HDMI 设备。所以，在 Android for PC 的版本里，在 Android 启动过程中，必须插入 HDMI 设备，让 Android 图形系统初始化完成。后面才可以热插拔 HDMI 设备。
+在 Android 显示设备模型里，必须存在一个主显示设备，否则系统在初始化时会崩溃。在手机设备里，这大多是 LCD 设备。在 PC 机里，则是 HDMI 设备。所以，在 Android for PC 的版本里，在 Android 启动过程中，必须插入 HDMI 设备，让 Android 图形系统初始化完成。后面才可以热插拔 HDMI 设备。
 
-所以上面2个方法的参数，同时可以处理 N 个(N >= 2)显示设备。数组的个数要 N >= 2，如果不存在扩展显示设备，也需要该数组元素，只是里面的成员都清零。
+所以上面 2 个方法的参数，同时可以处理 N 个(N >= 2)显示设备。数组的个数要 N >= 2，如果不存在扩展显示设备，也需要该数组元素，只是里面的成员都清零。
 
-由上面2个方法的参数可知，代表显示设备的数据结构就是 hwc_display_contents_1。该结构包含了本次合成操作中要处理的层(layer)，由数据结构 hwc_layer_1 代表。每个层都有一个 Frame，对应的就是客户端里的窗口(ANativeWindow)里某个瞬间的内容。每个显示设备要处理的层列表可以不一样。典型的就是用扩展或虚拟显示设备看视频，在手机屏幕上显示的是操作界面，在大屏幕上显示的是视频内容。
+由上面 2 个方法的参数可知，代表显示设备的数据结构就是 hwc_display_contents_1。该结构包含了本次合成操作中要处理的层(layer)，由数据结构 hwc_layer_1 代表。每个层都有一个 Frame，对应的就是客户端里的窗口(ANativeWindow)里某个瞬间的内容。每个显示设备要处理的层列表可以不一样。典型的就是用扩展或虚拟显示设备看视频，在手机屏幕上显示的是操作界面，在大屏幕上显示的是视频内容。
 
 层结构 hwc_layer_t 里的参数影响着合成操作：
 * hwc_layer_t::compositionType 经过协商和最后执行的层的合成类型。
@@ -127,12 +127,17 @@ FIXME: crop 图
 
 # HWComposer 2.0 的改进
 
-validateDisplay() / presentDisplay()
+![HWC2 device](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/hal-design/hardware_hwcomposer2%20Class%20Diagram.svg)
+
+HWC2 的主要改进是：
+* 将暴露的方法改变为可扩展的 getCapabilities() / getFunction() 方式。
+* prepare() / set() 方法改变为 validateDisplay() / presentDisplay()，更符合设计本意。
+* 将释放栅栏(Release fence)和退出栅栏(Retire fence)从推测性的改变为非推测性的。
 
 # Framebuffer Device 的接口与约定
 
-Framebuffer Device 接口对应的就是古老的 Linux Framebuffer 设备驱动，可以被认为是 HWComposer 1.0。新的 HWComposer 1.1 接口已经替代 Framebuffer Device 接口。在 Android 代码里，虽然为兼容性还保留着相关代码，但在运行时基本都不会用到。因此，对于 Framebuffer Device，只需要知道有这么一个东西就好。关注点应该在 HWComposer 1.1 / 2.0 上面。
+Framebuffer Device 接口对应的就是古老的 Linux Framebuffer 设备驱动，可以被认为是 HWComposer 1.0。新的 HWComposer 1.1 接口已经替代 Framebuffer Device 接口。在 Android 代码里，虽然为兼容性还保留着相关代码，但是底层由 HWC 做具体实现，已经不会调用到没有硬件加速的 Linux Framebuffer 设备驱动了。因此，对于 Framebuffer Device，只需要知道有这么一个东西就好。关注点应该在 HWComposer 1.1 / 2.0 上面。
 
-![Framebuffer Device](Framebuffer%20Device%20Class%20Diagram.svg)
+![Framebuffer Device](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/hal-design/hardware_fb%20Class%20Diagram.svg)
 
 

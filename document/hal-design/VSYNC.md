@@ -4,13 +4,16 @@
 
 实现 VSYNC 的目标很简单：VSYNC 可将某些事件同步到显示设备的刷新周期。应用总是在 VSYNC 边界上开始绘制，而 SurfaceFlinger 总是在 VSYNC 边界上进行合成。这样可以消除卡顿，并提升图形的视觉表现。 
 
-VSYNC 的接口很简单，它归属于显示设备，因此在 Hardware Composer (HWC) 接口中提供。在 HWC 接口(interface)中，VSYNC 接口就是一个函数指针，用于指示要为 VSYNC 实现的函数：
+VSYNC 的接口很简单，它归属于显示设备，因此在 Hardware Composer (HWC) 接口中提供。在 HWC 接口(interface)中，VSYNC 接口就是一个函数指针，属于 hwc_procs 接口的一部分，用于指示要为 VSYNC 实现的函数：
 ```
 int (waitForVsync*) (int64_t *timestamp) 
 ```
 
-LCD 显示器一般的刷新率为 60HZ，也就是大约 16.67ms 产生硬件 VSYNC 信号。而这个 VSYNC 接口关注点在于可供软件预测的时间戳。在发生 VSYNC 并返回实际 VSYNC 的时间戳之前，这个函数会处于阻塞状态。每次发生 VSYNC 时，都必须发送一条消息。客户端会以指定的间隔收到 VSYNC 时间戳，或者以 "1" 为间隔连续收到 VSYNC 时间戳。你必须实现最大延迟时间为 1 毫秒（建议 0.5 毫秒或更短）的 VSYNC，因此返回的时间戳必须非常准确。
+LCD 显示器一般的刷新率为 60Hz，也就是大约 16.67ms 产生硬件 VSYNC 信号。而这个 VSYNC 接口关注点在于可供软件预测的时间戳。在发生 VSYNC 并返回实际 VSYNC 的时间戳之前，这个函数会处于阻塞状态。每次发生 VSYNC 时，都必须发送一条消息。客户端会以指定的间隔收到 VSYNC 时间戳，或者以 "1" 为间隔连续收到 VSYNC 时间戳。你必须实现最大延迟时间为 1ms（建议 0.5ms 或更短）的 VSYNC，因此返回的时间戳必须非常准确。
 
 因为打开硬件 VSYNC 信号时，对手机的功耗会有影响。所以一个开发经验就是，只在必要的时候打开硬件 VSYNC 信号，采样并建立模型，预测硬件 VSYNC 信号发生的时间点，然后关闭硬件 VSYNC 信号，只使用软件 VSYNC 信号。这样对于降低手机功耗有好处。
 
+另外，在调用 hwcomposer 模块时，还需要注意，hwc_procs 接口是由用户程序实例化并注册的。用户程序必须提供回调函数监听并处理 HWC 上报的 3 个事件： invalidate / vsync / hotplug。否则 hwcomposer 模块有可能会崩溃。
+
+到了 hwcomposer2 模块时，用户程序可以选择监听 3 个事件中的任意一个。不监听也不会崩溃。
 

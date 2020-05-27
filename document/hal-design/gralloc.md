@@ -33,10 +33,13 @@ gralloc(graphics alloc) 模块管理着 Buffer 资源(buffer_handle_t)，声明�
 * 注册 registerBuffer() / 解除注册 unregisterBuffer() 缓冲区。用于跨进程的操作。
   - 当本进程得到一个别的进程已申请好的 Buffer 时，需要向底层系统注册 registerBuffer()，以便底层系统进行相应的操作，例如映射内存，使得本进程能操作相应的 Buffer。
   - 反之，当本进程不再需要该 Buffer 时，需要进行解除注册 unregisterBuffer() 操作，以便底层系统进行相应的操作，例如解除映射，对象自减计数等等，使得跨进程的 Buffer 对象状态一致，可以进行自我生命周期管理。
-  - 在新版本的 gralloc 模块中，这两个函数改名为：retain() / release()。一个是增加引用计数，一个是减少引用计数。这样更能体现设计本义。
+  - 在 Android 7.0 及以后的版本中，在 gralloc1 模块中，这两个函数改名为：retain() / release()。一个是增加引用计数，一个是减少引用计数。这样更能体现设计本义。
 
-下面是 gralloc 模块的类图：
+下面是 gralloc v0 模块的类图：
 ![gralloc 模块的类图](Gralloc%20Class%20Diagram.svg)
+
+下面是 gralloc v1 模块的类图：
+![gralloc1 模块的类图](Gralloc%20Class%20Diagram.svg)
 
 ## 共享机制
 
@@ -52,7 +55,7 @@ gralloc(graphics alloc) 模块管理着 Buffer 资源(buffer_handle_t)，声明�
 
 ANativeWindowBuffer 最终与 gralloc 模块打交道。它对上层屏蔽了硬件细节。但是如果要做具体实现，则需要了解很多底层的硬件特性。 
 
-ANativeWindowBuffer 的设计，有5个基本参数： 
+ANativeWindowBuffer 的设计，有 5 个基本参数： 
 * width 
 * height 
 * stride 
@@ -61,15 +64,15 @@ ANativeWindowBuffer 的设计，有5个基本参数：
 
 宽度(width)和高度(height)，代表图形的 2D 尺寸。当描述图形缓冲区的尺寸时，需要注意两点。首先，我们需要理解维度的单位。如果尺寸用像素表示，那么我们需要理解如何将像素转换为位。为此我们需要知道颜色编码格式。 
 
-颜色格式(format)就是用于标识颜色编码格式。常用颜色格式有 RGBA_8888，是每像素32位(每个像素有4个组分：红、绿、蓝和 alpha 混合，每个8位)，RGB_565 是每个像素 16 位(5位为红色和蓝色，6位为绿色)。此外，还有 YUV 格式。 
+颜色格式(format)就是用于标识颜色编码格式。常用颜色格式有 RGBA_8888，是每像素32位(每个像素有4个组分：红、绿、蓝和 alpha 混合，每个8位)，这个与 OpenGL 的常用格式一致。RGB_565 是每个像素 16 位(5位为红色和蓝色，6位为绿色)。此外，还有 YUV 格式。 
 
 影响图形缓冲区物理尺寸的第二个重要因素是它的步幅(stride)。有些地方也称为 pitch。为了理解步幅，可见下图。 
  
-![buffer stride 1](window-01.svg)
+![buffer stride 1](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/hal-design/window-01.svg)
 
 我们可以把内存缓冲区看作像素行和列的矩阵排列。列组成行。步幅被定义为所需要的从一条缓冲线(扫描线)的开始计数到下一条缓冲线的像素的数量(或字节，取决于描述的单位)。如上图所示，步幅必须至少等于缓冲区的宽度，但是也可以无碍地大于宽度。步幅和宽度(stride-width)之间有差别只是浪费了内存，而由此带来的特性是，用于存储图像或图形的内存可能不是连续的。那么，步幅是从哪里来的呢？由于硬件实现的复杂性、存储器带宽优化和其他限制，访问图形存储器的硬件可能要求缓冲区是若干字节的倍数。例如，如果对于特定的硬件模块，线路地址需要对齐到64字节，那么存储器宽度需要是64字节的倍数。如果此约束导致得到比请求时更长的扫描线，则缓冲步幅与宽度不同。步幅的另一个动机是缓冲区重用：想象一下，你想在另一个图像中引用裁剪图像。在这种情况下，裁剪（内部）图像具有不同于宽度的步幅。见下图。 
  
-![buffer stride 2](window-02.svg)
+![buffer stride 2](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/hal-design/window-02.svg)
 
 已分配的缓冲存储器当然可以通过用户空间的代码，其实就是 CPU，写入或读取，但是首先它可由不同的硬件模块写入或读取，例如 GPU (图形处理单元)、照相机、合成引擎、DMA引擎、显示控制器等。在一个经典的片上系统(SoC)中，这些硬件模块来自不同的厂商，对缓冲存储器有不同的约束，如果它们要共享缓冲区，则需要协调这些约束。例如，被 GPU 写入的缓冲器，对显示控制器应该是可读取的。缓冲区上的不同约束不一定是异构组件供应商的结果，也可能是因为优化点不同。在任何情况下，Buffer 都需要确保图像格式和内存布局对图像生产者和消费者都是一致的。这就是 usage 参数发挥作用的地方。 
 
