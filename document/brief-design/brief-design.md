@@ -137,7 +137,7 @@ Window 的应用与实现层次如下：
 
 ## Consumer 端的接口(interface)
 
-Producer 端的程序就是著名的 surfaceflinger。surfaceflinger 的实现和硬件相关，需要 HAL 提供的 HWComposer 模块，v1 版本。v0 版本为 EGL/OpenGLES。后来该模块升级为 v2 版本。各自提供的接口(interface)为：
+Producer 端的程序就是著名的 surfaceflinger software。surfaceflinger(sw) 的实现和硬件相关，需要 HAL 提供的 HWComposer 模块，v1 版本。v0 版本为 EGL/OpenGLES。后来该模块升级为 v2 版本。各自提供的接口(interface)为：
 * v1 : hwc_composer_device_1_t
 * v2 : hwc2_device
 

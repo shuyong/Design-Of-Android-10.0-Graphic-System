@@ -6,7 +6,7 @@
 Android 系统大致可以分成上下两个部分。上部是和硬件无关的抽象的平台，下部则是和硬件相关的、需要移植的底层。之间则是用硬件抽象层(Hardware Abstraction Layer / HAL)来划分： 
 * Android HAL(硬件抽象层)是硬件和软件之间的桥梁。 
 * Android HAL 允许 Android 应用程序/框架与设备驱动程序进行通信，并操控硬件。
-* Android HAL 提供了 C/C++ 层面的接口(interface)，下面是一个基于厂商的特定实现。
+* Android HAL 提供了 C/C++ 层面的接口(interface)，下面是一个基于厂商 Soc 的特定实现。
 * 大多数基于特定厂商的硬件的设备操控的实现都是在 Android HAL 中完成，而不是在设备驱动程序中完成，其中一个原因就是：设备驱动程序（开源许可证 GPL）和 HAL（Apache 许可证）之间的许可证差异。所以，HAL 的设计可以为厂商提供更多的抽象级别的接口和知识产权保护。 
 
 在 Android 系统的进化过程中，HAL 一直尽可能地保持着稳定。旧接口一般不会修改，而是通过扩展新接口方式保证后向兼容。而且，HAL 还要求保证 C/C++ 编程语言兼容。因为从 Linux 设备驱动到底层的接口库，还有 EGL / OpenGLES，都是 C 语言的函数接口。而 Android framework 是用 C++ 编程。所以为了保证从上到下调用无碍，又要体现面向对象的编程思想，HAL 采用了很多 C/C++ 混编的技巧。其中最典型的技巧就是用 C 语言结构(struct)头部一致的特性来实现单继承，再用函数指针做结构成员表达接口(interface)类，而该接口(interface)类在 C++ 的环境里可以被实现类继承，并实现其中的接口。而且该 C++ 的实现类还可以在 C 语言的代码库里，例如 EGL / OpenGLES，被调用到。上下通畅无碍，这是很值得借鉴的编程经验。
@@ -15,15 +15,15 @@ Android 系统大致可以分成上下两个部分。上部是和硬件无关的
 
 因此，我们不但要知道 HAL 所实现的功能的目标，还需要知道 HAL 完成功能所需要的条件。这些条件，不但包括调用的参数的定义和范围，还包括调用对象的有限状态机，对象间的序列图和协作图，以及各种假设。只有了解了这些，才可以更好地了解 Android 系统的工作方式，以及更好地复用 Android 系统的代码。
 
-另外，再怎么强调稳定，HAL 定义的接口(interface)还是会进化，还是会出现以前没有预料的情况。为解决这种问题，Android 采用了两种解决方案。一个是升级接口(interface)风格，采用通用的方法：getCapabilities() / getFunction()。设备所具有的能力和操控 API，就从这两个方法中获得。这种方案，和 UNIX / LINUX 的扩展系统调用 ioctl() 的思路一样，就是造一个魔术包裹，什么东西都从里面变出来。
+另外，再怎么强调稳定，HAL 定义的接口(interface)还是会进化，还是会出现以前没有预料的情况。为解决这种问题，Android 采用了两种解决方案。一个是升级接口(interface)风格，采用通用的方法：getCapabilities() / getFunction()。设备所具有的能力和操控 API，就从这两个方法中获得。这种方案，和 UNIX / Linux 的扩展系统调用 ioctl() 的思路一样，就是造一个魔术包裹，什么东西都从里面变出来。
 
 第二个方案是提供 HAL Interface Definition Language (HIDL)。因为各个厂商跟进 Android 新版本的状况不一样， HAL 有多版本共存，市面上的 Android 设备出现了碎片化。HIDL 就是要解决这种情况。同时，为了 Android 系统的稳定性，Android 系统从多线程协作模式转向多进程模式。HIDL 可以使得接口和实现可以跨进程分布，并且封装了 binder 编程细节，可以快速开发接口(interface)。
 
 # HAL 设备通用模型 
 
-在文件 hardware.h 中，声明了 Android HAL 对设备描述的最通用的模型。设备模型被划分为模块接口(hw_module_t)和设备接口(hw_device_t)。模块接口(hw_module_t)一定会有模块方法(hw_module_methods_t)。模块方法(hw_module_methods_t)至少含有一个 open() 方法，以便能打开硬件设备，获得相应的设备接口(hw_device_t)。设备接口(hw_device_t)至少包含一个 close() 方法，以便能关闭硬件设备。相关的概念和用法，见后面的类图。
+在文件 hardware.h 中，声明了 Android HAL 对设备描述的最通用的模型。设备模型被划分为模块接口(hw_module_t)和设备接口(hw_device_t)。模块接口(hw_module_t)一定会有模块方法(hw_module_methods_t)。模块方法(hw_module_methods_t)至少含有一个 open() 方法，以便能打开硬件设备，获得相应的设备接口(hw_device_t)。设备接口(hw_device_t)至少包含一个 close() 方法，以便能关闭硬件设备。相关的概念和用法，见后面具体各类的类图。
 
-hw_module_t类图
+![hw_module_t类图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/hal-design/'hardware_hardware Class Diagram.svg')
 
 # Android 的图形系统的 HAL 接口(interface)类的代码分布 
 
