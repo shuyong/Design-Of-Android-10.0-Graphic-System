@@ -74,7 +74,7 @@ Producer 端的程序就是人们常说的图形应用程序。是开发人员�
 
 一个 Window，下面必定包含 2~N 个 Buffer。这种假设是和 X11 系统不一样的地方。在 X11 中，一个 Window 只包含一个固定不变的 Buffer。ANativeWindow 最重要的用途就是为 EGL 模块提供 EGLSurface。
 
-此外，ANativeWindowBuffer 在应用程序中也可以单独申请和使用，最重要的用途就是为 EGL 模块提供 EGLImage，从而绑定到 OpenGLES 模块中做为 Texture / Framebuffer 使用。
+此外，ANativeWindowBuffer 在应用程序中也可以单独申请和使用，最重要的用途就是为 EGL 模块提供 EGLImage，从而绑定到 OpenGLES 模块中做为 Texture / FBO 使用。
 
 ### Buffer 的应用与实现
 
@@ -124,7 +124,7 @@ Window 的应用与实现层次如下：
 |  1  | Framework Interface      | ANativeWindow           |
 |  2  | Framework Implementation | Surface                 |
 |  3  | Framework Internal       |                         |
-|  4  | Interprocess Interface   | IGraphicBufferProducer  |
+|  4  | Binder Interface         | IGraphicBufferProducer  |
 |  5  | HIDL Interface           | bufferqueue (1.0 / 2.0) |
 
 ## Queue 中的接口(interface)
@@ -143,14 +143,14 @@ Producer 端的程序就是著名的 surfaceflinger。surfaceflinger 的实现�
 
 Composer 的应用与实现层次如下：
 
-| No. | Level                    | Interface / Class                |
-|:---:|--------------------------|----------------------------------|
-|  0  | Application              | SurfaceFlinger                   |
-|  1  | Interprocess Interface   | ISurfaceComposer                 |
-|  2  | HIDL Interface           | IComposer (2.1/2.2/2.3)          |
-|  3  | HIDL Implementation      | Adapt (2.1/2.2/2.3) to (v1 / v2) |
-|  4  | HAL Interface            | HWComposer (1.0 / 2.0)           |
-|  5  | HAL plugin               | Vendor's Implementation          |
+| No. | Level               | Interface / Class                |
+|:---:|---------------------|----------------------------------|
+|  0  | Application         | SurfaceFlinger                   |
+|  1  | Binder Interface    | ISurfaceComposer                 |
+|  2  | HIDL Interface      | IComposer (2.1/2.2/2.3)          |
+|  3  | HIDL Implementation | Adapt (2.1/2.2/2.3) to (v1 / v2) |
+|  4  | HAL Interface       | HWComposer (1.0 / 2.0)           |
+|  5  | HAL plugin          | Vendor's Implementation          |
 
 此外，基于 BufferQueue，Producer 端的 Surface，在 Consumer 端有一个对称的接口：Layer。
 * Surface 使用 BufferQueue 的 queue() 和 dequeue() 方法。
@@ -162,7 +162,9 @@ Producer-Consumer 模式往往伴生有 Listener 模式。在 BufferQueue 的两
 * IProducerListener
 * IConsumerListener
 
-当程序在 Buffer 中渲染完成，在使用 BufferQueue::queue() 将包含内容(content)的帧(frame)入队后，需要主动调用 IConsumerListener 去通知 Consumer 端的程序。虽然是对称设计，但是 IProducerListener 并没有被使用。因为 Consumer 端消费内容(content)的含义很微妙。为了更快的并发操作，并不是 Consumer 端的程序将 Buffer 通过 BufferQueue::releaseBuffer() 放回队列，就意味着 Consumer 端的程序已经将内容(content)复制完成。并不是 Consumer 端的程序复制完内容(content)，就意味着内容(content)已经被消费。只有当内容(content)被显示到屏幕上时，才是真正的已被消费。这是一个异步过程，因此 Consumer 端的程序无法在 releaseBuffer() 时刻使用 IProducerListener 通知 Producer 端的程序。
+当程序在 Buffer 中渲染完成，在使用 BufferQueue::queue() 将包含内容(content)的帧(frame)入队后，需要主动调用 IConsumerListener 去通知 Consumer 端的程序。这样，Consumer 端的程序就可以及时消费内容。
+
+虽然是对称设计，但是 IProducerListener 并没有被实际使用。因为 Consumer 端消费内容(content)的含义很微妙。为了更快的并发操作，并不是 Consumer 端的程序将 Buffer 通过 BufferQueue::releaseBuffer() 放回队列，就意味着 Consumer 端的程序已经将内容(content)复制完成。并不是 Consumer 端的程序复制完内容(content)，就意味着内容(content)已经被消费。只有当内容(content)被显示到屏幕上时，才是真正的已被消费。这是一个异步过程，因此 Consumer 端的程序无法在 releaseBuffer() 时刻，使用 IProducerListener 通知 Producer 端的程序，内容已被消费。
 
 这个问题的解决方法是使用显式同步机制 Fence。在 Android 7.0 之后，新增的编舞者(Choreographer)机制还提供更精确的渲染节拍信号，供感兴趣的应用程序使用。
 
@@ -182,12 +184,14 @@ Producer-Consumer 模式往往伴生有 Listener 模式。在 BufferQueue 的两
 | Producer Listener      | IProducerListener   | frameworks/native/include/gui/IProducerListener.h                 |
 | Consumer Listener      | IConsumerListener   | frameworks/native/include/gui/IConsumerListener.h                 |
 | Composer Interface     | ISurfaceComposer    | frameworks/native/include/gui/ISurfaceComposer*.h                 |
-| Interprocess Interface |                     | frameworks/native/include/gui/I*.h                                |
+| Binder Interface       |                     | frameworks/native/include/gui/I*.h                                |
 | HIDL Interface         |                     | hardware/interfaces/graphics/                                     |
 | HAL Buffer             | gralloc             | hardware/libhardware/include/hardware/gralloc*.h                  |
 | HAL Composer           | hwcompose           | hardware/libhardware/include/hardware/hwcomposer*.h               |
 
-内容(content)在接口(interface)中的横向流动：
+主要类图的层次分布示意图：
+
+内容(content)在接口(interface)中的横向流动示意：
 
 | Level                    | Producer      | Content              | Queue              | Consumer           | Consumer           |
 |--------------------------|---------------|----------------------|--------------------|--------------------|--------------------|
