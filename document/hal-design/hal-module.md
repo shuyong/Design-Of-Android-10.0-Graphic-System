@@ -82,7 +82,7 @@ HWComposer 是 SurfaceFlinger 对于整个硬件显示子系统的抽象，包�
 
 显示设备是手机里的用电大户。power 模块相对简单，就是提供给 hwcomposer 模块开关设备。主要就是在休眠/唤醒时被 hwcomposer 模块使用到。
 
-![power_module_t类图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/hal-design/hardware_powe%20Class%20Diagram.svg)
+![power_module_t类图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/hal-design/hardware_power%20Class%20Diagram.svg)
 
 # [代码复用](reuse.md)
 
