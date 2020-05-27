@@ -6,7 +6,7 @@
 在设计 X11 的年代，网络刚刚兴起，大型主机配上图形终端是用户使用计算机的普遍模式，所以采用 Client / Server 架构是很自然的事情。但是随着 PC 的兴起和大型主机的没落，在 PC 本地采用 C/S 架构设计图形系统，不但是多此一举的事情，而且还会影响性能。因此受到诸多人的指责。
 
 原始的 X Server 的设计，可以简单的总结为客户端请求绘图/服务端执行绘图并显示这样的模式。见下面的示意图1。 
-![server side drawing](01-server-side-drawing.svg)
+![server side drawing](https://github.com/shuyong/Design-Of-Android-10.0-Graphic-System/blob/master/document/original-design/01-server-side-drawing.fig)
 
 在这种模式中，客户端软件是不知道自己绘图的效果的，除非它向图形服务器发出请求，要求服务器回传当前的图形缓冲区回来。因此，有些功能就很难实现。例如，如果应用软件想录制当前的操作画面，需要操作完成后再要服务器回传回来才知道效果，就会很影响效率。 
 
