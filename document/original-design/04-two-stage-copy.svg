@@ -1,0 +1,89 @@
+<?xml version="1.0" standalone="no"?>
+<!-- Creator: fig2dev Version 3.2.6a -->
+<!-- CreationDate: 2019-01-10 01:33:04 -->
+<!-- Magnification: 1.05 -->
+<svg	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="427pt" height="156pt"
+	viewBox="2238 1818 6774 2469">
+<g fill="none">
+<!-- Line -->
+<polyline points=" 5625,2475 5625,4275"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<rect x="2250" y="2700" width="1800" height="1125" rx="105"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<rect x="7200" y="2700" width="1800" height="1125" rx="105"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp0">
+	<path clip-rule="evenodd" d="M 2238,1818 H 9012 V 4287 H 2238 z
+		M 4813,3345 4933,3375 4813,3405 4957,3382 4957,3368z"/>
+</clipPath>
+</defs>
+<polyline points=" 4050,3375 4950,3375" clip-path="url(#cp0)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 4950,3375 -->
+<polyline points=" 4813,3345 4933,3375 4813,3405"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Line -->
+<rect x="4950" y="2925" width="1350" height="675" rx="105"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp1">
+	<path clip-rule="evenodd" d="M 2238,1818 H 9012 V 4287 H 2238 z
+		M 7063,3345 7183,3375 7063,3405 7207,3382 7207,3368z"/>
+</clipPath>
+</defs>
+<polyline points=" 6300,3375 7200,3375" clip-path="url(#cp1)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 7200,3375 -->
+<polyline points=" 7063,3345 7183,3375 7063,3405"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp2">
+	<path clip-rule="evenodd" d="M 2238,1818 H 9012 V 4287 H 2238 z
+		M 7063,3345 7183,3375 7063,3405 7207,3382 7207,3368z
+		M 4176,3886 4066,3829 4190,3828 4045,3817 4042,3830z"/>
+</clipPath>
+</defs>
+<polyline points=" 4050,3825 4079,3832 4098,3836 4123,3842 4153,3849 4188,3857 4227,3866 4270,3876
+ 4315,3886 4361,3896 4408,3906 4455,3917 4501,3926 4546,3936 4590,3945 4632,3953
+ 4673,3961 4712,3968 4749,3975 4786,3981 4821,3987 4856,3992 4890,3997 4923,4001
+ 4957,4005 4991,4009 5025,4013 5056,4015 5086,4018 5118,4021 5150,4023 5183,4026
+ 5216,4028 5251,4030 5286,4032 5321,4033 5357,4035 5394,4036 5432,4037 5470,4038
+ 5508,4039 5547,4039 5586,4040 5625,4040 5664,4040 5703,4039 5742,4039 5780,4038
+ 5818,4037 5856,4036 5893,4035 5929,4033 5964,4032 5999,4030 6034,4028 6067,4026
+ 6100,4023 6132,4021 6164,4018 6194,4015 6225,4013 6259,4009 6293,4005 6327,4001
+ 6360,3997 6394,3992 6429,3987 6464,3981 6501,3975 6538,3968 6577,3961 6618,3953
+ 6660,3945 6704,3936 6749,3926 6795,3917 6842,3906 6889,3896 6935,3886 6980,3876
+ 7023,3866 7062,3857 7097,3849 7127,3842 7152,3836 7171,3832 7200,3825" clip-path="url(#cp2)"
+	stroke="#000000" stroke-width="8px" stroke-linejoin="bevel"/>
+<!-- Forward arrow to point 0,0 -->
+<polyline points=""
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Backward arrow to point 4050,3825 -->
+<polyline points=" 4176,3886 4066,3829 4190,3828"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Text -->
+<text xml:space="preserve" x="5400" y="2475" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="192" text-anchor="start">OS</text>
+<!-- Text -->
+<text xml:space="preserve" x="4725" y="2025" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="192" text-anchor="start">Two-stage copy</text>
+<!-- Text -->
+<text xml:space="preserve" x="2475" y="3375" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="192" text-anchor="start">Client Buffer</text>
+<!-- Text -->
+<text xml:space="preserve" x="7425" y="3375" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="192" text-anchor="start">Server Buffer</text>
+<!-- Text -->
+<text xml:space="preserve" x="4050" y="3375" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="192" text-anchor="start">1st copy</text>
+<!-- Text -->
+<text xml:space="preserve" x="5175" y="3375" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="192" text-anchor="start">OS Buffer</text>
+<!-- Text -->
+<text xml:space="preserve" x="6300" y="3375" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="192" text-anchor="start">2nd copy</text>
+<!-- Text -->
+<text xml:space="preserve" x="5175" y="4050" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="192" text-anchor="start">same size</text>
+</g>
+</svg>

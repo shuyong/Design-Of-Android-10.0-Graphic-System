@@ -1,0 +1,192 @@
+<?xml version="1.0" standalone="no"?>
+<!-- Creator: fig2dev Version 3.2.6a -->
+<!-- CreationDate: 2019-01-10 11:48:51 -->
+<!-- Magnification: 1.05 -->
+<svg	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="684pt" height="309pt"
+	viewBox="3138 516 10851 4896">
+<g fill="none">
+<!-- Line -->
+<rect x="3150" y="2700" width="1800" height="675" rx="105"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<rect x="12150" y="2700" width="1800" height="675" rx="105"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 7200,4275"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp0">
+	<path clip-rule="evenodd" d="M 3138,516 H 13989 V 5412 H 3138 z
+		M 10155,4363 10125,4483 10095,4363 10118,4507 10132,4507z"/>
+</clipPath>
+</defs>
+<polyline points=" 10125,3375 10125,4500" clip-path="url(#cp0)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 10125,4500 -->
+<polyline points=" 10155,4363 10125,4483 10095,4363"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp1">
+	<path clip-rule="evenodd" d="M 3138,516 H 13989 V 5412 H 3138 z
+		M 13080,4363 13050,4483 13020,4363 13043,4507 13057,4507z"/>
+</clipPath>
+</defs>
+<polyline points=" 13050,3375 13050,4500" clip-path="url(#cp1)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 13050,4500 -->
+<polyline points=" 13080,4363 13050,4483 13020,4363"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Line -->
+<rect x="3150" y="3600" width="1800" height="675" rx="105"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<rect x="6300" y="4500" width="1800" height="675" rx="105"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<rect x="9225" y="4500" width="1800" height="675" rx="105"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp2">
+	<path clip-rule="evenodd" d="M 3138,516 H 13989 V 5412 H 3138 z
+		M 9088,4920 9208,4950 9088,4980 9232,4957 9232,4943z"/>
+</clipPath>
+</defs>
+<polyline points=" 8100,4950 9225,4950" clip-path="url(#cp2)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 9225,4950 -->
+<polyline points=" 9088,4920 9208,4950 9088,4980"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp3">
+	<path clip-rule="evenodd" d="M 3138,516 H 13989 V 5412 H 3138 z
+		M 12013,4920 12133,4950 12013,4980 12157,4957 12157,4943z"/>
+</clipPath>
+</defs>
+<polyline points=" 11025,4950 12150,4950" clip-path="url(#cp3)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 12150,4950 -->
+<polyline points=" 12013,4920 12133,4950 12013,4980"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Line -->
+<rect x="12150" y="4500" width="1800" height="675" rx="105"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp4">
+	<path clip-rule="evenodd" d="M 3138,516 H 13989 V 5412 H 3138 z
+		M 4080,4363 4050,4483 4020,4363 4043,4507 4057,4507z"/>
+</clipPath>
+</defs>
+<polyline points=" 4050,3375 4050,4500" clip-path="url(#cp4)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 4050,4500 -->
+<polyline points=" 4080,4363 4050,4483 4020,4363"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Line -->
+<rect x="3150" y="4500" width="1800" height="675" rx="105"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp5">
+	<path clip-rule="evenodd" d="M 3138,516 H 13989 V 5412 H 3138 z
+		M 6163,4920 6283,4950 6163,4980 6307,4957 6307,4943z
+		M 5087,4980 4967,4950 5087,4920 4943,4943 4943,4957z"/>
+</clipPath>
+</defs>
+<polyline points=" 4950,4950 6300,4950" clip-path="url(#cp5)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 6300,4950 -->
+<polyline points=" 6163,4920 6283,4950 6163,4980"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Backward arrow to point 4950,4950 -->
+<polyline points=" 5087,4980 4967,4950 5087,4920"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Line -->
+<rect x="9225" y="2700" width="1800" height="675" rx="105"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<rect x="3150" y="1575" width="1800" height="675" rx="105"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 5625,900 5625,5400"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp6">
+	<path clip-rule="evenodd" d="M 3138,516 H 13989 V 5412 H 3138 z
+		M 6163,4920 6283,4950 6163,4980 6307,4957 6307,4943z
+		M 5087,4980 4967,4950 5087,4920 4943,4943 4943,4957z"/>
+</clipPath>
+</defs>
+<polyline points=" 4950,2025 4952,2025 4955,2025 4962,2025 4972,2025 4987,2025 5007,2026 5033,2026
+ 5065,2027 5104,2027 5148,2028 5200,2029 5257,2030 5320,2031 5388,2032 5462,2034
+ 5540,2035 5621,2037 5705,2039 5792,2041 5880,2043 5969,2046 6059,2048 6148,2051
+ 6237,2054 6324,2057 6410,2061 6493,2064 6575,2068 6654,2071 6731,2075 6804,2079
+ 6875,2084 6944,2088 7009,2093 7072,2098 7131,2103 7189,2108 7243,2113 7295,2119
+ 7345,2125 7392,2132 7437,2138 7480,2145 7521,2152 7560,2160 7598,2168 7634,2176
+ 7668,2184 7701,2193 7732,2203 7763,2213 7809,2229 7854,2247 7896,2265 7935,2285
+ 7972,2306 8008,2327 8041,2350 8073,2374 8103,2398 8131,2424 8158,2450 8183,2477
+ 8206,2504 8228,2532 8249,2559 8268,2588 8286,2616 8302,2643 8318,2671 8333,2698
+ 8346,2725 8359,2751 8372,2777 8383,2801 8395,2825 8406,2848 8417,2869 8428,2890
+ 8439,2910 8451,2928 8462,2946 8475,2963 8491,2982 8509,2999 8529,3015 8550,3030
+ 8574,3043 8600,3056 8628,3067 8659,3077 8693,3087 8730,3096 8771,3104 8813,3111
+ 8859,3118 8906,3124 8953,3129 9001,3134 9046,3138 9089,3141 9126,3144 9158,3146
+ 9184,3148 9225,3150" clip-path="url(#cp6)"
+	stroke="#000000" stroke-width="8px" stroke-linejoin="bevel"/>
+<!-- Forward arrow to point 0,0 -->
+<polyline points=""
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Text -->
+<text xml:space="preserve" x="3825" y="3150" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Client</text>
+<!-- Text -->
+<text xml:space="preserve" x="12375" y="3150" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Display manager</text>
+<!-- Text -->
+<text xml:space="preserve" x="12600" y="3825" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Control</text>
+<!-- Text -->
+<text xml:space="preserve" x="11475" y="3150" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="192" text-anchor="start">+</text>
+<!-- Text -->
+<text xml:space="preserve" x="3375" y="4050" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Graphic library</text>
+<!-- Text -->
+<text xml:space="preserve" x="6750" y="4950" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Window</text>
+<!-- Text -->
+<text xml:space="preserve" x="9675" y="4950" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Background</text>
+<!-- Text -->
+<text xml:space="preserve" x="8325" y="4950" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Content</text>
+<!-- Text -->
+<text xml:space="preserve" x="11250" y="4950" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Conten</text>
+<!-- Text -->
+<text xml:space="preserve" x="12375" y="4950" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Displayer hardware</text>
+<!-- Text -->
+<text xml:space="preserve" x="3825" y="4500" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Drawing</text>
+<!-- Text -->
+<text xml:space="preserve" x="3825" y="4950" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Window</text>
+<!-- Text -->
+<text xml:space="preserve" x="5175" y="4950" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Content</text>
+<!-- Text -->
+<text xml:space="preserve" x="5175" y="5175" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">(same)</text>
+<!-- Text -->
+<text xml:space="preserve" x="9675" y="3825" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Compositing</text>
+<!-- Text -->
+<text xml:space="preserve" x="9675" y="3150" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Composer</text>
+<!-- Text -->
+<text xml:space="preserve" x="3375" y="2250" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">(Special client)</text>
+<!-- Text -->
+<text xml:space="preserve" x="3375" y="2025" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Window manager</text>
+<!-- Text -->
+<text xml:space="preserve" x="6525" y="1125" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Server side</text>
+<!-- Text -->
+<text xml:space="preserve" x="6525" y="2025" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">size, position, z-order, alpha</text>
+<!-- Text -->
+<text xml:space="preserve" x="3375" y="1125" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Client side</text>
+<!-- Text -->
+<text xml:space="preserve" x="5535" y="900" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">OS</text>
+<!-- Text -->
+<text xml:space="preserve" x="5175" y="675" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Client side drawing / rendering</text>
+</g>
+</svg>
