@@ -219,7 +219,7 @@ Binder 是很典型的跨进程/线程访问对象的应用。
 
 Producer–Consumer 模式，核心类的就是中间的 BufferQueue 类，实质就是一个 Buffer Pool 的管理。 
 
-![Producer-Consumer-01](./01-bufferqueue-01.svg) 
+![Producer-Consumer-01](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/pattern-design/01-bufferqueue-01.svg)
 
 在 Android 图形系统中，有限的资源是 Graphic Buffer，相对无限的任务是客户生产的内容。因此，Buffer 在 Resource Pool (BufferQueue) 中是循环使用的。同时，从 Graphic Buffer 的状态图得知，它有四种基本状态：Dequeued / Enqueued / Acquired / Free。
 
