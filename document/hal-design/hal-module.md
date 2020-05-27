@@ -23,7 +23,7 @@ Android 系统大致可以分成上下两个部分。上部是和硬件无关的
 
 在文件 hardware.h 中，声明了 Android HAL 对设备描述的最通用的模型。设备模型被划分为模块接口(hw_module_t)和设备接口(hw_device_t)。模块接口(hw_module_t)一定会有模块方法(hw_module_methods_t)。模块方法(hw_module_methods_t)至少含有一个 open() 方法，以便能打开硬件设备，获得相应的设备接口(hw_device_t)。设备接口(hw_device_t)至少包含一个 close() 方法，以便能关闭硬件设备。相关的概念和用法，见后面具体各类的类图。
 
-![hw_module_t类图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/hal-design/'hardware_hardware Class Diagram.svg')
+![hw_module_t类图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/hal-design/hardware_hardware%20Class%20Diagram.svg)
 
 # Android 的图形系统的 HAL 接口(interface)类的代码分布 
 
