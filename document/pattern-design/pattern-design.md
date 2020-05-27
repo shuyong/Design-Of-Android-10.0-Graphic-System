@@ -219,7 +219,7 @@ Binder 是很典型的跨进程/线程访问对象的应用。
 
 Producer–Consumer 模式，核心类的就是中间的 BufferQueue 类，实质就是一个 Buffer Pool 的管理。 
 
-![Producer-Consumer-01](01-bufferqueue-01.svg) 
+![Producer-Consumer-01](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/pattern-design/01-bufferqueue-01.svg) 
 
 在 Android 图形系统中，有限的资源是 Graphic Buffer，相对无限的任务是客户生产的内容。因此，Buffer 在 Resource Pool (BufferQueue) 中是循环使用的。同时，从 Graphic Buffer 的状态图得知，它有四种基本状态：Dequeued / Enqueued / Acquired / Free。
 
@@ -245,13 +245,13 @@ Pool 模式的本质就是使用有限的资源去处理相对无限的任务。
 
 因此，Consumer 类继承一个 Listener 类，以便在 BufferQueue 类完成 Enqueue() 动作后，Consumer 类会收到 FrameAvailable 消息，然后就可以进行 Acquire() 操作。
 
-![Listener Pattern](02-bufferqueue-02.svg) 
+![Listener Pattern](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/pattern-design/02-bufferqueue-02.svg) 
 
 不能炒菜的师傅在餐厅招呼客人吧。所以将厨房和餐厅分割开，厨房由大师傅负责炒菜、生产，餐厅由店小二招呼顾客，代理模式。 
 
 因此，因为跨越了进程/线程，在 Producer 类和 BufferQueue 类增加 Proxy(Bp + Bn) 类，简化代码，减少出错的可能。
 
-![Proxy(Bp + Bn)](03-bufferqueue-03.svg) 
+![Proxy(Bp + Bn)](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/pattern-design/03-bufferqueue-03.svg) 
 
 顾客使用中的盘子，顾客刚使用完的盘子，厨房不能立刻拿来复用吧。所以需要设置等待和检查(Fence)机制，等盘子回收清洗完，干净可用了，厨房才能复用。否则，只能等待。 
 
@@ -259,7 +259,7 @@ Pool 模式的本质就是使用有限的资源去处理相对无限的任务。
 
 因此，Consumer 类会生成一个新的 Fence 类，在 Release() 操作时，跨越进程/线程传递给 Producer 类。Producer 类在 Dequeue() 操作后，在使用 Buffer 类前，需要检查Fence类，查看前一阶段对该 Buffer 对象的操作是否真正完成。
 
-![Fence](04-bufferqueue-04.svg)
+![Fence](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/pattern-design/04-bufferqueue-04.svg)
 
 在 Android 4.x 以后的版本里，BufferQueue 类提供了非阻塞的带 Fence 参数返回值的 dequeue() 接口。为什么要提供非阻塞接口？为什么申请到的 Buffer 资源不能立刻使用，需要 Fence 的同步状态？
 
@@ -277,7 +277,7 @@ Pool 模式的本质就是使用有限的资源去处理相对无限的任务。
 
 最终，调度器(Scheduler)的工作体现在：在什么时间点，分配(Dispatch)给哪些 Consumer 什么样的 Content，并且这些 Consumer 会以什么样的方式消费这些 Content。
 
-![Scheduler + MessageQueue](05-bufferqueue-05.svg)
+![Scheduler + MessageQueue](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/pattern-design/05-bufferqueue-05.svg)
 
 ## Thread Pool 模式的应用
 
