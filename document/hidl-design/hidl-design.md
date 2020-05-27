@@ -5,9 +5,9 @@
 
 HIDL 全称为 HAL interface definition language（发音为“hide-l”），是用于指定 HAL 和其用户之间的接口的一种接口描述语言 (IDL)。其诞生目的是：Android Framework 层可以在无需重新构建 HAL 的情况下进行替换。 
 
-Android 系统在 Android 8.0 中被全面使用 Project Treble 的架构，是为了解决 Android 系统的碎片化问题，以及提高系统更新的效率，减少了 framework 和 HAL 的耦合性，进而引出了 HIDL 的概念。 
+Android 系统在 Android 8.0 及后续版本中全面使用 [Project Treble](https://source.android.com/devices/architecture/treble) 的架构，是为了解决 Android 系统的碎片化问题，以及提高系统更新的效率，减少了 framework 和 HAL 的耦合性，进而引出了 HIDL 的概念。 
 
-采用 HIDL 的结果是：HAL 将由供应商或 SOC 制造商构建，放置在设备的 /vendor 分区中，这样一来，Android Framework 层就可以在它自己的分区中通过 OTA 进行替换，而无需重新编译 HAL。这就是设计 Project Treble 框架要解决的问题。 
+采用 HIDL 的结果是：HAL 将由供应商或 SOC 制造商构建，放置在设备的 /vendor 分区中，这样一来，Android Framework 层就可以在它自己的分区中通过 OTA 进行替换，而无需重新编译 HAL。这就是设计 [Project Treble](https://source.android.com/devices/architecture/treble) 框架要解决的问题。 
 
 此外，采用 HIDL 的还带来另外一个好处：系统的稳定性。通过 HIDL 隔离了 Framework 与 HAL。将这两者分布在不同的进程空间里，通过 RPC 和共享内存协同操作。这样如果有一方因错误而崩溃，另外一方不会随之崩溃。通过系统状态监控程序重新装载，系统还可以继续运行。
 
@@ -48,6 +48,7 @@ HIDL 设计在以下方面之间保持了平衡：
 5. HAL Interface
 
 如果底层 HAL 驱动提供的是老版本的接口，下面还有两层：
+
 6. Adapter Implement
 7. old HAL Interface
 
@@ -154,15 +155,15 @@ HIDL 层的总体设计，就是一种访问者模式。具体可以查看后面
 
 下图是 IAllocator 2.0 的关系组合图：
 
-![IAllocator 2.0 的关系组合图]('allocator 2.0 IAllocator Component Class Diagram.svg')
+![IAllocator 2.0 的关系组合图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/hidl-design/graphics_allocator_2.0_IAllocator%20Component%20Diagram.svg)
 
 下图是 IMapper 2.0 的关系组合图：
 
-![IMapper 2.0 的关系组合图]('mapper 2.0 IMapper Component Class Diagram.svg')
+![IMapper 2.0 的关系组合图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/hidl-design/graphics_mapper_2.0_IMapper%20Component%20Diagram.svg)
 
 下图是 IMapper 2.1 的关系组合图：
 
-![IMapper 2.1 的关系组合图]('mapper 2.1 IMapper Component Class Diagram.svg')
+![IMapper 2.1 的关系组合图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/hidl-design/graphics_mapper_2.1_IMapper%20Component%20Diagram.svg)
 
 # Queue 的 HIDL 接口
 
@@ -177,10 +178,10 @@ HIDL 层的总体设计，就是一种访问者模式。具体可以查看后面
 可以认为在 HIDL 层定义了虚拟硬件，而在 framework 层根据硬件做了实现。所以这两层接口需要做转换。在实现类的名字前缀中有如下规则：
 * B : Binder / Framework Interface
 * H : Hybrid / HIDL Interface
-* B2H : from Framework Interface to HIDL Interface, realize H & required B, from up to bottom.
-* H2B : from HIDL Interface to Framework Interface, realize B & required H, from bottom to up. 
+* B2H : Convert from Framework Interface to HIDL Interface, realize H & required B, from down to up.
+* H2B : Convert from HIDL Interface to Framework Interface, realize B & required H, from up to down. 
 
-关系组合图
+关系组合图在 Framework Interface 中有表现。
 
 # Consumer 端的 HIDL 接口
 
@@ -189,7 +190,7 @@ HIDL 层的总体设计，就是一种访问者模式。具体可以查看后面
   + createConnection()：为客户端提供访问 Composer 的接口：ISurfaceComposerClient。
   + createDisplayEventConnection()：为客户端提供访问 VSYNC 的接口：IDisplayEventConnection。
 * ISurfaceComposerClient：客户端访问 Composer 的接口。接口中的方法很多，这里主要关注下面几个：
-  * createSurface()
+  + createSurface()
 * IDisplayEventConnection : 客户端访问/管理 VSYNC 的接口。
 
 该层接口的代码位于：
@@ -210,15 +211,15 @@ HIDL 层的总体设计，就是一种访问者模式。具体可以查看后面
 * hardware/interfaces/graphics/composer/
 
 下图是 composer 2.1 的接口的关系组合图：
-![composer 2.1 的接口的关系组合图]('composer 2.1 IComposer Component Class Diagram.svg')
+![composer 2.1 的接口的关系组合图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/hidl-design/graphics_composer_2.1_IComposer%20Component%20Diagram.svg)
 
 在图中，IComposer / IComposerClient 接口的数据流是从上到下的方向流动。数据源是 Application。IComposerCallback 接口的数据流是从下到上的方向流动。数据源是 hwcomposer 模块。
 
 下图是 composer 2.2 的接口的关系组合图：
-![composer 2.2 的接口的关系组合图]('composer 2.2 IComposer Component Class Diagram.svg')
+![composer 2.2 的接口的关系组合图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/hidl-design/graphics_composer_2.2_IComposer%20Component%20Diagram.svg)
 
 下图是 composer 2.3 的接口的关系组合图：
-![composer 2.3 的接口的关系组合图]('composer 2.3 IComposer Component Class Diagram.svg')
+![composer 2.3 的接口的关系组合图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/hidl-design/graphics_composer_2.3_IComposer%20Component%20Diagram.svg)
 
 从上两个图可以看出，随着 HIDL 版本的增加，类的关系如同网格一样展开，会越来越复杂。
 
@@ -230,19 +231,25 @@ HIDL 层的总体设计，就是一种访问者模式。具体可以查看后面
 
 Android Vendor Test Suite (VTS)，厂商测试套件，能对 HAL 和 Kernel 做自动测试，遍历每个功能。从 VTS 程序的角度，可以看到完整的 HIDL 中的接口的关系组合。
 
+下图是 VTS 程序的对 mapper 2.0 接口测试所得到的关系组合图：
+![mapper 2.0 的接口的关系组合图 - VTS](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/hidl-design/graphics_mapper_2.0_utils_vts_include_mapper-vts_2.0_MapperVts%20Component%20Diagram.svg)
+
+下图是 VTS 程序的对 mapper 2.1 接口测试所得到的关系组合图：
+![mapper 2.1 的接口的关系组合图 - VTS](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/hidl-design/graphics_mapper_2.1_utils_vts_include_mapper-vts_2.1_MapperVts%20Component%20Diagram.svg)
+
 下图是 VTS 程序的对 composer 2.1 接口测试所得到的关系组合图：
-![composer 2.1 的接口的关系组合图 - VTS]('composer 2.1 ComposerVts Component Class Diagram.svg')
+![composer 2.1 的接口的关系组合图 - VTS](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/hidl-design/graphics_composer_2.1_utils_vts_include_composer-vts_2.1_ComposerVts%20Component%20Diagram.svg)
 
 下图是 VTS 程序的对 composer 2.2 接口测试所得到的关系组合图：
-![composer 2.2 的接口的关系组合图 - VTS]('composer 2.2 ComposerVts Component Class Diagram.svg')
+![composer 2.2 的接口的关系组合图 - VTS](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/hidl-design/graphics_composer_2.2_utils_vts_include_composer-vts_2.2_ComposerVts%20Component%20Diagram.svg)
 
 下图是 VTS 程序的对 composer 2.3 接口测试所得到的关系组合图：
-![composer 2.3 的接口的关系组合图 - VTS]('composer 2.3 ComposerVts Component Class Diagram.svg')
+![composer 2.3 的接口的关系组合图 - VTS](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/hidl-design/graphics_composer_2.3_utils_vts_include_composer-vts_2.3_ComposerVts%20Component%20Diagram.svg)
 
 从这些关系图可以看出：
 * 高版本的 HIDL 接口可以充当低版本使用。
 * 低版本的 HAL 接口也已经适配到高版本的 HIDL 接口，提供上层程序使用。在实际代码中，HAL plugin 是在初始化时动态加载。
-* 这种设计使得系统具有无缝升级的能力。但是接口与类的关系，就如同渔网一样，越来越复杂。
+* 这种设计使得系统具有无缝升级的能力。但是接口与类的关系，就如同画卷一样展开，也如同渔网一样，越来越复杂。要想完整画出完整的关系组合图，在 3D 空间中才能画出来。
 * 这么复杂的关系，只有从设计模式角度出发才好设计和理解。这里的 HIDL 接口与实现就是一种访问者模式。
 
 # 参考文件

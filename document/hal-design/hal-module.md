@@ -33,7 +33,7 @@ Android 系统大致可以分成上下两个部分。上部是和硬件无关的
 * Consumer 端：hwcomposer 模块。硬件合成器(HWC)是整个显示子系统的硬件抽象，包括显示设备，是所有 Android 合成操作(composition)的核心。
 * 图形系统的驱动力：VSYNC 信号是 Android 图形系统运转的心跳(heartbeat)，或者说是编舞者(Choreographer)。
 
-此外，还涉及一个电源管理模块 Power。因为显示设备会有开关的需求，所以上层的 ISurfaceComposer 会调用该模块实现休眠/唤醒功能。
+此外，还涉及一个电源管理模块 power。因为显示设备会有开关的需求，所以上层的 ISurfaceComposer 会调用该模块实现休眠/唤醒功能。
 
 Android 的图形系统的 HAL 接口(interface)类的声明所涉及到的头文件并不多：
 * gralloc 模块

@@ -26,7 +26,7 @@ Android 系统接口(interface)的设计，具有分层、网格化(mesh)、对�
 | 3   | hardware/libhardware/      | HAL Interface            | OS / Vendor Provided Interface        |
 | 4   | external/                  | Linux Support Library    | Low Level Library in Linux World      |
 
-后来，因为要提供新的底层功能，HAL Interface 也要进化。而厂商(vendor)基于自身的考虑不愿意跟进，不愿实现新的 HAL Implementaion。于是市场上的 Android 系统就出现了碎片化。Google 再推广新版本的 Android 系统是就遇到了困难。于是他们就开发了新的一层代码，以便在新版本的 Android 系统之下能覆盖住不同版本的 HAL Interface。那个项目就是[Project Treble](https://source.android.com/devices/architecture/treble)。新一层的代码就叫 HAL Interface Definition Language (HIDL)。其实 HIDL 就是在 Framework / HAL 两层之间的一个适配层，并且使得接口和实现可以跨进程分布。HIDL 在 Android 8.0 之后引入。
+后来，因为要提供新的底层功能，HAL Interface 也要进化。而厂商(vendor)基于自身的考虑不愿意跟进，不愿实现新的 HAL Implementaion。于是市场上的 Android 系统就出现了碎片化。Google 再推广新版本的 Android 系统是就遇到了困难。于是他们就开发了新的一层代码，以便在新版本的 Android 系统之下能覆盖住不同版本的 HAL Interface。那个项目就是 [Project Treble](https://source.android.com/devices/architecture/treble)。新一层的代码就叫 HAL Interface Definition Language (HIDL)。其实 HIDL 就是在 Framework / HAL 两层之间的一个适配层，并且使得接口和实现可以跨进程分布。HIDL 在 Android 8.0 版本之后引入。
 
 HIDL 本身的实现代码和依赖代码位于：
 * system/libhidl
