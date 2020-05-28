@@ -33,6 +33,7 @@ ANativeWindow 接口周期性使用的有 2 个方法：
 因为在 Android 文档里对 Buffer & Window 这两个接口(interface)没有太多的说明，对这两个接口的约定需要一点想象力。
 
 首先我们假定从绘图到显示的 Producer-Consumer 模型是在两个进程里同步执行，则有如下步骤：
+```
 1. Producer : receive "Release" signal
 2. Producer : dequeue buffer
 3. Producer : lock buffer
@@ -41,6 +42,7 @@ ANativeWindow 接口周期性使用的有 2 个方法：
 6. Producer : receive "Retire" signal
 7. Producer : queue buffer
 8. Producer : sent "FrameAvailable" event
+
 a. Consumer : receive "FrameAvailable" event
 b. Consumer : acquire buffer
 c. Consumer : lock buffer
@@ -50,6 +52,7 @@ f. Consumer : release buffer
 h. Consumer : sent "Release" signal
 i. Consumer : show content
 j. Consumer : sent "Retire" signal
+```
 
 之所以是同步执行，是因为 Single-Buffer 的原因。为了并行效率，在 Producer / Consumer 之间插入 Buffer Queue，里面管理 2~N 个 Buffer。同一时刻，Producer-Consumer 两端都有工作介质 Buffer。这样 Producer / Consumer 就可以并发执行，绘图和显示效率就会大大提高。
 
