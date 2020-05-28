@@ -1,6 +1,8 @@
 # Android 的图形系统的 Framework 接口与约定
 * * *
 
+在 Framework 层实现的接口，就是为了提供给应用程序使用。前面所讨论的 HAL 接口，以及后来新的 HIDL 接口，就是为了实现 Framework 层的接口。图形系统在 Framework 层的代码，设计上同样还是贯彻 Producer-Consumer 模式的设计思路。
+
 # Framework 代码分布
 
 与图形相关的 Framework 代码主要分布以下目录：
@@ -10,43 +12,30 @@
 * frameworks/native/libs/gui/
 
 各目录所要实现的功能如下：
-* "ui/" 目录主要是 ANativeWindowBuffer 接口的实现：GraphicBuffer
-* "gui/" 目录主要是 ANativeWindow 接口的实现：Surface
+* "ui/" 目录主要是 ANativeWindowBuffer 接口的实现：GraphicBuffer。是在 Producer-Consumer 模式两端所用的工作介质。
+* "gui/" 目录主要是 ANativeWindow 接口的实现：Surface。对应的是 Producer 端。
   + 相对应的是 ANativeWindow 接口背后的 Queue 的实现：BufferQueue
-  + 以及在 BufferQueue 两端跨进程的、Producer-Consumer / Listener 模型的接口：
+  + 以及在 BufferQueue 两端跨进程的 Listener 模型的接口：
     - IConsumerListener
     - IGraphicBufferConsumer
     - IGraphicBufferProducer
     - IProducerListener
   + 以及在 Queue 中传输的 GraphicBuffer 的封装：BufferItem / BufferSlot；
-  + 对于如何消费 GraphicBuffer，Producer 对 Consumer 的实现的约定接口：
+  + 对于 Consumer 端如何消费 GraphicBuffer 的约定接口：
     - ConsumerBase
     - CpuConsumer
     - GLConsumer
-  + 还有 Producer 期待 SurfaceFlinger 暴露的接口：
+  + 还有从 C/S 模型看，Server 端 SurfaceFlinger 对 Client 端暴露的接口：
     - IDisplayEventConnection
     - ISurfaceComposerClient
     - ISurfaceComposer
-
-ISurfaceComposer / ISurfaceComposerClient，声明位于这里：
-* frameworks/native/include/gui/ISurfaceComposer.h
-* frameworks/native/include/gui/ISurfaceComposerClient.h
-
-在 surfaceflinger service 中的重要实现类 Layer / SurfaceFlinger，声明位于这里：
-* frameworks/native/services/surfaceflinger/Layer.h
-* frameworks/native/services/surfaceflinger/SurfaceFlinger.h
+* 在 ui / gui 目录里的接口，主要对应的是 Producer 端和 Queue 中的内容。相应的层次对应 Consumer 端的内容，在 surfaceflinger service 中，基本上都是基于 BufferQueue 的对称设计。
 
 # [Buffer 与 Window 的设计](buffer-window-design.md)
 
 # [BufferQueue 的设计](bufferqueue-design.md)
 
-# Composer 的设计
-
-在 ui / gui 目录里的接口，对应的是 Producer 和 Queue 段的内容，相应的层次对应 Consumer 段的内容，在 SurfaceFlinger 里底层的 DisplayHardware 模块里：
-* Composer：对应 HAL 中的 hwcomposer 接口。
-* Power：对应 HAL 中的 power 接口。
-
-
+# [Composer 的设计](composer-design.md)
 
 # 小节
 
@@ -60,4 +49,12 @@ Android HAL 中和图形系统有关的，有这几方面的知识：
 1. [BufferQueue and gralloc](https://source.android.com/devices/graphics/arch-bq-gralloc)
 1. [Android's Graphics Buffer Management System (Part II: BufferQueue)](https://www.codeproject.com/Articles/990983/Androids-Graphics-Buffer-Management-System-Part-II)
 1. [Implementing the Hardware Composer HAL](https://source.android.com/devices/graphics/implement-hwc)
+
+# 详细类图列表
+
+下图是 GraphicBuffer 的类图：
+![GraphicBuffer 的类图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/ui_GraphicBuffer%20Class%20Diagram.svg)
+
+下图是 Surface 的类图：
+![Surface 的类图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/gui_Surface%20Class%20Diagram.svg)
 

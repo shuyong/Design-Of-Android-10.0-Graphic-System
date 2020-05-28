@@ -186,17 +186,11 @@ HIDL 层的总体设计，就是一种访问者模式。具体可以查看后面
 # Consumer 端的 HIDL 接口
 
 在 framework 接口中，为 Composer 设计了 3 个跨进程接口：
-* ISurfaceComposer。对 SurfaceFlinger 的代理。接口中的方法很多，这里主要关注下面几个：
-  + createConnection()：为客户端提供访问 Composer 的接口：ISurfaceComposerClient。
-  + createDisplayEventConnection()：为客户端提供访问 VSYNC 的接口：IDisplayEventConnection。
-* ISurfaceComposerClient：客户端访问 Composer 的接口。接口中的方法很多，这里主要关注下面几个：
-  + createSurface()
-* IDisplayEventConnection : 客户端访问/管理 VSYNC 的接口。
+* ISurfaceComposer 接口，是 SurfaceFlinger 类的代理。应用程序可以从中获得访问接口 ISurfaceComposerClient。
+* ISurfaceComposerClient 接口定义了应用程序可以从 surfaceflinger service 获得的服务。
+* IDisplayEventConnection 接口为应用程序封装了 VSYNC 消息，底层数据源是由 HAL 中的 hwcomposer 提供的。
 
-该层接口的代码位于：
-* frameworks/native/include/gui/
-
-以上接口，最终都是使用  hwcomposer 模块。设计 HIDL 接口时，对 hwcomposer 模块封装，就有了对应的 3 个接口：
+以上接口，最终都是使用  hwcomposer 模块。设计 HIDL 接口时，对 hwcomposer 模块的封装，就有了对应的 3 个接口：
 * IComposer。接口中的方法很多，这里主要关注下面几个：
   + createClient()：为客户端提供访问 Composer 的接口：IComposerClient。
 * IComposerClient：客户端访问 Composer 的接口。接口中的方法很多，这里主要关注下面几个：

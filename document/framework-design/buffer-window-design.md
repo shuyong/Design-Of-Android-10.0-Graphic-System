@@ -14,11 +14,15 @@ Android 本地接口(android_native_base_t)声明了引用计数接口(reference
 
 Android 本地资源接口(native_handle_t)，声明于 native_handle.h，用于描述用文件句柄方式跨越进程边界的共享资源。ANativeWindowBuffer 就是一种很典型的需要跨越进程边界的共享资源。Buffer 只有跨越进程边界进行共享，才能实现 zero-copy 功能。所以 ANativeWindowBuffer 就包含有一个 Buffer 资源接口(buffer_handle_t，native_handle_t 的别名)成员。
 
-![ANativeWindowBuffer 与 ANativeWindow 的类图](Android%20Native%20Window%20and%20Buffer%20Class%20Diagram.svg)
+下图是 ANativeWindowBuffer 的类图
+![ANativeWindowBuffer](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/nativebase_nativebase%20Class%20Diagram.svg)
 
 在这其中，结构成员"handle : buffer_handle_t"就是对底层 Buffer 的访问指针。HAL 中的 gralloc 模块，就是为了 ANativeWindowBuffer 能访问硬件。ANativeWindowBuffer 接口周期性使用的有 2 个方法：
 * lock() 锁定缓冲区
 * unlock() 解锁缓冲区
+
+下图是 ANativeWindow 的类图
+![ANativeWindow 的类图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/system_window%20Class%20Diagram.svg)
 
 ANativeWindow 接口周期性使用的有 2 个方法：
 * dequeueBuffer() 缓冲区出队。
@@ -51,13 +55,21 @@ j. Consumer : sent "Retire" signal
 
 在这样的模型里，Buffer Queue 其实就是显示流水线的中心。它决定着 Consumer 在哪里。在 Android Framework 的设计里，BufferQueue 类将 Buffer 送给了 SurfaceFlinger，于是 SurfaceFlinger 就是内容的消费者。
 
-而在[Sailfish OS](https://sailfishos.org/)项目里，他们实现的 ANativeWindow 接口，在 dequeueBuffer() / queueBuffer() 里使用的是另外的 Buffer Queue 实现。该 Buffer Queue 将 Buffer 送给了 wayland server，于是 wayland server 就是内容的消费者。也就是，对于 Android 代码复用，ANativeWindowBuffer / ANativeWindow 接口是必须要实现的，因为 EGL / OpenGLES / codec / camera 这些硬件加速模块需要 Buffer / Window 接口。但是消费端是可选的，由 Buffer Queue 决定。
+而在 [Sailfish OS](https://sailfishos.org/) 项目里，他们实现的 ANativeWindow 接口，在 dequeueBuffer() / queueBuffer() 里使用的是另外的 Buffer Queue 实现。该 Buffer Queue 将 Buffer 送给了 wayland server，于是 wayland server 就是内容的消费者。也就是，对于 Android 代码复用，ANativeWindowBuffer / ANativeWindow 接口是必须要实现的，因为 EGL / OpenGLES / codec / camera 这些硬件加速模块需要 Buffer / Window 接口。但是消费端是可选的，由 Buffer Queue 决定。
 
-# GraphicBuffer & Surface的设计
-类图 协作图
+# GraphicBuffer & Surface 的设计
 
-# GraphicBuffer & Surface的实现
-从C语言接口到C++对象的调用
+下图是 GraphicBuffer 类的关系组合图：
+![GraphicBuffer 类的关系组合图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/ui_GraphicBuffer%20Component%20Diagram.svg)
+
+下图是 Surface 类的关系组合图。这里主要关注的是 Surface 创建以及邻近类的关系。更广泛的关系见 BufferQueue 类的关系组合图。
+![Surface 类的关系组合图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/gui_Surface%20Component%20Diagram.svg)
+
+# GraphicBuffer & Surface 的实现
+
+GraphicBuffer 的类图和 Surface 的类图太大太复杂，不必要放在这里干扰思路。特别是 Surface 类，庞大又关联众多，是 Android 图形系统里第二复杂的类。第一复杂的类非 SurfaceFlinger 莫属了。如果对此感兴趣，可以查看后面的详细类图列表。
+
+我们可以简化这两个类，只关注几个最重要的周期性使用的方法。从C语言接口到C++对象的调用。
 
 # Buffer 基于生命周期的管理
 
@@ -71,25 +83,25 @@ j. Consumer : sent "Retire" signal
 但是，这些都是以 BufferQueue 的角度看待 Buffer 的状态，既不全面，也不本质。
 
 实际上，对于Producer 端的用户，CPU 或 GPU，使用 Buffer 的目的就是为了绘图，只需要 lock() / unlock() 方法就足够了。因此，Buffer 最简单的有限状态机如下：
-![Buffer - native](Android%20Native%20Window%20Buffer%20Statemachine%20Diagram%20-%20native.svg)
+![Buffer - native](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/Android%20Native%20Window%20Buffer%20Statemachine%20Diagram%20-%20native.svg)
 
 这种情况多用于在程序内部申请实现了 ANativeWindowBuffer 接口的 Buffer 类，并将其生成为 EGLImage，然后绑定到 GLES Texture，最后，使用 GLES 的函数绘图，其结果就保存在 Buffer 上面了。在这个过程中，会有两重的 lock() / unlock() 操作。
 
 如果使用实现了 ANativeWindow 接口的 Window 类，则暗示了背后有一个 BufferQueue，而该类则做为 BufferQueue 的生产端。所以 ANativeWindow 接口的最重要的方法就是 dequeueBuffer() / queueBuffer()。在这种情况下 Buffer 的有限状态机如下：
-![Buffer - Producer](Android%20Native%20Window%20Buffer%20Statemachine%20Diagram%20-%20Producer.svg)
+![Buffer - Producer](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/Android%20Native%20Window%20Buffer%20Statemachine%20Diagram%20-%20Producer.svg)
 
 需要注意的是，当该 Buffer 在 BufferQueue 里重新入队以后，Buffer 为 Queued 状态，Producer 端会通知 Consumer 端来取件。
 
 因此相对应的，在 BufferQueue 的 Consumer 端，Buffer 的有限状态机如下：
-![Buffer - Consumer](Android%20Native%20Window%20Buffer%20Statemachine%20Diagram%20-%20Consumer.svg)
+![Buffer - Consumer](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/Android%20Native%20Window%20Buffer%20Statemachine%20Diagram%20-%20Consumer.svg)
 
 在这个跨进程的流程里，实现了 zero-copy 功能，不论是 BufferQueue 还是消费者(SurfaceFlinger)，都只有最小信息量通过 OS 传输。
 
 将这两个 Buffer 的有限状态机放一起观察，将会发现两者的异同：
-![Buffer - Producer-Consumer](Android%20Native%20Window%20Buffer%20Statemachine%20Diagram%20-%20Producer-Consumer.svg)
+![Buffer - Producer-Consumer](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/Android%20Native%20Window%20Buffer%20Statemachine%20Diagram%20-%20Producer-Consumer.svg)
 
 而前面所说的 Dequeued / Queued / Acquired / Released 这4种状态，是指 Buffer 在 BufferQueue 里的状态。
-![Buffer Queue State](../pattern-design/03-bufferqueue-03.svg)
+![Buffer Queue State](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/pattern-design/03-bufferqueue-03.svg)
 
 回头看直接使用 ANativeWindowBuffer 和通过 ANativeWindow 使用 ANativeWindowBuffer 的不同。最大的不同在于直接使用 ANativeWindowBuffer，绘制在 Buffer 的内容是没有自动出口的，不会自动渲染到屏幕上的。要想该 Buffer 里的内容能输出出来，则需要多做一些工作。
 
