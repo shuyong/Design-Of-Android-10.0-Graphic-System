@@ -79,6 +79,7 @@ GraphicBuffer 的类图和 Surface 的类图太大太复杂，不必要放在这
 ## Buffer 有限状态机
 
 在 Android 文档里，谈到过 Buffer 有限状态机：
+
 ![Buffer 有限状态机](https://source.android.com/devices/graphics/images/bufferqueue.png)
 
 ![](https://img-blog.csdn.net/20140930173508266?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvamluemh1b2p1bg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)

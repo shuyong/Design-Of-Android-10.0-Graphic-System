@@ -59,7 +59,7 @@ BufferQueue 连接着生产方和消费方。因此基本用法很简单：
 
 类 BufferQueue 有一个静态的工厂方法，BufferQueue::createBufferQueue，用于创建 BufferQueue 实例。这里应用了工厂设计模式。
 
-类 BufferQueue 只是类 BufferQueueCore 的一个很薄的外观(facade)。这里应用了外观(facade)设计模式。BufferQueueCore 包含实际的实现逻辑。后面为了简化讨论，除非特别指明，我不会区分这些类。 
+类 BufferQueue 只是类 BufferQueueCore 的一个很薄的外观(facade)。这里应用了外观(facade)设计模式。BufferQueueCore 包含实际的实现逻辑。后面为了简化讨论，除非特别指明，不会区分这些类。 
 
 使用 BufferQueue 相当简单。首先，生产者和消费者连接到缓冲队列。 
 * 生产者从 BufferQueue 中取出一个“空”缓冲区（dequeueBuffer） 
