@@ -193,7 +193,7 @@ Producer-Consumer 模式往往伴生有 Listener 模式。在 BufferQueue 的两
 
 内容(content)在接口(interface)中的横向流动示意：
 
-| Level                    | Producer      | Content              | Queue              | Consumer           | Consumer           |
+| Level                    | Producer      | Content              | Queue              | Consumer           | Composer           |
 |--------------------------|---------------|----------------------|--------------------|--------------------|--------------------|
 | Application              | EGLSurface    | EGLImage             | surfaceflinger(sw) | surfaceflinger(sw) | surfaceflinger(sw) |
 | Framework Interface      | ANativeWindow | ANativeWindowBuffer  |                    |                    | ISurfaceComposer   |
@@ -235,4 +235,31 @@ Android 图形系统，是针对多核、异构的硬件进行设计的。
 |  5  |                                                    | insert to BufferQueue::mFreeBuffers <- | IGraphicBufferConsumer::releaseBuffer() |
 
 值得注意的是：上述的操作因为是并发操作，执行循序有可能被打乱。
+
+# 图形系统架构缩略图
+
+下图是 Android 图形系统的架构缩略图。这个图是对实际架构图的极度缩略版本，可以大致了解整体架构的分区分层情况。
+
+![Android 图形系统的架构缩略图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/brief-design/gui_BufferQueue%20Component%20Diagram%20-%20thumbnail.svg)
+
+Android 图形系统的架构就是按照 Producer-Consumer 模式进行设计，并且是对称设计。
+* ANativeWindowBuffer 是整个流水线上的工作介质。基于 BufferQueue 对称，
+  + 在 Producer 端称为 back buffer，为下一个要显示的帧。
+  + 在 Consumer 端称为 front buffer，为当前要显示的帧。
+* 基于 BufferQueue 对称，ANativeWindow 在 Consumer 端的对称概念是 Layer 接口。
+  + ANativeWindow 操控的是 BufferQueue 中的 back buffer。
+  + Layer 操控的是 BufferQueue 中的 front buffer。
+* Listener 模式使得 Consumer 端能及时收到 FrameAvailable 消息。
+* 基于 C/S 模型，ANativeWindow 在 Server 端的对称概念是 Client 类。Client 类在 surfaceflinger 程序中是 Surface 类的代理。SurfaceFlinger 类通过操控 Client 类来操控远端的 Surface 类。
+* 架构从上到下分为 3 层：
+  + Framework Interface
+  + HIDL Interface
+  + HAL Interface
+* HIDL Interface 使得上层的 C/S 模型浮动起来，具有跨进程分布的能力。
+* 最终，整个架构是多进程协作模式，存在 5 大类进程：
+  + GUI programmer
+  + surfaceflinger
+  + gralloc service
+  + hwcomposer service
+  + power service
 
