@@ -39,17 +39,17 @@ BufferQueue 连接着生产方和消费方。因此基本用法很简单：
 
 对于本地申请的 GraphicBuffer，主要用于生成 EGLImage，并绑定到某个 Texture ID 上。
 
-![GraphicBuffer - native](Graphic%20Buffer%20Alloc%20Component%20Diagram%20-%20native.svg)
+![GraphicBuffer - native](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/ui_GraphicBuffer%20Component%20Diagram%20-%20native.svg)
  
-考虑到跨进程的 Client / Server 应用模式，android 系统提供了一个 IGraphicBufferAlloc 接口：
+考虑到跨进程的 Client / Server 应用模式，在 Android 6.x 以前提供了一个跨进程的 IGraphicBufferAlloc 接口：
 
-![GraphicBuffer - Client-Server](Graphic%20Buffer%20Alloc%20Component%20Diagram%20-%20Client-Server.svg)
+![GraphicBuffer - Client-Server](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/Graphic%20Buffer%20Alloc%20Component%20Diagram%20-%20Client-Server.svg)
 
-但是上图的应用方式有一个问题：如果客户端改变了 GraphicBuffer 的属性(width / height / format)，服务端无法自动感知对方属性的变化，因此管理起来就很麻烦。因此在 android 代码里没有跨进程方式的 IGraphicBufferAlloc 接口的应用，而是为了便于管理，提供给 Surface 使用的 GraphicBuffer，都集中到 BufferQueue 中进行统一申请和管理。
+但是上图的应用方式有一个问题：如果客户端改变了 GraphicBuffer 的属性(width / height / format)，服务端无法自动感知对方属性的变化，因此管理起来就很麻烦。因此在 android 代码里没有跨进程方式的 IGraphicBufferAlloc 接口的应用，而是为了便于管理，提供给 Surface 使用的 GraphicBuffer，都集中到 BufferQueue 中进行统一申请和管理。BufferQueue 对 Producer 端，提供的是 back buffer，最主要的功能就是 queue/dequeue buffer；对 Consumer 端，提供的是 front buffer，最主要的功能就是 acquire/release buffer。后来引入 HIDL 项目以后，整个 Framework 层都浮在 HIDL 层之上，就取消了 IGraphicBufferAlloc 接口。
 
 因此，从下面的协作图可以得知，客户端软件对 Surface 下面的 GraphicBuffer 的使用，是通过 IGraphicBufferProducer 接口与 BufferQueue 交互实现的，这就包括了属性(width / height / format)的修改。
 
-![Buffer Queue - Graphic Buffer Alloc](Buffer%20Queue%20Component%20Diagram%20-%20Graphic%20Buffer%20Alloc.svg)
+![Buffer Queue - GraphicBuffer Allocation](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/gui_BufferQueue%20Component%20Diagram%20-%20GraphicBuffer%20Allocation.svg)
 
 相对应的，服务端软件 GraphicBuffer 的使用，是通过 IGraphicBufferConsumer 接口与 BufferQueue 交互实现的。因此，从以 BufferQueue 为中心的协作图来看，BufferQueue 是一种很对称的设计，这既包括了 Producer-Consumer 设计模式，也包括了 Listener 设计模式。
 
@@ -95,25 +95,30 @@ BufferQueueProducer 是 IGraphicBufferProducer 后面做粗活的类。BufferQue
 
 BufferQueue 是 Android 图形系统的核心之一。我们将从全局视角看更详细一些的 BufferQueue 相关的设计思路。
 
-下图是创建 BufferQueue 以及 GraphicBuffer 时所涉及的接口和类的协作图。
+下图是以 BufferQueue 为中心管理 GraphicBuffer 时所涉及的接口和类的协作图。
 
-![Buffer Queue - Create](https://github.com/shuyong/Design-Of-Android-6.0-Graphic-System/blob/master/image/general-design/Buffer%20Queue%20Component%20Diagram%20-%20Create.svg)
+![BufferQueue Component Diagram](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/gui_BufferQueue%20Component%20Diagram.svg)
 
-从图中我们可以看到一系列对称关系：
+这是一个很复杂的协作图，但本质上就是一个 Producer-Queue-Consumer 模型。从图中我们可以看到一系列对称关系：
 * BufferQueue 的设计是对称的。
   - Producer-Consumer 设计模式对应的是2个跨进程接口(interface)：IGraphicBufferProducer & IGraphicBufferConsumer。
   - Listener 设计模式对应的是2个跨进程接口(interface)：IProducerListener & IConsumerListener。
 * 为 Producer-Consumer 设计模式所设计的类是对称的。
-  - 在客户端的类是 Surface，对应的服务端的类是 Layer。
+  - 在客户端的接口是 ANativeWindow，对应的服务端的接口是 Layer。
+  - 在客户端的实现类是 Surface，对应的服务端的实现类是 BufferQueueLayer。
   - 也就是，一对 Surface-Layer，就是一对 Producer-Consumer 关系，中间存在一个 BufferQueue。
 * 对 BufferQueue 的操控是对称的。
   - 在客户端是 Surface 调用 IGraphicBufferProducer 接口操控 BufferQueue。最常用的就是 dequeueBuffer() & queueBuffer() 这2个方法。
   - 在服务端是 SurfaceFlingerConsumer 侦听 IConsumerListener 接口的消息，然后调用 IGraphicBufferConsumer 接口操控 BufferQueue。最常用的就是 acquireBuffer() & releaseBuffer() 这2个方法。
-  - 类 SurfaceFlingerConsumer 由类 Layer 所创建，一个 Surface 对应一个 SurfaceFlingerConsumer。
+  - 类 BufferLayerConsumer 由实现类 BufferQueueLayer 所创建。基于 C/S 模型，一个 Surface 对应一个 BufferLayerConsumer。
 
-我们再稍微简化一下协作图，从日常工作看 BufferQueue 的应用。具体的说明见后面的章节。
+我们再稍微细化一下协作图，显示 MonitoredProducer 类的相关协作图。
 
-![Buffer Queue - Client-Server](Buffer%20Queue%20Component%20Diagram%20-%20Client-Server.svg)
+![MonitoredProducer Component Diagram](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/services_surfaceflinger_BufferQueueLayer%20Component%20Diagram.svg)
+
+当 Surface 调用 queueBuffer() 将新帧放入队列后，会主动调用 IConsumerListener 接口发送 FrameAvailable 消息。从上图可以看出，为了将 FrameAvailable 消息绑定到 Layer 接口上，使得 Consumer 端的 BufferLayerConsumer 类能被立即调用，于是 MonitoredProducer 类就产生了。
+
+MonitoredProducer 类也是一个 IGraphicBufferProducer 接口的实现，但是它包装了 BufferQueue 提供的 IGraphicBufferProducer 接口。最终在 Surface 类中使用的 IGraphicBufferProducer 接口就是 MonitoredProducer 类做的实现。当 Surface 类发送 FrameAvailable 消息时，MonitoredProducer 类会转发给 Consumer 端的 Layer 接口。然后再经过几个跳转，BufferLayerConsumer 类就收到了 FrameAvailable 消息。具体的消息的流动，见下一章节的说明。
 
 # Listener 消息的流动
 
@@ -180,7 +185,7 @@ BufferQueue 的具体实现，还需要考虑很多问题。下面我们通过�
 * mFreeSlots: [04#, 05#, 06#, 07#]，state = FREE，size = 4。
 * 生产端刚刚调用过 dequeueBuffer(): [02#]，state = DEQUEUED。
 
-![BufferQueue-00](BufferQueue-00.svg)
+![BufferQueue-00](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/BufferQueue-00.svg)
 
 ## 第1个使用瞬间
 
@@ -190,7 +195,7 @@ BufferQueue 的具体实现，还需要考虑很多问题。下面我们通过�
   - 从 mFreeBuffers 中最小的编号选取：[03#]，state = DEQUEUED。
 * 消费端收到 onFrameAvailable() 消息，在下一个 VSYNC 信号到达时调用 IGraphicBufferConsumer::acquireBuffer()，按照 FIFO 要求，[00#]，state = ACQUIRED。
 
-![BufferQueue-01](BufferQueue-01.svg)
+![BufferQueue-01](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/BufferQueue-01.svg)
 
 所以 BufferQueue 此时的状态是：
 * mQueue: [01#, 02#]，state = QUEUED，size = 2。
@@ -209,7 +214,7 @@ BufferQueue 的具体实现，还需要考虑很多问题。下面我们通过�
   - Surface::mSlots[04#]，state = ALLOC。
   - BufferQueueCore::mSlots[04#]，state = DEQUEUED。
 
-![BufferQueue-02](BufferQueue-02.svg)
+![BufferQueue-02](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/BufferQueue-02.svg)
 
 所以 BufferQueue 此时的状态是：
 * mQueue: [01#, 02#, 03#]，state = QUEUED，size = 3。
@@ -224,7 +229,7 @@ BufferQueue 的具体实现，还需要考虑很多问题。下面我们通过�
 * 消费端完成合成任务的提交，调用 IGraphicBufferConsumer::releaseBuffer()，[00#]，state = FREE。
 * 消费端收到 onFrameAvailable() 消息，在下一个 VSYNC 信号到达时调用 IGraphicBufferConsumer::acquireBuffer()，按照 FIFO 要求，[01#]，state = ACQUIRED。
 
-![BufferQueue-03](BufferQueue-03.svg)
+![BufferQueue-03](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/BufferQueue-03.svg)
 
 所以 BufferQueue 此时的状态是：
 * mQueue: [02#, 03#]，state = QUEUED，size = 2。
@@ -241,7 +246,7 @@ BufferQueue 的具体实现，还需要考虑很多问题。下面我们通过�
 * 消费端完成合成任务的提交，调用 IGraphicBufferConsumer::releaseBuffer()，[01#]，state = FREE。
 * 消费端收到 onFrameAvailable() 消息，在下一个 VSYNC 信号到达时调用 IGraphicBufferConsumer::acquireBuffer()，按照 FIFO 要求，[02#]，state = ACQUIRED。
 
-![BufferQueue-04](BufferQueue-04.svg)
+![BufferQueue-04](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/BufferQueue-04.svg)
 
 所以 BufferQueue 此时的状态是：
 * mQueue: [03#, 04#]，state = QUEUED，size = 2。
@@ -260,7 +265,8 @@ BufferQueue 的具体实现，还需要考虑很多问题。下面我们通过�
   - 一般情况下，消费速率与生产速率相当，就变成 Double-Buffer 模式。
   - 偶尔有性能的波动，消费速率小于生产速率，就变成 Triple-Buffer 模式。用空间换时间，减少生产端的阻塞。
   - Triple-Buffer 模式有一个缺点：新帧需要多一个 VSYNC 周期才能显示出去，所以显示延时会变大。当过一段时间，消费速率与生产速率相当以后，根据最小编号选取的算法，BufferQueue 又会变成 Double-Buffer 模式，减少显示延时。
-* 对于生产端，软件可以连续多次调用 IGraphicBufferProducer::dequeueBuffer()，获得多个 GraphicBuffer 进行并行图像处理，然后随机调用 IGraphicBufferProducer::queueBuffer() 将 GraphicBuffer 送回 BufferQueue中。
+* 对于生产端，应用对于 Buffer 属性的修改，如 width / height / format 等，是在下一次 dequeueBuffer() 时才改变。lazy-change 可以减少阻塞。
+* 对于生产端，应用可以连续多次调用 IGraphicBufferProducer::dequeueBuffer()，获得多个 GraphicBuffer 进行并行图像处理，然后随即调用 IGraphicBufferProducer::queueBuffer() 将 GraphicBuffer 送回 BufferQueue中。
   - 这种应用特例在 Camera 软件中会应用到。例如连拍功能，先取出多个 GraphicBuffer 保存原始图像后，在后台进行并行图像处理。最后，完成处理的次序不一定是原来的顺序。
   - BufferQueue 需要处理这种情况，将送回来的 GraphicBuffer 按照编号重新排序，并在恰当的时机发送 onFrameAvailable() 消息。
 * 对于消费端，对于 Frame，要严格保证 FIFO 的顺序。
@@ -268,7 +274,7 @@ BufferQueue 的具体实现，还需要考虑很多问题。下面我们通过�
 
 # 不同的视角的 GraphicBuffer 有限状态机
 
-下图是在 Surface 中所使用的 GraphicBuffer 的对应于生命周期的有限状态机。可以看到，从 Producer-BufferQueue-Consumer 这三者来看，不同的视角(Viewport)有不同的有限状态机。最终就是使得在有限资源有限时间条件下，新帧能从生产端流动到消费端。
+在前面的 BufferQueue 的协作图里面可以看到，GraphicBuffer 类有 4 种不同的应用场景，相对应的就会有 4 种不同的有限状态机。前面已经给出过。下图是在 Surface 中所使用的 GraphicBuffer 的对应于生命周期的有限状态机。可以看到，从 Producer-BufferQueue-Consumer 这三者来看，不同的视角(Viewport)有不同的有限状态机。最终就是使得在有限资源有限时间条件下，新帧能从生产端流动到消费端。
 
-![GraphicBuffer Statemachine](Graphic%20Buffer%20Statemachine%20Diagram%20-%20Producer-Queue-Consumer.svg)
+![GraphicBuffer Statemachine](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/Graphic%20Buffer%20Statemachine%20Diagram%20-%20Producer-Queue-Consumer.svg)
 

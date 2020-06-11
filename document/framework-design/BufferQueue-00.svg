@@ -1,0 +1,301 @@
+<?xml version="1.0" standalone="no"?>
+<!-- Creator: fig2dev Version 3.2.6a -->
+<!-- CreationDate: 2019-03-02 14:14:58 -->
+<!-- Magnification: 1.05 -->
+<svg	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="1470pt" height="507pt"
+	viewBox="-3615 -1272 23333 8034">
+<g fill="none">
+<!-- Line -->
+<rect x="-2025" y="5850" width="2025" height="900"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<rect x="675" y="5850" width="2025" height="900"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<rect x="2700" y="5850" width="2025" height="900"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<rect x="4725" y="5850" width="2025" height="900"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<rect x="6750" y="5850" width="2025" height="900"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<rect x="8775" y="5850" width="2025" height="900"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<rect x="10800" y="5850" width="2025" height="900"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<rect x="12825" y="5850" width="2025" height="900"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<rect x="14850" y="5850" width="2025" height="900"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp0">
+	<path clip-rule="evenodd" d="M -3615,-1272 H 19718 V 6762 H -3615 z
+		M 17012,6330 16892,6300 17012,6270 16868,6293 16868,6307z"/>
+</clipPath>
+</defs>
+<polyline points=" 17550,6300 16875,6300" clip-path="url(#cp0)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 16875,6300 -->
+<polyline points=" 17012,6330 16892,6300 17012,6270"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Line -->
+<polyline points=" -2700,4275 18225,4275"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<rect x="-2025" y="1800" width="2025" height="900"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<rect x="675" y="1800" width="2025" height="900"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<rect x="2700" y="1800" width="2025" height="900"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<rect x="4725" y="1800" width="2025" height="900"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<rect x="6750" y="1800" width="2025" height="900"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<rect x="8775" y="1800" width="2025" height="900"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<rect x="10800" y="1800" width="2025" height="900"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<rect x="12825" y="1800" width="2025" height="900"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<rect x="14850" y="1800" width="2025" height="900"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" -2025,1800 -2025,-225"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 16875,1800 16875,-225"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 12825,1800 12825,1125"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 10800,1800 10800,1125"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 8775,1800 8775,1125"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 675,1800 675,225"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp1">
+	<path clip-rule="evenodd" d="M -3615,-1272 H 19718 V 6762 H -3615 z
+		M 16738,1320 16858,1350 16738,1380 16882,1357 16882,1343z
+		M 12962,1380 12842,1350 12962,1320 12818,1343 12818,1357z"/>
+</clipPath>
+</defs>
+<polyline points=" 12825,1350 16875,1350" clip-path="url(#cp1)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 16875,1350 -->
+<polyline points=" 16738,1320 16858,1350 16738,1380"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Backward arrow to point 12825,1350 -->
+<polyline points=" 12962,1380 12842,1350 12962,1320"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp2">
+	<path clip-rule="evenodd" d="M -3615,-1272 H 19718 V 6762 H -3615 z
+		M 10663,1320 10783,1350 10663,1380 10807,1357 10807,1343z
+		M 8912,1380 8792,1350 8912,1320 8768,1343 8768,1357z"/>
+</clipPath>
+</defs>
+<polyline points=" 8775,1350 10800,1350" clip-path="url(#cp2)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 10800,1350 -->
+<polyline points=" 10663,1320 10783,1350 10663,1380"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Backward arrow to point 8775,1350 -->
+<polyline points=" 8912,1380 8792,1350 8912,1320"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp3">
+	<path clip-rule="evenodd" d="M -3615,-1272 H 19718 V 6762 H -3615 z
+		M 8638,1320 8758,1350 8638,1380 8782,1357 8782,1343z
+		M 812,1380 692,1350 812,1320 668,1343 668,1357z"/>
+</clipPath>
+</defs>
+<polyline points=" 675,1350 8775,1350" clip-path="url(#cp3)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 8775,1350 -->
+<polyline points=" 8638,1320 8758,1350 8638,1380"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Backward arrow to point 675,1350 -->
+<polyline points=" 812,1380 692,1350 812,1320"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp4">
+	<path clip-rule="evenodd" d="M -3615,-1272 H 19718 V 6762 H -3615 z
+		M 16738,420 16858,450 16738,480 16882,457 16882,443z
+		M 812,480 692,450 812,420 668,443 668,457z"/>
+</clipPath>
+</defs>
+<polyline points=" 675,450 16875,450" clip-path="url(#cp4)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 16875,450 -->
+<polyline points=" 16738,420 16858,450 16738,480"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Backward arrow to point 675,450 -->
+<polyline points=" 812,480 692,450 812,420"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp5">
+	<path clip-rule="evenodd" d="M -3615,-1272 H 19718 V 6762 H -3615 z
+		M 16738,-30 16858,0 16738,30 16882,7 16882,-7z
+		M -1888,30 -2008,0 -1888,-30 -2032,-7 -2032,7z"/>
+</clipPath>
+</defs>
+<polyline points=" -2025,0 16875,0" clip-path="url(#cp5)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 16875,0 -->
+<polyline points=" 16738,-30 16858,0 16738,30"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Backward arrow to point -2025,0 -->
+<polyline points=" -1888,30 -2008,0 -1888,-30"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp6">
+	<path clip-rule="evenodd" d="M -3615,-1272 H 19718 V 6762 H -3615 z
+		M 17012,2280 16892,2250 17012,2220 16868,2243 16868,2257z
+		M -1888,30 -2008,0 -1888,-30 -2032,-7 -2032,7z"/>
+</clipPath>
+</defs>
+<polyline points=" 17550,2250 16875,2250" clip-path="url(#cp6)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 16875,2250 -->
+<polyline points=" 17012,2280 16892,2250 17012,2220"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Text -->
+<text xml:space="preserve" x="15075" y="6300" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">slot 00#</text>
+<!-- Text -->
+<text xml:space="preserve" x="13050" y="6300" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">slot 01#</text>
+<!-- Text -->
+<text xml:space="preserve" x="11025" y="6300" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">slot 02#</text>
+<!-- Text -->
+<text xml:space="preserve" x="9000" y="6300" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">slot 03#</text>
+<!-- Text -->
+<text xml:space="preserve" x="6975" y="6300" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">slot 04#</text>
+<!-- Text -->
+<text xml:space="preserve" x="4950" y="6300" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">slot 05#</text>
+<!-- Text -->
+<text xml:space="preserve" x="2925" y="6300" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">slot 06#</text>
+<!-- Text -->
+<text xml:space="preserve" x="900" y="6300" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">slot 07#</text>
+<!-- Text -->
+<text xml:space="preserve" x="15075" y="6525" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">buffer: ALLOC</text>
+<!-- Text -->
+<text xml:space="preserve" x="13050" y="6525" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">buffer: ALLOC</text>
+<!-- Text -->
+<text xml:space="preserve" x="11025" y="6525" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">buffer: ALLOC</text>
+<!-- Text -->
+<text xml:space="preserve" x="9000" y="6525" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">buffer: ALLOC</text>
+<!-- Text -->
+<text xml:space="preserve" x="6975" y="6525" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">buffer: NULL</text>
+<!-- Text -->
+<text xml:space="preserve" x="4950" y="6525" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">buffer: NULL</text>
+<!-- Text -->
+<text xml:space="preserve" x="2925" y="6525" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">buffer: NULL</text>
+<!-- Text -->
+<text xml:space="preserve" x="900" y="6525" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">buffer: NULL</text>
+<!-- Text -->
+<text xml:space="preserve" x="-1800" y="6300" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">slot 63#</text>
+<!-- Text -->
+<text xml:space="preserve" x="-1800" y="6525" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">buffer: NULL</text>
+<!-- Text -->
+<text xml:space="preserve" x="-2475" y="4050" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Server side</text>
+<!-- Text -->
+<text xml:space="preserve" x="-2475" y="3825" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">SurfaceFlinger</text>
+<!-- Text -->
+<text xml:space="preserve" x="-2475" y="4725" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Client side</text>
+<!-- Text -->
+<text xml:space="preserve" x="-2475" y="4950" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Application</text>
+<!-- Text -->
+<text xml:space="preserve" x="-3600" y="4275" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Linux OS</text>
+<!-- Text -->
+<text xml:space="preserve" x="17550" y="6300" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Surface::mSlots</text>
+<!-- Text -->
+<text xml:space="preserve" x="15075" y="2250" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">slot 00#</text>
+<!-- Text -->
+<text xml:space="preserve" x="11025" y="2250" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">slot 02#</text>
+<!-- Text -->
+<text xml:space="preserve" x="9000" y="2250" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">slot 03#</text>
+<!-- Text -->
+<text xml:space="preserve" x="6975" y="2250" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">slot 04#</text>
+<!-- Text -->
+<text xml:space="preserve" x="4950" y="2250" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">slot 05#</text>
+<!-- Text -->
+<text xml:space="preserve" x="2925" y="2250" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">slot 06#</text>
+<!-- Text -->
+<text xml:space="preserve" x="900" y="2250" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">slot 07#</text>
+<!-- Text -->
+<text xml:space="preserve" x="-1800" y="2250" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">slot 63#</text>
+<!-- Text -->
+<text xml:space="preserve" x="-1800" y="2475" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">state: FREE</text>
+<!-- Text -->
+<text xml:space="preserve" x="900" y="2475" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">state: FREE</text>
+<!-- Text -->
+<text xml:space="preserve" x="2925" y="2475" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">state: FREE</text>
+<!-- Text -->
+<text xml:space="preserve" x="4950" y="2475" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">state: FREE</text>
+<!-- Text -->
+<text xml:space="preserve" x="6975" y="2475" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">state: FREE</text>
+<!-- Text -->
+<text xml:space="preserve" x="9000" y="2475" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">state: FREE</text>
+<!-- Text -->
+<text xml:space="preserve" x="11025" y="2475" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">state: DEQUEUED</text>
+<!-- Text -->
+<text xml:space="preserve" x="15075" y="2475" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">state: QUEUED</text>
+<!-- Text -->
+<text xml:space="preserve" x="13050" y="2250" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">slot 01#</text>
+<!-- Text -->
+<text xml:space="preserve" x="13050" y="2475" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">state: QUEUED</text>
+<!-- Text -->
+<text xml:space="preserve" x="9225" y="1125" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">mFreeBuffers</text>
+<!-- Text -->
+<text xml:space="preserve" x="9225" y="1350" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">size = 1</text>
+<!-- Text -->
+<text xml:space="preserve" x="13500" y="1350" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">mQueue size = 2</text>
+<!-- Text -->
+<text xml:space="preserve" x="13050" y="900" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">if producer is EGL, only allows one item.</text>
+<!-- Text -->
+<text xml:space="preserve" x="3150" y="1350" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">mFreeSlots size = 4</text>
+<!-- Text -->
+<text xml:space="preserve" x="6750" y="450" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">mDefaultMaxBufferCount = 8</text>
+<!-- Text -->
+<text xml:space="preserve" x="6750" y="0" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">NUM_BUFFER_SLOTS = 64</text>
+<!-- Text -->
+<text xml:space="preserve" x="675" y="-1125" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">mQueue = [ 00#, 01# ]</text>
+<!-- Text -->
+<text xml:space="preserve" x="675" y="-675" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">mFreeBuffers = [ 03# ]</text>
+<!-- Text -->
+<text xml:space="preserve" x="675" y="-225" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">mFreeSlots = [ 04#, 05#, 06#, 07# ]</text>
+<!-- Text -->
+<text xml:space="preserve" x="17550" y="2250" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">BufferQueueCore::mSlots</text>
+<!-- Text -->
+<text xml:space="preserve" x="225" y="2250" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">***</text>
+<!-- Text -->
+<text xml:space="preserve" x="225" y="6300" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">***</text>
+</g>
+</svg>
