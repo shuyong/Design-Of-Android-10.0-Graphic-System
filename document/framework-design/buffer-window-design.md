@@ -72,7 +72,7 @@ GraphicBuffer 的类图和 Surface 的类图太大太复杂，不必要放在这
 下图是 Surface 类的关系组合图。这里主要关注的是 Surface 创建以及邻近类的关系。更广泛的关系见 BufferQueue 类的关系组合图。
 ![Surface 类的关系组合图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/gui_Surface%20Component%20Diagram.svg)
 
-下面我们将简化这两个类，并做一些变形，只关注几个最重要的周期性使用的方法，以及最常用的调用分支，以查看这两个核心类的设计。对于 Surface 类，还将理解从C语言接口到C++对象的实现技巧，以及调用路径。
+下面我们将简化这两个类，并做一些变形，只关注几个最重要的周期性使用的方法，以及最常用的调用分支，以查看这两个核心类的设计。对于 Surface 类，还将理解从 C 语言接口到 C++ 对象的实现技巧，以及调用路径。
 
 # GraphicBuffer 的实现
 
@@ -115,13 +115,25 @@ gralloc 模块 v1 版本，取消了强制释放方法 free()，强调了跨进�
 
 ![GraphicBuffer 类的调用路径](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/ui_GraphicBuffer%20Component%20Diagram%20-%20Call%20Path.svg)
 
-gralloc 模块的功能，划分为 Mapper & Allocator 两大分支，主要是考虑：
+GraphicBuffer 的实现的功能，划分为 Mapper & Allocator 两大分支，主要是考虑：
 * alloc() & free() 使用频率很少，只在 GraphicBuffer 类构造和析构的时候使用，所以 在 GraphicBuffer 类中都不保留 Allocator 的指针。要用的时候再取回单例指针就可以了。
 * lock() & unlock() 使用频率很高，所以在 GraphicBuffer 类中保留 Mapper 的指针，以便快速访问。
 * Mapper 中的 importBuffer() & freeBuffer() 方法，对应 HAL 层的 retain() & release() 方法。在 GraphicBuffer 类构造和析构的时候，将 Allocator 的功能引入到 Mapper 中。这样，就可以避免使用 Allocator 的指针。
 
-
 # Surface 的实现
+
+Surface 的实现，采用了 C/C++ 混编实现接口(Interface)的技巧。其中最典型的技巧就是用 C 语言结构(struct)头部一致的特性来实现单继承，再用函数指针做结构成员表达接口(interface)类，而该接口(interface)类在 C++ 的环境里可以被实现类继承，并实现其中的接口。而且该 C++ 的实现类还可以在 C 语言的代码库里，例如 EGL / OpenGLES，被调用到。
+
+下表是应用程序，如 EGL / OpenGLES，调用 ANativeWindow 接口中的 dequeueBuffer() / queueBuffer() 时，实现类方法被调用的次序：
+
+| No. | C function pointer (struct)    | C++ static method (class)     | C++ virtual method (class) | Required Binder Interface               |
+|:---:|--------------------------------|-------------------------------|----------------------------|-----------------------------------------|
+|  1  | ANativeWindow::dequeueBuffer() | Surface::hook_dequeueBuffer() | Surface::dequeueBuffer()   | IGraphicBufferProducer::dequeueBuffer() |
+|  2  | ANativeWindow::queueBuffer()   | Surface::hook_queueBuffer()   | Surface::queueBuffer()     | IGraphicBufferProducer::queueBuffer()   |
+
+下图是经过简化和变形后的关系组合图，可以看到 ANativeWindow 接口(Interface)从上到下的调用路径：
+
+![Surface 类的调用路径](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/gui_Surface%20Component%20Diagram%20-%20Call%20Path.svg)
 
 # Buffer 基于生命周期的管理
 
