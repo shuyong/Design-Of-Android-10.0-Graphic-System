@@ -15,27 +15,9 @@ BufferQueue 连接着生产方和消费方。因此基本用法很简单：
 
 用于显示 Surface 的 BufferQueue 通常配置为三重缓冲；但按需分配缓冲区。因此，如果生产方足够缓慢地生成缓冲区 --- 也许是以 30fps 的速度在 60fps 的显示屏上播放动画 --- 队列中可能只有两个分配的缓冲区。这有助于最小化内存消耗。 
 
-# 从 GraphicBuffer 的应用看 BufferQueue 的设计
+# 从 GraphicBuffer 的用途看 BufferQueue 的设计
 
-从 BufferQueue 管理的对象(GraphicBuffer)看 BufferQueue 的功能，更容易理解 BufferQueue 的设计。
-
-在 android 系统里，gralloc 内存分配器会为 GraphicBuffer 进行缓冲区分配，并通过供应商特定的 HAL 接口来实现。在底层，gralloc 模块分成2个功能模块：
-* gralloc_module_t
-  - retain() or registerBuffer()
-  - release() or unregisterBuffer()
-  - lock()
-  - unlock()
-* alloc_device_t
-  - alloc()
-  - free()
-
-对应的 Framework 一层的封装就是：
-* GraphicBufferMapper
-* GraphicBufferAllocator
-
-有 HIDL 之后，对应的封装就是：
-* IMapper
-* IAllocator
+从 BufferQueue 管理的对象(GraphicBuffer)的用途看 BufferQueue 的功能，更容易理解 BufferQueue 的设计。
 
 对于本地申请的 GraphicBuffer，主要用于生成 EGLImage，并绑定到某个 Texture ID 上。
 

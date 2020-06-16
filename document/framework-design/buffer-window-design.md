@@ -60,19 +60,68 @@ j. Consumer : sent "Retire" signal
 
 而在 [Sailfish OS](https://sailfishos.org/) 项目里，他们实现的 ANativeWindow 接口，在 dequeueBuffer() / queueBuffer() 里使用的是另外的 Buffer Queue 实现。该 Buffer Queue 将 Buffer 送给了 wayland server，于是 wayland server 就是内容的消费者。也就是，对于 Android 代码复用，ANativeWindowBuffer / ANativeWindow 接口是必须要实现的，因为 EGL / OpenGLES / codec / camera 这些硬件加速模块需要 Buffer / Window 接口。但是消费端是可选的，由 Buffer Queue 决定。
 
-# GraphicBuffer & Surface 的设计
+# GraphicBuffer & Surface 的设计概略
+
+GraphicBuffer 的类图和 Surface 的类图太大太复杂，不必要放在这里干扰思路。特别是 Surface 类，庞大又关联众多，是 Android 图形系统里第二复杂的类。第一复杂的类非 SurfaceFlinger 莫属了。如果对此感兴趣，可以查看后面的详细类图列表。这里只是从高度的概略角度探讨 GraphicBuffer & Surface 的设计。
 
 下图是 GraphicBuffer 类的关系组合图：
 ![GraphicBuffer 类的关系组合图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/ui_GraphicBuffer%20Component%20Diagram.svg)
 
+这个关系组合图只是表现了从 HIDL 层到 Framework 层的关系。如果要了解从 HAL 层到 HIDL 层的关系，需要查看前面的内容。如果在这个图里把这些内容加上，则关系图就会层次过深，不易把握。
+
 下图是 Surface 类的关系组合图。这里主要关注的是 Surface 创建以及邻近类的关系。更广泛的关系见 BufferQueue 类的关系组合图。
 ![Surface 类的关系组合图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/gui_Surface%20Component%20Diagram.svg)
 
-# GraphicBuffer & Surface 的实现
+下面我们将简化这两个类，并做一些变形，只关注几个最重要的周期性使用的方法，以及最常用的调用分支，以查看这两个核心类的设计。对于 Surface 类，还将理解从C语言接口到C++对象的实现技巧，以及调用路径。
 
-GraphicBuffer 的类图和 Surface 的类图太大太复杂，不必要放在这里干扰思路。特别是 Surface 类，庞大又关联众多，是 Android 图形系统里第二复杂的类。第一复杂的类非 SurfaceFlinger 莫属了。如果对此感兴趣，可以查看后面的详细类图列表。
+# GraphicBuffer 的实现
 
-我们可以简化这两个类，只关注几个最重要的周期性使用的方法。从C语言接口到C++对象的调用。
+在 android 系统里，gralloc 内存分配器会为 GraphicBuffer 进行缓冲区分配，并通过供应商特定的 HAL 接口来实现。在 HAL 层，老版本的 gralloc 模块，v0 版本，分成 2 个功能模块：
+* gralloc_module_t
+  - registerBuffer()
+  - unregisterBuffer()
+  - lock()
+  - unlock()
+* alloc_device_t
+  - alloc()
+  - free()
+
+对应的 Framework 一层的封装就是：
+* GraphicBufferMapper
+* GraphicBufferAllocator
+
+有 HIDL 之后，对应的封装就是：
+* IMapper
+* IAllocator
+
+此外，gralloc 模块又设计了新版本，v1 版本：
+* v0 : alloc_device_t & gralloc_module_t
+* v1 : gralloc1_device_t
+
+下面是两个版本的方法对照表：
+
+| No. | alloc_device_t(v0) | gralloc_module_t(v0) | gralloc1_device_t(v1) |
+|:---:|--------------------|----------------------|-----------------------|
+|  1  | alloc()            |                      | allocate()            |
+|  2  |                    | registerBuffer()     | retain()              |
+|  3  |                    | unregisterBuffer()   | release()             |
+|  4  |                    | lock()               | lock()                |
+|  5  |                    | unlock()             | unlock()              |
+|  6  | free()             |                      |                       |
+
+gralloc 模块 v1 版本，取消了强制释放方法 free()，强调了跨进程资源通过计数自我管理生命周期的设计思路。只有在全局上，该 buffer 的所有持有者都用 release() 方法释放了该 buffer，计数为 0，则底层自动释放所有跨进程共享的资源。
+
+经过简化和变形，可以看到如下的关系组合图：
+
+![GraphicBuffer 类的调用路径](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/ui_GraphicBuffer%20Component%20Diagram%20-%20Call%20Path.svg)
+
+gralloc 模块的功能，划分为 Mapper & Allocator 两大分支，主要是考虑：
+* alloc() & free() 使用频率很少，只在 GraphicBuffer 类构造和析构的时候使用，所以 在 GraphicBuffer 类中都不保留 Allocator 的指针。要用的时候再取回单例指针就可以了。
+* lock() & unlock() 使用频率很高，所以在 GraphicBuffer 类中保留 Mapper 的指针，以便快速访问。
+* Mapper 中的 importBuffer() & freeBuffer() 方法，对应 HAL 层的 retain() & release() 方法。在 GraphicBuffer 类构造和析构的时候，将 Allocator 的功能引入到 Mapper 中。这样，就可以避免使用 Allocator 的指针。
+
+
+# Surface 的实现
 
 # Buffer 基于生命周期的管理
 
