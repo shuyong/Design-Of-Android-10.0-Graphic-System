@@ -96,50 +96,47 @@ BufferQueue 是 Android 图形系统的核心之一。我们将从全局视角�
 
 我们再稍微细化一下协作图，显示 MonitoredProducer 类的相关协作图。
 
-![MonitoredProducer Component Diagram](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/services_surfaceflinger_BufferQueueLayer%20Component%20Diagram.svg)
+![MonitoredProducer Component Diagram](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/server-design/services_surfaceflinger_BufferQueueLayer%20Component%20Diagram.svg)
 
 当 Surface 调用 queueBuffer() 将新帧放入队列后，会主动调用 IConsumerListener 接口发送 FrameAvailable 消息。从上图可以看出，为了将 FrameAvailable 消息绑定到 Layer 接口上，使得 Consumer 端的 BufferLayerConsumer 类能被立即调用，于是 MonitoredProducer 类就产生了。
 
 MonitoredProducer 类也是一个 IGraphicBufferProducer 接口的实现，但是它包装了 BufferQueue 提供的 IGraphicBufferProducer 接口。最终在 Surface 类中使用的 IGraphicBufferProducer 接口就是 MonitoredProducer 类做的实现。当 Surface 类发送 FrameAvailable 消息时，MonitoredProducer 类会转发给 Consumer 端的 Layer 接口。然后再经过几个跳转，BufferLayerConsumer 类就收到了 FrameAvailable 消息。具体的消息的流动，见下一章节的说明。
 
+之所以有 MonitoredProducer 类这样一个包装类，可以和 SurfaceFlinger 类直接打交道，就是为了当 IGraphicBufferProducer 接口被析构的时候，MonitoredProducer 类可以直接通知 SurfaceFlinger 类，在它管理的列表里有一个 Layer 被销毁了。
+
 # Listener 消息的流动
 
 在 BufferQueue 的设计中，Listener 设计模式是对称的：IProducerListener & IConsumerListener。但在实际应用中，并没有使用IProducerListener 接口。消费端侦听 IConsumerListener 消息是为了能及时消费 Frame。而消费端有其它更好的方法影响生产端的生产速率。一是在有限和闭环的模型中，当消费速率跟不上生产速率，Buffer Pool 中的 Free Buffer 为空，自然就阻塞了生产。二是 Android 图形系统的显示(消费)，由 VSYNC 信号所驱动。VSYNC 信号由 IDisplayEventConnection 接口传递回应用上层，由应用上层控制生产速率，这样更合理一些。这就是 Choreographer 项目要解决的问题。
 
-所以下面我们主要分析 IConsumerListener::onFrameAvailable() 的传输路径。下图是相关的协作图。当客户端调用 IGraphicBufferProducer::queueBuffer() 将包含内容的 Frame 放回 Buffer Pool 时，最终在 Binder thread 中调用了服务端的 IGraphicBufferProducer 接口的实现类 BufferQueueProducer，由此开始了 onFrameAvailable() 消息的旅行。
-
-![ConsumerListener Component](ConsumerListener%20Component%20Diagram.svg)
+所以下面我们主要分析 IConsumerListener::onFrameAvailable() 的传输路径。当客户端调用 IGraphicBufferProducer::queueBuffer() 将包含内容的 Frame 放回 Buffer Pool 时，最终在 Binder thread 中调用了服务端的 IGraphicBufferProducer 接口的实现类 BufferQueueProducer，由此开始了 onFrameAvailable() 消息的旅行。
 
 代码的调用次序如下：
 ```C++
-onFrameAvailable() - Binder thread
-00) BufferQueueProducer::queueBuffer()
-  01) IConsumerListener::onFrameAvailable() == BnConsumerListener::onFrameAvailable() == BufferQueue::ProxyConsumerListener::onFrameAvailable()
-    02) ConsumerListener::onFrameAvailable() == ConsumerBase::onFrameAvailable() 
-      03) ConsumerBase::FrameAvailableListener::onFrameAvailable() == SurfaceFlingerConsumer::ContentsChangedListener::onFrameAvailable() == Layer::onFrameAvailable()
-        04) Vector<BufferItem> mQueueItems;
-        04) mQueueItems.push_back(item);
-        04) SurfaceFlinger::signalLayerUpdate()
-          05) // sends INVALIDATE message at next VSYNC
-          05) MessageQueue::invalidate()
-            06) IDisplayEventConnection::requestNextVsync() == BnDisplayEventConnection::requestNextVsync() == EventThread::Connection::requestNextVsync() - registered by mSFEventThread
-              07) EventThread::requestNextVsync()
-                08) Condition::broadcast()
-
-mSFEventThread
-00) EventThread::threadLoop()
-  01) EventThread::waitForEvent()
-  01) Connection::postEvent()
+00) Surface::queueBuffer() - on Application process
+  01) IGraphicBufferProducer::queueBuffer() == BnGraphicBufferProducer::queueBuffer() == MonitoredProducer::queueBuffer() - on Binder thread of surfaceflinger
+    02) IGraphicBufferProducer::queueBuffer() == BnGraphicBufferProducer::queueBuffer() == BufferQueueProducer::queueBuffer()
+    02) BufferQueueProducer::queueBuffer()
+      03) sp<IConsumerListener> frameAvailableListener;
+      03) frameAvailableListener = mCore->mConsumerListener;
+      03) frameAvailableListener->onFrameAvailable(item);
+      03) IConsumerListener::onFrameAvailable() == BnConsumerListener::onFrameAvailable() == ProxyConsumerListener::onFrameAvailable()
+        04) ConsumerListener::onFrameAvailable() == ConsumerBase::onFrameAvailable() == BufferLayerConsumer::onFrameAvailable()
+          05) FrameAvailableListener::onFrameAvailable() == BufferQueueLayer::onFrameAvailable()
+            06) mQueueItems.push_back(item);
+            06) mQueueItemCondition.broadcast();
+            06) mConsumer->onBufferAvailable(item);
+            06) BufferLayerConsumer::onBufferAvailable()
+              07) mImages[item.mSlot] = std::make_shared<Image>(item.mGraphicBuffer, mRE);
 ```
 
-下图是相关调用的序列图：
-![ConsumerListener Sequence](ConsumerListener%20Sequence%20Diagram.svg)
+下图是相关的协作图。从图中可以看到相关的调用序列。
+![IConsumerListener Component](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/gui_IConsumerListener%20Component%20Diagram.svg)
 
-从上面的一系列图可知关于 GraphicBuffer 的 Producer-Consumer 模式的工作流程如下：
+从上面的一系列图可知应用 GraphicBuffer 的 Producer-Consumer 模式的工作流程如下：
 * 当生产端的 Surface 调用 IGraphicBufferProducer::queueBuffer() 时，意味着有新帧产生。
 * BufferQueueProducer::queueBuffer() 会发送 IConsumerListener::onFrameAvailable() 出来。
-* 最终是在消费端对应 Surface 的类 Layer 收到了经过2次跳转的 onFrameAvailable() 消息。
-* 类 Layer 记录下新帧编号，并向 mSFEventThread 发送 requestNextVsync() 消息。然后返回。
+* 最终是在消费端对应 ANativeWindow 接口的 Layer 接口的实现类 BufferQueueLayer 收到了经过 2 次跳转的 onFrameAvailable() 消息。
+* BufferQueueLayer 类记录下新帧编号，并向 mSFEventThread 发送 requestNextVsync() 消息。然后返回。
 * mSFEventThread 在下一个 VSYNC 信号到达时会向 SurfaceFlinger 发送 INVALIDATE 信号。然后返回。
 * SurfaceFlinger 收到 INVALIDATE 信号后，通过 SurfaceFlingerConsumer 调用 IGraphicBufferConsumer::acquireBuffer() 方法获得该 Layer 的新帧，与其它 Layer 的新帧一起合成并显示出去。
 * 上述步骤是异步执行的，queueBuffer() 位于 Binder thread，处理 VSYNC 信号位于 mSFEventThread，合成操作位于 Main thread。也就是，生产端的新帧的生成时机，由应用软件决定。消费端的合成与显示，由 VSYNC 信号所驱动。当然，两者如果能协调速率，则界面显示就更顺滑。这就是 Choreographer 项目要解决的问题。
