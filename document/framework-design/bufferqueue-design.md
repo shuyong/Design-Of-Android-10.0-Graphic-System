@@ -120,7 +120,7 @@ MonitoredProducer 类也是一个 IGraphicBufferProducer 接口的实现，但�
       03) frameAvailableListener = mCore->mConsumerListener;
       03) frameAvailableListener->onFrameAvailable(item);
       03) IConsumerListener::onFrameAvailable() == BnConsumerListener::onFrameAvailable() == ProxyConsumerListener::onFrameAvailable()
-        04) ConsumerListener::onFrameAvailable() == ConsumerBase::onFrameAvailable() == BufferLayerConsumer::onFrameAvailable()
+        04) ConsumerListener::onFrameAvailable() == ConsumerBase::onFrameAvailable()
           05) FrameAvailableListener::onFrameAvailable() == BufferQueueLayer::onFrameAvailable()
             06) mQueueItems.push_back(item);
             06) mQueueItemCondition.broadcast();
@@ -131,6 +131,9 @@ MonitoredProducer 类也是一个 IGraphicBufferProducer 接口的实现，但�
 
 下图是相关的协作图。从图中可以看到相关的调用序列。
 ![IConsumerListener Component](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/gui_IConsumerListener%20Component%20Diagram.svg)
+
+对上图做一些简化和变形，可以清楚地看到消息的流动过程：
+![IConsumerListener Component - Call Path](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/framework-design/gui_IConsumerListener%20Component%20Diagram%20-%20Call%20Path.svg)
 
 从上面的一系列图可知应用 GraphicBuffer 的 Producer-Consumer 模式的工作流程如下：
 * 当生产端的 Surface 调用 IGraphicBufferProducer::queueBuffer() 时，意味着有新帧产生。
