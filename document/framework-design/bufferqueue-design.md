@@ -94,13 +94,13 @@ BufferQueue 是 Android 图形系统的核心之一。我们将从全局视角�
   - 在服务端是 SurfaceFlingerConsumer 侦听 IConsumerListener 接口的消息，然后调用 IGraphicBufferConsumer 接口操控 BufferQueue。最常用的就是 acquireBuffer() & releaseBuffer() 这2个方法。
   - 类 BufferLayerConsumer 由实现类 BufferQueueLayer 所创建。基于 C/S 模型，一个 Surface 对应一个 BufferLayerConsumer。
 
-当 Surface 调用 queueBuffer() 将新帧放入队列后，会主动调用 IConsumerListener 接口发送 FrameAvailable 消息。从上图可以看出，FrameAvailable 消息最终使得 Surface 在 Consumer 端的对称类 BufferLayerConsumer 记录了新帧的信息。新帧也将在下一次 VSYNC 到达时显示到屏幕上。这个调用序列会在后面的[ Listener 消息的流动](#Listener-消息的流动)的章节里有说明。
+当 Surface 调用 queueBuffer() 将新帧放入队列后，会主动调用 IConsumerListener 接口发送 FrameAvailable 消息。从上图可以看出，FrameAvailable 消息最终使得 Surface 在 Consumer 端的对称类 BufferLayerConsumer 记录了新帧的信息。新帧也将在下一次 VSYNC 到达时显示到屏幕上。这个调用序列会在后面的[[Listener 消息的流动](#Listener-消息的流动)]的章节里有说明。
 
 其实，Surface 所调用的 IGraphicBufferProducer 接口的实现还有一个更复杂的细节。我们再稍微细化一下协作图，显示 MonitoredProducer 类的相关协作图。
 
 ![MonitoredProducer Component Diagram](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/server-design/services_surfaceflinger_BufferQueueLayer%20Component%20Diagram.svg)
 
-MonitoredProducer 类也是一个 IGraphicBufferProducer 接口的实现，但是它包装了 BufferQueue 提供的 IGraphicBufferProducer 接口。最终在 Surface 类中使用的 IGraphicBufferProducer 接口就是 MonitoredProducer 类做的实现。当 Surface 类发送 FrameAvailable 消息时，MonitoredProducer 类会转发给 BufferQueue 提供的 IGraphicBufferProducer 接口。然后再经过几个跳转，BufferLayerConsumer 类就收到了 FrameAvailable 消息。具体的消息的流动，见后面章节的说明。
+MonitoredProducer 类也是一个 IGraphicBufferProducer 接口的实现，但是它包装了 BufferQueue 提供的 IGraphicBufferProducer 接口。最终在 Surface 类中使用的 IGraphicBufferProducer 接口是 MonitoredProducer 类做的实现。当 Surface 类发送 FrameAvailable 消息时，MonitoredProducer 类会转发给 BufferQueue 提供的 IGraphicBufferProducer 接口。然后再经过几个跳转，BufferLayerConsumer 类就收到了 FrameAvailable 消息。具体的消息的流动，见后面章节的说明。
 
 MonitoredProducer 类实现于 surfaceflinger 程序中。之所以有 MonitoredProducer 这样一个包装类，是因为它可以和 SurfaceFlinger 类打交道。当 IGraphicBufferProducer 接口被析构的时候，MonitoredProducer 类可以通过 LambdaMessage 消息通知 SurfaceFlinger 类，在它管理的列表里有一个 Layer 被销毁了。于是 SurfaceFlinger 就对此做相应处理。
 
@@ -138,7 +138,7 @@ MonitoredProducer 类实现于 surfaceflinger 程序中。之所以有 Monitored
 从上面的一系列图可知应用 GraphicBuffer 的 Producer-Consumer 模式的工作流程如下：
 * 当生产端的 Surface 调用 IGraphicBufferProducer::queueBuffer() 时，意味着有新帧产生。
 * BufferQueueProducer::queueBuffer() 会发送 IConsumerListener::onFrameAvailable() 出来。
-* 最终是在消费端对应 ANativeWindow 接口的 Layer 接口的实现类 BufferQueueLayer 收到了经过 2 次跳转的 onFrameAvailable() 消息。
+* 最终是 ANativeWindow 接口在消费端的对称接口 Layer 的实现类 BufferQueueLayer 收到了经过 2 次跳转的 onFrameAvailable() 消息。
 * BufferQueueLayer 类记录下新帧编号，并向 mSFEventThread 发送 requestNextVsync() 消息。然后返回。
 * mSFEventThread 在下一个 VSYNC 信号到达时会向 SurfaceFlinger 发送 INVALIDATE 信号。然后返回。
 * SurfaceFlinger 收到 INVALIDATE 信号后，通过 SurfaceFlingerConsumer 调用 IGraphicBufferConsumer::acquireBuffer() 方法获得该 Layer 的新帧，与其它 Layer 的新帧一起合成并显示出去。
