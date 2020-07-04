@@ -106,7 +106,7 @@ MonitoredProducer 类实现于 surfaceflinger 程序中。之所以有 Monitored
 
 # Listener 消息的流动
 
-在 BufferQueue 的设计中，Listener 设计模式是对称的：IProducerListener & IConsumerListener。但在实际应用中，并没有使用IProducerListener 接口。消费端侦听 IConsumerListener 消息是为了能及时消费 Frame。而消费端有其它更好的方法影响生产端的生产速率。一是在有限和闭环的模型中，当消费速率跟不上生产速率，Buffer Pool 中的 Free Buffer 为空，自然就阻塞了生产。二是 Android 图形系统的显示(消费)，由 VSYNC 信号所驱动。VSYNC 信号由 IDisplayEventConnection 接口传递回应用上层，由应用上层控制生产速率，这样更合理一些。这就是 Choreographer 项目要解决的问题。
+在 BufferQueue 的设计中，Listener 设计模式是对称的：IProducerListener & IConsumerListener。但在实际应用中，并没有使用IProducerListener 接口。消费端侦听 IConsumerListener 消息是为了能及时消费 Frame。而消费端有其它更好的方法影响生产端的生产速率。一是在有限和闭环的模型中，当消费速率跟不上生产速率，Buffer Pool 中的 Free Buffer 为空，自然就阻塞了生产。二是 Android 图形系统的显示(消费)，由 VSYNC 信号所驱动。VSYNC 信号由 IDisplayEventConnection 接口传递回应用上层，由应用上层控制生产速率，这样更合理一些。这就是 Choreographer 框架要解决的问题。
 
 所以下面我们主要分析 IConsumerListener::onFrameAvailable() 的传输路径。当客户端调用 IGraphicBufferProducer::queueBuffer() 将包含内容的 Frame 放回 Buffer Pool 时，最终在 Binder thread 中调用了服务端的 IGraphicBufferProducer 接口的实现类 BufferQueueProducer，由此开始了 onFrameAvailable() 消息的旅行。
 
@@ -142,7 +142,7 @@ MonitoredProducer 类实现于 surfaceflinger 程序中。之所以有 Monitored
 * BufferQueueLayer 类记录下新帧编号，并向 mSFEventThread 发送 requestNextVsync() 消息。然后返回。
 * mSFEventThread 在下一个 VSYNC 信号到达时会向 SurfaceFlinger 发送 INVALIDATE 信号。然后返回。
 * SurfaceFlinger 收到 INVALIDATE 信号后，通过 SurfaceFlingerConsumer 调用 IGraphicBufferConsumer::acquireBuffer() 方法获得该 Layer 的新帧，与其它 Layer 的新帧一起合成并显示出去。
-* 上述步骤是异步执行的，queueBuffer() 位于 Binder thread，处理 VSYNC 信号位于 mSFEventThread，合成操作位于 Main thread。也就是，生产端的新帧的生成时机，由应用软件决定。消费端的合成与显示，由 VSYNC 信号所驱动。当然，两者如果能协调速率，则界面显示就更顺滑。这就是 Choreographer 项目要解决的问题。
+* 上述步骤是异步执行的，queueBuffer() 位于 Binder thread，处理 VSYNC 信号位于 mSFEventThread，合成操作位于 Main thread。也就是，生产端的新帧的生成时机，由应用软件决定。消费端的合成与显示，由 VSYNC 信号所驱动。当然，两者如果能协调速率，则界面显示就更顺滑。这就是 Choreographer 框架要解决的问题。
 
 # BufferQueue 的工作原理
 
