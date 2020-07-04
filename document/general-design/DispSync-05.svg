@@ -1,0 +1,182 @@
+<?xml version="1.0" standalone="no"?>
+<!-- Creator: fig2dev Version 3.2.7a -->
+<!-- CreationDate: 2020-07-01 15:04:27 -->
+<!-- Magnification: 1.05 -->
+<svg	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="649pt" height="202pt"
+	viewBox="210 1788 10289 3204">
+<g fill="none">
+<!-- Line -->
+<defs>
+<clipPath id="cp0">
+	<path clip-rule="evenodd" d="M 210,1788 H 10499 V 4992 H 210 z
+		M 9764,3570 9764,3630 9907,3607 9907,3593z"/>
+</clipPath>
+</defs>
+<polyline points=" 1125,3600 9900,3600" clip-path="url(#cp0)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 9900,3600 -->
+<polygon points=" 9764,3630 9884,3600 9764,3570 9764,3630"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8" fill="#000000"/>
+<!-- Line -->
+<polyline points=" 2925,2700 2925,3600"
+	stroke="#000000" stroke-width="30px"/>
+<!-- Line -->
+<polyline points=" 7425,2700 7425,3600"
+	stroke="#000000" stroke-width="30px"/>
+<!-- Line -->
+<polyline points=" 3600,2700 3600,3600"
+	stroke="#000000" stroke-width="30px"/>
+<!-- Line -->
+<polyline points=" 6075,2700 6075,3600"
+	stroke="#000000" stroke-width="30px"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp1">
+	<path clip-rule="evenodd" d="M 210,1788 H 10499 V 4992 H 210 z
+		M 3464,2895 3464,2955 3607,2932 3607,2918z
+		M 3061,2955 3061,2895 2918,2918 2918,2932z"/>
+</clipPath>
+</defs>
+<polyline points=" 2925,2925 3600,2925" clip-path="url(#cp1)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 3600,2925 -->
+<polygon points=" 3464,2955 3584,2925 3464,2895 3464,2955"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8" fill="#000000"/>
+<!-- Backward arrow to point 2925,2925 -->
+<polygon points=" 3061,2895 2941,2925 3061,2955 3061,2895"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8" fill="#000000"/>
+<!-- Line -->
+<polyline points=" 9225,2700 9225,3600"
+	stroke="#000000" stroke-width="30px"/>
+<!-- Line -->
+<polyline points=" 2925,1800 2925,2250"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 9225,1800 9225,2250"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp2">
+	<path clip-rule="evenodd" d="M 210,1788 H 10499 V 4992 H 210 z
+		M 9089,1995 9089,2055 9232,2032 9232,2018z
+		M 3061,2055 3061,1995 2918,2018 2918,2032z"/>
+</clipPath>
+</defs>
+<polyline points=" 2925,2025 9225,2025" clip-path="url(#cp2)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 9225,2025 -->
+<polygon points=" 9089,2055 9209,2025 9089,1995 9089,2055"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8" fill="#000000"/>
+<!-- Backward arrow to point 2925,2025 -->
+<polygon points=" 3061,1995 2941,2025 3061,2055 3061,1995"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8" fill="#000000"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp3">
+	<path clip-rule="evenodd" d="M 210,1788 H 10499 V 4992 H 210 z
+		M 9764,4920 9764,4980 9907,4957 9907,4943z
+		M 3061,2055 3061,1995 2918,2018 2918,2032z"/>
+</clipPath>
+</defs>
+<polyline points=" 1125,4950 9900,4950" clip-path="url(#cp3)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 9900,4950 -->
+<polygon points=" 9764,4980 9884,4950 9764,4920 9764,4980"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8" fill="#000000"/>
+<!-- Line -->
+<polyline points=" 8775,4050 8775,4950"
+	stroke="#000000" stroke-width="30px"/>
+<!-- Line -->
+<polyline points=" 2475,4050 2475,4950"
+	stroke="#000000" stroke-width="30px"/>
+<!-- Line -->
+<polyline points=" 2925,3825 2925,4275"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp4">
+	<path clip-rule="evenodd" d="M 210,1788 H 10499 V 4992 H 210 z
+		M 2789,4155 2789,4215 2932,4192 2932,4178z
+		M 2611,4215 2611,4155 2468,4178 2468,4192z"/>
+</clipPath>
+</defs>
+<polyline points=" 2475,4185 2925,4185" clip-path="url(#cp4)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 2925,4185 -->
+<polygon points=" 2789,4215 2909,4185 2789,4155 2789,4215"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8" fill="#000000"/>
+<!-- Backward arrow to point 2475,4185 -->
+<polygon points=" 2611,4155 2491,4185 2611,4215 2611,4155"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8" fill="#000000"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp5">
+	<path clip-rule="evenodd" d="M 210,1788 H 10499 V 4992 H 210 z
+		M 7289,2895 7289,2955 7432,2932 7432,2918z
+		M 6211,2955 6211,2895 6068,2918 6068,2932z"/>
+</clipPath>
+</defs>
+<polyline points=" 6075,2925 7425,2925" clip-path="url(#cp5)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 7425,2925 -->
+<polygon points=" 7289,2955 7409,2925 7289,2895 7289,2955"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8" fill="#000000"/>
+<!-- Backward arrow to point 6075,2925 -->
+<polygon points=" 6211,2895 6091,2925 6211,2955 6211,2895"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8" fill="#000000"/>
+<!-- Line -->
+<polyline points=" 2925,2925 1800,2925"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp6">
+	<path clip-rule="evenodd" d="M 210,1788 H 10499 V 4992 H 210 z
+		M 8639,4470 8639,4530 8782,4507 8782,4493z
+		M 2611,4530 2611,4470 2468,4493 2468,4507z"/>
+</clipPath>
+</defs>
+<polyline points=" 2475,4500 8775,4500" clip-path="url(#cp6)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 8775,4500 -->
+<polygon points=" 8639,4530 8759,4500 8639,4470 8639,4530"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8" fill="#000000"/>
+<!-- Backward arrow to point 2475,4500 -->
+<polygon points=" 2611,4470 2491,4500 2611,4530 2611,4470"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8" fill="#000000"/>
+<!-- Line -->
+<polyline points=" 1800,4185 2475,4185"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Text -->
+<text xml:space="preserve" x="7200" y="2700" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">mPendingPeriod</text>
+<!-- Text -->
+<text xml:space="preserve" x="3375" y="2700" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">mIntendedPeriod</text>
+<!-- Text -->
+<text xml:space="preserve" x="2475" y="2700" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">mPeriod</text>
+<!-- Text -->
+<text xml:space="preserve" x="5625" y="2700" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">observed VSYNC</text>
+<!-- Text -->
+<text xml:space="preserve" x="9000" y="2700" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">mPeriod</text>
+<!-- Text -->
+<text xml:space="preserve" x="5400" y="2025" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">ideal period</text>
+<!-- Text -->
+<text xml:space="preserve" x="9900" y="4950" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="192" text-anchor="start">Time</text>
+<!-- Text -->
+<text xml:space="preserve" x="9900" y="3600" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="192" text-anchor="start">Time</text>
+<!-- Text -->
+<text xml:space="preserve" x="225" y="3600" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="192" text-anchor="start">SW VSYNC</text>
+<!-- Text -->
+<text xml:space="preserve" x="225" y="4950" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="192" text-anchor="start">HW VSYNC</text>
+<!-- Text -->
+<text xml:space="preserve" x="3600" y="3825" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">When the observed vsync is closed to the pending period,</text>
+<!-- Text -->
+<text xml:space="preserve" x="3600" y="4050" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">then we detected a period change, so reset the model, mPeriod = mPendingPeriod.</text>
+<!-- Text -->
+<text xml:space="preserve" x="1800" y="2925" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">observed error</text>
+<!-- Text -->
+<text xml:space="preserve" x="1845" y="4140" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">mPhase</text>
+<!-- Text -->
+<text xml:space="preserve" x="5400" y="4500" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">HW VSYNC period</text>
+</g>
+</svg>

@@ -1,0 +1,96 @@
+<?xml version="1.0" standalone="no"?>
+<!-- Creator: fig2dev Version 3.2.6a -->
+<!-- CreationDate: 2019-01-21 21:36:00 -->
+<!-- Magnification: 1.05 -->
+<svg	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="681pt" height="100pt"
+	viewBox="435 2991 10810 1573">
+<g fill="none">
+<!-- Line -->
+<defs>
+<clipPath id="cp0">
+	<path clip-rule="evenodd" d="M 435,2991 H 11245 V 4564 H 435 z
+		M 10663,4245 10783,4275 10663,4305 10807,4282 10807,4268z"/>
+</clipPath>
+</defs>
+<polyline points=" 1350,4275 10800,4275" clip-path="url(#cp0)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 10800,4275 -->
+<polyline points=" 10663,4245 10783,4275 10663,4305"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Line -->
+<polyline points=" 2250,4275 2250,3375"
+	stroke="#000000" stroke-width="30px"/>
+<!-- Line -->
+<polyline points=" 6300,4275 6300,3375"
+	stroke="#000000" stroke-width="30px"/>
+<!-- Line -->
+<polyline points=" 10350,4275 10350,3375"
+	stroke="#000000" stroke-width="30px"/>
+<!-- Line -->
+<polyline points=" 3150,3825 3150,4275"
+	stroke="#000000" stroke-width="30px"/>
+<!-- Line -->
+<polyline points=" 6750,3825 6750,4275"
+	stroke="#000000" stroke-width="30px"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp1">
+	<path clip-rule="evenodd" d="M 435,2991 H 11245 V 4564 H 435 z
+		M 6613,3885 6733,3915 6613,3945 6757,3922 6757,3908z
+		M 6437,3945 6317,3915 6437,3885 6293,3908 6293,3922z"/>
+</clipPath>
+</defs>
+<polyline points=" 6300,3915 6750,3915" clip-path="url(#cp1)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 6750,3915 -->
+<polyline points=" 6613,3885 6733,3915 6613,3945"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Backward arrow to point 6300,3915 -->
+<polyline points=" 6437,3945 6317,3915 6437,3885"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Line -->
+<defs>
+<clipPath id="cp2">
+	<path clip-rule="evenodd" d="M 435,2991 H 11245 V 4564 H 435 z
+		M 6913,3705 6807,3768 6870,3662 6785,3780 6795,3790z
+		M 6437,3945 6317,3915 6437,3885 6293,3908 6293,3922z"/>
+</clipPath>
+</defs>
+<polyline points=" 7425,3150 6795,3780" clip-path="url(#cp2)"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Forward arrow to point 6795,3780 -->
+<polyline points=" 6913,3705 6807,3768 6870,3662"
+	stroke="#000000" stroke-width="8px" stroke-miterlimit="8"/>
+<!-- Line -->
+<polyline points=" 6750,3915 9000,3915"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Text -->
+<text xml:space="preserve" x="450" y="4275" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">SW VSYNC</text>
+<!-- Text -->
+<text xml:space="preserve" x="10800" y="4275" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Time</text>
+<!-- Text -->
+<text xml:space="preserve" x="2925" y="4500" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">now(last)</text>
+<!-- Text -->
+<text xml:space="preserve" x="2925" y="3600" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">if now &#60; nextEventTime</text>
+<!-- Text -->
+<text xml:space="preserve" x="2925" y="3825" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">goto sleep until targetTime</text>
+<!-- Text -->
+<text xml:space="preserve" x="6525" y="4500" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">now(current)</text>
+<!-- Text -->
+<text xml:space="preserve" x="7425" y="3150" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">get a list of callback and invoke them</text>
+<!-- Text -->
+<text xml:space="preserve" x="1800" y="3150" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">lastEventTime</text>
+<!-- Text -->
+<text xml:space="preserve" x="5850" y="3150" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">nextEventTime</text>
+<!-- Text -->
+<text xml:space="preserve" x="5850" y="3375" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">targetTime</text>
+<!-- Text -->
+<text xml:space="preserve" x="6975" y="3825" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">wakeupLatency &#60;= 0.5ms</text>
+<!-- Text -->
+<text xml:space="preserve" x="6975" y="4050" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">Linux real-time performance</text>
+<!-- Text -->
+<text xml:space="preserve" x="2925" y="3375" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="144" text-anchor="start">waked up by other signal</text>
+</g>
+</svg>
