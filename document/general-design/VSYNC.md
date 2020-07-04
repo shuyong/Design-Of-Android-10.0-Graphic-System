@@ -215,7 +215,7 @@ EventControlThread inside portion:
       03) // from HIDL to HAL : HWC2_PFN_VSYNC()
 ```
 
-在 HW VSYNC 线程，对于 HW VSYNC 信号的接收路径见前面的 [VSYNC 信号的生成与传播](#VSYNC 信号的生成与传播)一节。
+在 HW VSYNC 线程，对于 HW VSYNC 信号的接收路径见前面的[ VSYNC 信号的生成与传播](#VSYNC-信号的生成与传播)一节。
 
 在 DispSyncThread 线程，发送 DISPLAY VSYNC 信号流程如下：
 1. DispSyncThread
@@ -315,7 +315,7 @@ DispSync 输入输出如下：
 
 之所以会有 DispSync 模型，主要有如下几个原因：
 * 硬件只提供一个 HW VSYNC 信号，对应于主显示刷新。其它信号都基于这个信号的固定偏移量触发。所以需要 DispSync 模型来维护这些相位偏移信号。
-* 从前面的 [VSYNC 信号的生成与传播](#VSYNC 信号的生成与传播)一节可知，HW VSYNC 信号传播路径很长。而该信号的微小延迟都会影响屏幕刷新。例如用户用手指移动地图，HW VSYNC 信号的任何延迟都会被用户视为缓慢的触摸响应。
+* 从前面的[ VSYNC 信号的生成与传播](#VSYNC-信号的生成与传播)一节可知，HW VSYNC 信号传播路径很长。而该信号的微小延迟都会影响屏幕刷新。例如用户用手指移动地图，HW VSYNC 信号的任何延迟都会被用户视为缓慢的触摸响应。
 * 常开 HW VSYNC 信号上报机制也会对功耗有影响。
 
 所以最终是用 DispSync 模型维护一个软件可变定时信号，SW VSYNC。该信号与 HW VSYNC 信号同步。然后在平常情况下关闭 HW VSYNC 信号上报机制。这样，因为没有在实际的 HW VSYNC 信号上做任何工作，Choreographer 的延迟更小，效率更高。
