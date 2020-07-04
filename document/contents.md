@@ -12,9 +12,9 @@
 
 # 第七章 [Android 的图形系统的 Framework 接口与约定](framework-design/framework-design.md)
 
-# 第八章 Android 的图形系统客户端的设计
+# 第八章 [Android 的图形系统客户端的设计](client-design/client-design.md)
 
-# 第九章 Android 的图形系统的总体设计
+# 第九章 [Android 的图形系统的总体设计](general-design/general-design.md)
 
 # 第十章 Android 的图形系统服务端的设计
 
