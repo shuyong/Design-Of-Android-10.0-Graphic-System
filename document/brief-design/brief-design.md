@@ -217,7 +217,7 @@ Android 图形系统，是针对多核、异构的硬件进行设计的。
 
 从普通的图形程序的工作流程看：
 1. 申请一个 Surface，做为 ANativeWindow 提供给 EGL 模块，生成渲染用的底图 EGLSurface。
-2. 可能会单独申请若干个 GraphicBuffer，做为 ANativeWindowBuffer 提供给 EGL 模块，生成 EGLImage，以便提供给 OpenGLES 模块绑定为 Texture / Framebuffer。
+2. 可能会单独申请若干个 GraphicBuffer，做为 ANativeWindowBuffer 提供给 EGL 模块，生成 EGLImage，以便提供给 OpenGLES 模块绑定为 Texture / FBO。
 3. 使用 OpenGLES 模块进行绘图。
 4. 当一帧图像绘制完成，调用 eglSwapBuffers() 函数提交显示内容。
 5. 重复 3~4 步直至程序结束。

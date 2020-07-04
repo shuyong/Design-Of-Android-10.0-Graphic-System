@@ -101,7 +101,7 @@ Android HAL 中和图形系统有关的模块，有这几方面：
 1. [Android Hwcomposer on KMS](https://www.slideshare.net/linaroorg/kms-hwcomposer)
 1. [Implementing the Hardware Composer HAL](https://source.android.com/devices/graphics/implement-hwc)
 1. [Implementing VSYNC](https://source.android.com/devices/graphics/implement-vsync) 
-1. [Synchronization framework](https://source.android.com/devices/graphics/index.html#synchronization_framework)
+1. [Synchronization framework](https://source.android.com/devices/graphics/sync)
 1. [Android Sync](https://blog.linuxplumbersconf.org/2014/ocw/system/presentations/2355/original/03%20-%20sync%20&%20dma-fence.pdf)
 1. [VSync信号](http://windrunnerlihuan.com/2017/05/21/VSync%E4%BF%A1%E5%8F%B7/)
  
