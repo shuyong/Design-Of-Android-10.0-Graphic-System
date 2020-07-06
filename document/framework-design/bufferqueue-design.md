@@ -90,8 +90,8 @@ BufferQueue 是 Android 图形系统的核心之一。我们将从全局视角�
   - 在客户端的实现类是 Surface，对应的服务端的实现类是 BufferQueueLayer。
   - 也就是，一对 Surface-Layer，就是一对 Producer-Consumer 关系，中间存在一个 BufferQueue。
 * 对 BufferQueue 的操控是对称的。
-  - 在客户端是 Surface 调用 IGraphicBufferProducer 接口操控 BufferQueue。最常用的就是 dequeueBuffer() & queueBuffer() 这2个方法。
-  - 在服务端是 SurfaceFlingerConsumer 侦听 IConsumerListener 接口的消息，然后调用 IGraphicBufferConsumer 接口操控 BufferQueue。最常用的就是 acquireBuffer() & releaseBuffer() 这2个方法。
+  - 在客户端是 Surface 调用 IGraphicBufferProducer 接口操控 BufferQueue。最常用的就是 dequeueBuffer() & queueBuffer() 这 2 个方法。
+  - 在服务端是 SurfaceFlingerConsumer 侦听 IConsumerListener 接口的消息，然后调用 IGraphicBufferConsumer 接口操控 BufferQueue。最常用的就是 acquireBuffer() & releaseBuffer() 这 2 个方法。
   - 类 BufferLayerConsumer 由实现类 BufferQueueLayer 所创建。基于 C/S 模型，一个 Surface 对应一个 BufferLayerConsumer。
 
 当 Surface 调用 queueBuffer() 将新帧放入队列后，会主动调用 IConsumerListener 接口发送 FrameAvailable 消息。从上图可以看出，FrameAvailable 消息最终使得 Surface 在 Consumer 端的对称类 BufferLayerConsumer 记录了新帧的信息。新帧也将在下一次 VSYNC 到达时显示到屏幕上。这个调用序列会在后面的[[Listener 消息的流动](#Listener-消息的流动)]的章节里有说明。
