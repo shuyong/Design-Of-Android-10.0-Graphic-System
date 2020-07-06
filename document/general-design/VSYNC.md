@@ -495,9 +495,10 @@ DispSync 模型的工作原理是：
 * 如果两者不同步，打开 HW VSYNC 信号上报，采样并计算新的 SW VSYNC 信号周期时间，直到两者同步误差小于阈值，再关闭 HW VSYNC 信号。
 
 #  参考文件
-1. [VSYNC](https://source.android.com/devices/graphics/implement-vsync)
+1. [Implementing VSYNC](https://source.android.com/devices/graphics/implement-vsync)
 1. [Android SurfaceFlinger SW Vsync模型](https://www.jianshu.com/p/d3e4b1805c92)
 1. [Android DispSync 详解](https://simowce.github.io/all-about-dispsync/)
+1. [Android SurfaceFlinger 学习之路(五)----VSync 工作原理](http://windrunnerlihuan.com/2017/05/25/Android-SurfaceFlinger-%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF-%E4%BA%94-VSync-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/)
 
 # 详细的类图列表
 
