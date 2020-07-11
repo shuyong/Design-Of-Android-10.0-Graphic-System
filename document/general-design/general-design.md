@@ -3,7 +3,7 @@
 
 应用程序有自己的绘图节拍，它可以在任意时间向图形服务器提交绘图内容。图形服务器，surfaceflinger，基于 VSYNC，定期收集应用程序提交的绘图内容，合成并显示出去。于是 Android 图形系统里存在两类节拍：应用程序绘图节拍和图形显示节拍。所以 Android 图形系统的流水线是两阶段模型，每个阶段都是一个 Producer-Consumer 流程。应用程序渲染窗口，生产了新内容，交给了图形服务器。图形服务器收集多个程序提交的内容，基于 z-order，合成最终屏幕图像，实际上也生产了新内容，最终交给 HWC，显示到屏幕上。于是基于 Producer-Consumer 模式，每一类节拍对应一类 BufferQueue。
 
-应用程序绘图节拍，每一对 Surface-Layer 存在一个 BufferQueue。图形显示节拍，只在 surfaceflinger service 内部存在，一个显示设备对应一个 BufferQueue。
+应用程序绘图节拍，每一对 Surface-Layer 存在一个 BufferQueue。图形显示节拍，每一对 RenderSurface-DisplaySurface，对应一个一个显示设备，存在一个 BufferQueue，只在 surfaceflinger service 内部存在，
 
 图形显示节拍，基于 VSYNC 设计。所以首先要理解 VSYNC 模块的设计。
 
@@ -17,7 +17,7 @@
 
 # 小结
 
-图形和媒体管道可以认为是一条挂载着多个摆弄缓冲区(Buffer)的设备的流水线。同时，Android 图形系统根据功能域的划分，将整个图形处理的流水线划分为两阶段(2-stage)，并且可以组合。每个阶段的核心，就是 BufferQueue。从应用软件生产显示内容(Content)到 SurfaceFlinger 消费内容，通常的操作，就是一个两阶段的生产-消费循环。
+图形和媒体管道可以认为是一条挂载着多个摆弄缓冲区(Buffer)的设备的流水线。同时，Android 图形系统根据驱动节拍的划分，将整个图形处理的流水线划分为多个阶段(stage)，并且可以组合。每个阶段的核心，就是 BufferQueue。从应用软件生产显示内容(Content)到 SurfaceFlinger 消费内容，通常的操作，就是一个两阶段(2-stage)的生产-消费循环。
 
 生产循环，将一个窗口某个时段的内容从应用软件，也就是客户端(Client side)，送达服务端(Server side)，也就是 SurfaceFlinger。从 Surface 类开始，最后到达 Layer 类。每一对 Surface-Layer 对应一个 BufferQueue。因为系统中有多个应用软件，每个软件有多个 Surface。每个进程/线程不可能协调一致，所以每个承载着内容(Content)的 GraphicBuffer，也就是帧(Frame)的到达，是异步和随机的。
 
