@@ -15,11 +15,11 @@
 
 # 多进程协作的设计
 
-Android 图形系统，原本是简单的 C/S 架构，surfaceflinger 是图形显示服务器。引入 HIDL 以后，情况变得复杂，变成了多进程协作式设计。surfaceflinger 更像是居中调度的中间件，不再直接管理硬件，而是委托 HIDL 层的服务器进行管理。
+Android 图形系统，原本是简单的 C/S 架构，surfaceflinger 是图形合成显示服务器。引入 HIDL 以后，情况变得复杂，变成了多进程协作式设计。surfaceflinger 更像是居中调度的中间件，不再直接管理硬件，而是委托 HIDL 层的服务器进行管理。
 
 Android 图形系统通用的服务器位于 /system/bin/ 目录：
 * gpuservice - GPU 状态服务器，graphicsenv 库使用。
-* surfaceflinger - 图形显示服务器。
+* surfaceflinger - 图形合成显示服务器。
 
 Android 图形系统的 HIDL 服务器位于 /vendor/bin/hw/ 目录：
 * android.hardware.graphics.allocator@2.0-service
@@ -37,7 +37,7 @@ Android 图形系统的 HIDL 服务器动态加载的模块位于 /system/lib64/
 * android.hardware.graphics.mapper@2.0.so
 * android.hardware.graphics.mapper@2.1.so
 
-厂商提供的本硬件定制的动态加载的模块位于 /system/lib64/vndk-*/ 目录。
+厂商提供的本硬件定制的动态加载的模块位于 /system/lib64/vndk-*/ 目录。总的说来，HIDL 服务器管理使用 HAL 模块，是实际与硬件驱动打交道的地方。
 
 对于应用而言，以前是向 surfaceflinger 服务器申请 GraphicBuffer，后来是向 android.hardware.graphics.allocator@2.0-service 申请。同样的，原本是 surfaceflinger 服务器管理 HWC 驱动接口并进行合成操作，后来是由 android.hardware.graphics.composer@2.1-service 进行实际的合成操作。
 
