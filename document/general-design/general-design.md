@@ -11,14 +11,14 @@
 
 # [基于接口(interface)的对称设计](symmetrical-design.md)
 
-# [两阶段(2-stage)设计](2-stage.md)
+# [两阶段(2-stage)流水线设计](2-stage.md)
 
 # 多进程协作的设计
 
 Android 图形系统，原本是简单的 C/S 架构，surfaceflinger 是图形合成显示服务器。引入 HIDL 以后，情况变得复杂，变成了多进程协作式设计。surfaceflinger 更像是居中调度的中间件，不再直接管理硬件，而是委托 HIDL 层的服务器进行管理。
 
 Android 图形系统通用的服务器位于 /system/bin/ 目录：
-* gpuservice - GPU 状态服务器，graphicsenv 库使用。
+* gpuservice - GPU 状态服务器，graphicsenv 库使用。最终是应用程序所使用的 OpenGLES 和 Vulkan 使用到。
 * surfaceflinger - 图形合成显示服务器。
 
 Android 图形系统的 HIDL 服务器位于 /vendor/bin/hw/ 目录：
@@ -41,7 +41,7 @@ Android 图形系统的 HIDL 服务器动态加载的模块位于 /system/lib64/
 
 对于应用而言，以前是向 surfaceflinger 服务器申请 GraphicBuffer，后来是向 android.hardware.graphics.allocator@2.0-service 申请。同样的，原本是 surfaceflinger 服务器管理 HWC 驱动接口并进行合成操作，后来是由 android.hardware.graphics.composer@2.1-service 进行实际的合成操作。
 
-由此看，应用绘制画面并显示的动作，涉及到很多次跨进程的操作。于是 Android 图形系统极其依赖 OS 的 Soft-Realtime 特性。所以 Android Linux Kernel 打过 Realtime 补丁，Preempt RT patches，打开了 “PREEMPT” 特性，是完全的可抢占式内核(fully preemptible (real-time) kernel)。进程切换时间，大多数情况 < 1ms，但极限不会 < 0.1ms。
+由此看，应用绘制画面并显示的动作，涉及到很多次跨进程的操作。于是 Android 图形系统极其依赖 OS 的 Soft-Realtime 特性。所以 Android Linux Kernel 打过 Realtime 补丁(Preempt RT patches)，打开了 “PREEMPT” 特性，是完全的可抢占式内核(fully preemptible (real-time) kernel)。进程切换时间，大多数情况 < 1ms，但极限不会 < 0.1ms。
 
 但是，函数调用切换的时间是大大小于进程切换时间好几个数量级。加上 HIDL 的引入，调用 Binder Interface 会增加调用延时。这时候需要从全局考虑多进程协作设计的优劣。
 
