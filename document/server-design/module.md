@@ -69,7 +69,7 @@ HWComposer 关系组合图如下：
 显示后端接口的实现，指的是 FramebufferSurface & VirtualDisplaySurface 这两个类。它们即实现了在 framework/gui 中定义的 ConsumerBase 接口，表明它们是 BufferQueue 的消费端，也实现了在合成引擎中定义的显示后端接口 DisplaySurface，表明了它们是图形流水线第二阶段的 BufferQueue 的消费端。这些内容已经在前面的[ 两阶段流水线的设计 ](../general-design/2-stage.md)的章节已讨论，这里不再重复。
 
 PowerAdvisor 关系组合图如下，最终调用了 HIDL 接口：
-[PowerAdvisor 接口的关系组合图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/server-design/services_surfaceflinger_DisplayHardware_PowerAdvisor%20Class%20Diagram.svg)
+![PowerAdvisor 接口的关系组合图](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/server-design/services_surfaceflinger_DisplayHardware_PowerAdvisor%20Class%20Diagram.svg)
 
 # 合成引擎
 
