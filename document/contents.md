@@ -16,7 +16,7 @@
 
 # 第九章 [Android 的图形系统的总体设计](general-design/general-design.md)
 
-# 第十章 Android 的图形系统服务端的设计
+# 第十章 [Android 的图形系统服务端的设计](server-design/server-design.md)
 
 # SurfaceFlinger 所使用的算法
 # 用 Systrace 剖析图形系统性能
