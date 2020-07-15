@@ -124,7 +124,13 @@ MonitoredProducer 类实现于 surfaceflinger 程序中。之所以有 Monitored
           05) FrameAvailableListener::onFrameAvailable() == BufferQueueLayer::onFrameAvailable()
             06) mQueueItems.push_back(item);
             06) mQueueItemCondition.broadcast();
-            06) mConsumer->onBufferAvailable(item);
+            06) SurfaceFlinger::signalLayerUpdate();
+              07) MessageQueue::invalidate()
+                08) EventThreadConnection::requestNextVsync()
+                  09) EventThread::requestNextVsync()
+                    10) ResyncCallback <- Scheduler::makeResyncCallback()
+                      11) SurfaceFlinger::getVsyncPeriod()
+                    10) connection->vsyncRequest = VSyncRequest::Single;
             06) BufferLayerConsumer::onBufferAvailable()
               07) mImages[item.mSlot] = std::make_shared<Image>(item.mGraphicBuffer, mRE);
 ```

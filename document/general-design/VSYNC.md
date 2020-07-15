@@ -138,8 +138,8 @@ Scheduler/ 目录大致包含如下接口和类：
 * LayerHistory - 该类表示有关被视为当前图层的信息。
 * LayerInfo - 该类表示有关 Individial Layers 的信息。
 * MessageQueue & LambdaMessage - 主动对象之间通信的接口。
-  + MessageQueue - SurfaceFlinger 向 mSFEventThread 注册回调函数，以便 surfaceflinger 主线程定时接收到"VSYNC-sf"事件。
-  + LambdaMessage - 是在 binder 线程中的 MonitoredProducer 与 surfaceflinger 主线程通信的接口。
+  + MessageQueue - SurfaceFlinger 向 mSFEventThread 注册回调函数，以便 surfaceflinger 主线程定时接收到 VSYNC-sf(INVALIDATE/REFRESH) 事件。
+  + LambdaMessage - 在 Client / Server 模式下，在 Binder 线程中的类与主线程中的 SurfaceFlinger 通信的接口。
 * PhaseOffsets - 封装特定相位偏移的接口。
 * RefreshRateConfigs - 该类用于封装刷新率的配置。它保存有关设备上可用刷新率的信息，以及数字和人类可读名称之间的映射。
 * RefreshRateStats - 该类用于封装显示正在使用的刷新率的统计信息。
@@ -228,13 +228,16 @@ EventControlThread inside portion:
 SW VSYNC trigger
 DispSync thread:
 00) DispSyncThread::threadLoop()
+  01) DispSyncThread::gatherCallbackInvocationsLocked()
   01) DispSyncThread::fireCallbackInvocations()
     02) DispSync::Callback::onDispSyncEvent(nsecs_t when)
       03) VSyncSource::onDispSyncEvent(nsecs_t when) == DispSyncSource::onDispSyncEvent(nsecs_t when) -> (vsyncSrc & sfVsyncSrc)
         04) VSyncSource::Callback::onVSyncEvent(nsecs_t timestamp) == EventThread::onVSyncEvent(nsecs_t timestamp) -> (mEventThread & mSFEventThread)
-          05) DisplayEventReceiver::Event event;
-          05) event.header = {DisplayEventReceiver::DISPLAY_EVENT_VSYNC, displayId, timestamp};
-          05) event.hotplug.connected = connected;
+          05) makeVSync()
+            06) DisplayEventReceiver::Event event;
+            06) event.header = {DisplayEventReceiver::DISPLAY_EVENT_VSYNC, displayId, timestamp};
+            06) event.hotplug.connected = connected;
+          05) mPendingEvents.push_back()
 ```
 
 在 EventThread(mEventThread & mSFEventThread) 线程，发送带相位偏移的 SW VSYNC ("VSYNC-app" & "VSYNC-sf") 事件流程如下：
@@ -246,6 +249,7 @@ DispSync thread:
 ```C++
 Event thread(mEventThread & mSFEventThread)
 00) EventThread::threadMain()
+  01) event = mPendingEvents.front()
   01) EventThread::dispatchEvent()
     02) IDisplayEventConnection::postEvent() == EventThreadConnection::postEvent()
       03) DisplayEventReceiver::sendEvents()

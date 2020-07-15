@@ -1,11 +1,15 @@
 # Android 的图形系统服务端的设计
 * * *
 
+如果有谁研读 SurfaceFlinger 程序的代码，不被里面众多庞杂臃肿的类，还有类与类之间迷宫一样相互调用的关系所迷惑，那他就没有认真读代码。
+
+要想分析 SurfaceFlinger 程序的设计，从进程/线程间的消息流动，以及基于模式(pattern)的设计这两方面入手，也许能找到一条出路。
+
 # [SurfaceFlinger 模块划分](module.md)
 
-# SurfaceFlinger 中的消息与传递路径
+# [SurfaceFlinger 中的消息与传递路径](message.md)
 
-# 合成流程中的路径
+# [合成流程中的路径](compositing-path.md)
 
 # 基于 Active Object 模式进行设计
 
