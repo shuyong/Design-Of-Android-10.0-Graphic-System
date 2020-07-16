@@ -11,21 +11,16 @@
 
 # [合成流程中的路径](compositing-path.md)
 
-# 基于 Active Object 模式进行设计
+# [基于 Active Object 模式进行设计](active-object.md)
 
-# 架构设计与组合模式
+# [架构设计与组合模式](component-pattern.md)
 
 # 小结
 
 层次与模式
+纵向采用访问者模式(Visitor Pattern)。
+横向采用主动对象模式(Active Object Pattern)。
 
-这是软件VSYNC事件相对于HWComposer报告的VSYNC事件的相位偏移（以纳秒为单位）。软件VSYNC事件是基于SurfaceFlinger和Choreographer的应用程序运行每个帧时。
-
-此相位偏移允许调整从应用程序唤醒时间（由Choreographer）到显示结果窗口图像的时间的最小延迟。该值可以是正的（在HW VSYNC之后）或负（在HW VSYNC之前）。将其设置为0将导致两个VSYNC周期的较低延迟界限，因为应用程序和SurfaceFlinger将在HW VSYNC之后立刻运行。将其设置为正数将导致最小延迟为：
-```
-    (2 * VSYNC_PERIOD - (vsyncPhaseOffsetNs % VSYNC_PERIOD))
-```
-请注意，减少此延迟使应用程序更有可能没有及时准备好窗口内容图像。当这种情况发生时，延迟最终将是一个额外的VSYNC周期，动画将出现问题。因此，应该稍微保守地调整这个延迟（或者至少在意识到要进行权衡的情况下）。
 
 # 参考文件
 1. [SurfaceFlinger and Hardware Composer](https://source.android.com/devices/graphics/arch-sf-hwc)

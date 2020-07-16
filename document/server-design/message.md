@@ -131,32 +131,32 @@ Step 7 - on Main Thread: SurfaceFlinger self-excited
 
 SurfaceFlinger 主线程中的代码的最主要的功能就是合成 Layer，运行在 Main thread 中。上述运行在其它线程中的主动对象和 SurfaceFlinger 对象就是通过下面 15 种消息和传递路径进行交互：
 
-| No. | Caller                                       | Callee                                     | Message                         | final SurfaceFlinger method        |
-|:---:|----------------------------------------------|--------------------------------------------|---------------------------------|------------------------------------|
-|  1  | Surface::~Surface()                          | MonitoredProducer::~MonitoredProducer()    | cleanUpListMessage              | mGraphicBufferProducerList.erase() |
-|  2  | IGraphicBufferProducer::queueBuffer()        | BufferQueueLayer::onFrameAvailable()       | EventThread::requestNextVsync() | signalLayerUpdate()                |
-|  3  | ISurfaceComposerClient::createSurface()      | BufferLayer::BufferLayer()                 | getNewTexture                   | RenderEngine::genTextures()        |
-|  4  | ISurfaceComposer::bootFinished()             | SurfaceFlinger::bootFinished()             | bootFinished                    | bootFinished()                     |
-|  5  | ISurfaceComposer::captureScreen()            | SurfaceFlinger::captureScreen()            | captureScreen                   | captureScreenImplLocked()          |
-|  6  | ISurfaceComposer::enableVSyncInjections()    | SurfaceFlinger::enableVSyncInjections()    | enableVSyncInjections           | enableVSyncInjections()            |
-|  7  | ISurfaceComposer::setActiveColorMode()       | SurfaceFlinger::setActiveColorMode()       | setActiveColorMode              | Display::setColorMode()            |
-|  8  | ISurfaceComposer::setAllowedDisplayConfigs() | SurfaceFlinger::setAllowedDisplayConfigs() | setAllowedDisplayConfigs        | setAllowedDisplayConfigsInternal() |
-|  9  | ISurfaceComposer::setPowerMode()             | SurfaceFlinger::setPowerMode()             | setPowerMode                    | setPowerModeInternal()             |
-| 10  | main()                                       | SurfaceFlinger::init()                     | requestDisplay                  | mVrFlingerRequestsDisplay          |
-| 11  | PriorityDumper::dumpCritical()               | SurfaceFlinger::doDump()                   | dumpProtoFromMainThread         | dumpDrawingStateProto()            |
-| 12  | Scheduler::Scheduler()                       | SurfaceFlinger::setPrimaryVsyncEnabled()   | setPrimaryVsyncEnabled          | setPrimaryVsyncEnabledInternal()   |
-| 13  | SurfaceFlinger::init()                       | SurfaceFlinger::initializeDisplays()       | initializeDisplays              | onInitializeDisplays()             |
-| 14  | SurfaceFlinger::signalLayerUpdate()          | MessageQueue::eventReceiver(VSYNC)         | MessageQueue::INVALIDATE        | onMessageReceived(INVALIDATE)      |
-| 15  | SurfaceFlinger::signalRefresh()              | MessageQueue::refresh()                    | MessageQueue::REFRESH           | onMessageReceived(REFRESH)         |
+| No. | Caller                                       | Callee                                     | Message                  | final SurfaceFlinger method        |
+|:---:|----------------------------------------------|--------------------------------------------|--------------------------|------------------------------------|
+|  1  | Surface::~Surface()                          | MonitoredProducer::~MonitoredProducer()    | cleanUpListMessage       | mGraphicBufferProducerList.erase() |
+|  2  | Surface::queueBuffer()                       | EventThreadConnection::requestNextVsync()  | requestNextVsync         | DispSyncThread::addEventListener() |
+|  3  | ISurfaceComposerClient::createSurface()      | Client::createSurface()                    | getNewTexture            | RenderEngine::genTextures()        |
+|  4  | ISurfaceComposer::bootFinished()             | SurfaceFlinger::bootFinished()             | bootFinished             | setRefreshRateTo()                 |
+|  5  | ISurfaceComposer::captureScreen()            | SurfaceFlinger::captureScreen()            | captureScreen            | captureScreenImplLocked()          |
+|  6  | ISurfaceComposer::enableVSyncInjections()    | SurfaceFlinger::enableVSyncInjections()    | enableVSyncInjections    | MessageQueue::setEventThread()     |
+|  7  | ISurfaceComposer::setActiveColorMode()       | SurfaceFlinger::setActiveColorMode()       | setActiveColorMode       | Display::setColorMode()            |
+|  8  | ISurfaceComposer::setAllowedDisplayConfigs() | SurfaceFlinger::setAllowedDisplayConfigs() | setAllowedDisplayConfigs | setAllowedDisplayConfigsInternal() |
+|  9  | ISurfaceComposer::setPowerMode()             | SurfaceFlinger::setPowerMode()             | setPowerMode             | setPowerModeInternal()             |
+| 10  | main()                                       | SurfaceFlinger::init()                     | requestDisplay           | mVrFlingerRequestsDisplay          |
+| 11  | PriorityDumper::dumpCritical()               | SurfaceFlinger::dumpCritical()             | dumpProtoFromMainThread  | dumpDrawingStateProto()            |
+| 12  | Scheduler::Scheduler()                       | SurfaceFlinger::setPrimaryVsyncEnabled()   | setPrimaryVsyncEnabled   | setPrimaryVsyncEnabledInternal()   |
+| 13  | SurfaceFlinger::init()                       | SurfaceFlinger::initializeDisplays()       | initializeDisplays       | onInitializeDisplays()             |
+| 14  | SurfaceFlinger::signalLayerUpdate()          | MessageQueue::eventReceiver(VSYNC)         | MessageQueue::INVALIDATE | onMessageReceived(INVALIDATE)      |
+| 15  | SurfaceFlinger::signalRefresh()              | MessageQueue::refresh()                    | MessageQueue::REFRESH    | onMessageReceived(REFRESH)         |
 
 注：ISurfaceComposer::bootFinished() 是在 JAVA 层代码被调用，由 WindowManagerService::performEnableScreen() 调用。
 
 其中与合成操作相关的消息是串联激发的：
 
-| No. | Caller                                | Message                         | Message                  |
-|:---:|---------------------------------------|---------------------------------|--------------------------|
-| 1   | IGraphicBufferProducer::queueBuffer() | EventThread::requestNextVsync() | MessageQueue::INVALIDATE |
-| 2   | SurfaceFlinger::signalLayerUpdate()   | MessageQueue::INVALIDATE        | MessageQueue::REFRESH    |
+| No. | Caller                                | Message                  | Message                  |
+|:---:|---------------------------------------|--------------------------|--------------------------|
+| 1   | IGraphicBufferProducer::queueBuffer() | requestNextVsync         | MessageQueue::INVALIDATE |
+| 2   | SurfaceFlinger::signalLayerUpdate()   | MessageQueue::INVALIDATE | MessageQueue::REFRESH    |
 
 * 当 Surface 调用 queueBuffer() 提交新帧的时候，SurfaceFlinger 不是立刻将新帧绘制到显示屏幕上，而是等待下一个 VSYNC 信号到达才开始合成和显示操作。在 Binder thread 中，SurfaceFlinger::signalLayerUpdate() 触发的是 EventThread::requestNextVsync() 消息，影响 mSFEventThread。
 * 当下一个 VSYNC 信号到达，mSFEventThread 发送消息给 MessageQueue。在 Binder thread，MessageQueue::eventReceiver() 收到 DISPLAY_EVENT_VSYNC 消息，就给 Main thread 发送 INVALIDATE 消息。
