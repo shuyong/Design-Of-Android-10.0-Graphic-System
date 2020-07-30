@@ -37,7 +37,7 @@
 
 # [Composer 的设计](composer-design.md)
 
-# 小节
+# 小结
 
 Android HAL 中和图形系统有关的，有这几方面的知识：
 * 面向 Application，用 GraphicBuffer 类实现 ANativeWindowBuffer 接口，用 Surface 类实现 ANativeWindow 接口。EGL / OpenGLES 模块是 ANativeWindowBuffer 接口和 ANativeWindow 接口最主要的使用者。

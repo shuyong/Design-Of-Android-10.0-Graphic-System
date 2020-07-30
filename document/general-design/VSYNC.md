@@ -491,7 +491,7 @@ kErrorThreshold    =  400000^2 - 最小均方误差阈值。
 kPresentTimeOffset = PRESENT_TIME_OFFSET_FROM_VSYNC_NS = 0 - 退出栅栏(Retire fence) 的时间戳和 HW VSYNC 时间点有偏移。
 ```
 
-# 小节
+# 小结
 
 DispSync 模型的工作原理是：
 * HW VSYNC 信号因为传播路径长，有延迟，而且常开功耗大，所以采用 SW VSYNC 信号定时发生。也就是 SurfaceFlinger 用定时器主动猜测 HW VSYNC 信号发生的时间点。这样既能减少延迟，也方便管理多个带相位偏差的事件。
