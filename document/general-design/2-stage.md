@@ -81,7 +81,7 @@ RenderSurface 接口是 DisplaySurface 接口的代理：
 * RenderSurface 接口是 DisplaySurface 接口的代理。
 * 同时 RenderSurface 接口和 DisplaySurface 接口之间插入一个 BufferQueue。这是因为：
   - Layer 之间按照 z-order 合成，实际上就是产生了新的内容。这个内容由物理显示设备消费。
-  - SurfaceFlinger 在合成时，只和 RenderSurface 打交道。RenderSurface 是新内容的生产端。由 RenderSurface 提供 ANativeWindowBuffer / GraphicBuffer，并生成 GLESRenderEngine 合成所用的 Texture。一个显示设备有一个 Surface，通过 dequeueBuffer() / queueBuffer() 方法轮流使用 BufferQueue 中的 GraphicBuffer。
+  - SurfaceFlinger 在合成时，只和 RenderSurface 打交道。RenderSurface 是新内容的生产端。由 RenderSurface 提供 ANativeWindowBuffer / GraphicBuffer，并生成 GLESRenderEngine 合成所用的 FBO。一个显示设备有一个 Surface，通过 dequeueBuffer() / queueBuffer() 方法轮流使用 BufferQueue 中的 GraphicBuffer。
   - 该 Surface 下面的 GraphicBuffer，由 DisplaySurface 提供相应显示设备的 Framebuffer 构造。最终，合成到 Framebuffer 上面的图像就显示到设备上。所以 DisplaySurface 是新内容的消费端。
 
 这阶段的 BufferQueue，由 SurfaceFlinger 类委托超级工厂类 Factory 创建，只在 SurfaceFlinger 类内部使用。
@@ -256,7 +256,7 @@ VirtualDisplaySurface 管理的是普通的 GraphicBuffer。图形流水线到�
 
 从上述调用序列可以看出：
 * 在 Invalidate 阶段：调用 IGraphicBufferConsumer 接口的 acquireBuffer / releaseBuffer 方法和应用程序交换数据，获取新帧并绑定 Layer 缓冲区为 GL 纹理。
-* 在 Refresh 阶段：调用 IGraphicBufferProducer 接口的 dequeueBuffer / queueBuffer 方法和 RenderSurface 交换数据，获取 DisplaySurface 缓冲区，绑定 GL 纹理，并将其置于 z-order 的最底层。调用 RenderEngine 进行一部分 Layer 的合成，接着调用 CompositionEngine / HWComposer 进行最后的合成。如果 DisplaySurface 缓冲区具有 HWC_FRAMEBUFFER_TARGET 属性，HWComposer 会将承载合成结果的缓冲区提交给底层的显示设备，显示在屏幕上。
+* 在 Refresh 阶段：调用 IGraphicBufferProducer 接口的 dequeueBuffer / queueBuffer 方法和 RenderSurface 交换数据，获取 DisplaySurface 缓冲区，绑定为 GL FBO，并将其置于 z-order 的最底层。调用 RenderEngine 进行一部分 Layer 的合成，接着调用 CompositionEngine / HWComposer 进行最后的合成。如果 DisplaySurface 缓冲区具有 HWC_FRAMEBUFFER_TARGET 属性，HWComposer 会将承载合成结果的缓冲区提交给底层的显示设备，显示在屏幕上。
 
 相关的调用序列图如下：
 ![Stage Linker](https://raw.github.com/shuyong/Design-Of-Android-10.0-Graphic-System/master/document/general-design/services_surfaceflinger_SurfaceFlinger%20Sequence%20Diagram%20-%20Layer-DisplaySurface.svg)
@@ -273,4 +273,29 @@ VirtualDisplaySurface 管理的是普通的 GraphicBuffer。图形流水线到�
 从图中可以看出：
 * 应用程序生产的内容是如何通过两个阶段的 BufferQueue 流动到屏幕上的。
 * VSYNC 信号是如何转换和分发的，Choreographer 框架是如何工作的。
+
+简单总结如下：
+* 当 N# VSYNC 信号发生时，代表着 N# 合成帧的内容已经显示到屏幕上，也就是已经被消费。
+  + 这个 VSYNC 信号，SurfaceFlinger 并没有使用 HW VSYNC 信号，而是采用 DispSync 模型主动猜测而生成的 SW VSYNC 信号。这样可以减少 VSYNC 信号传递的延时。
+  + DispSync 模型会产生 2 个 VSYNC 相位偏移信号：
+    - 给应用使用的 VSYNC-app 信号，偏移量为 vsyncPhaseOffsetNs 纳秒。
+    - 给 SurfaceFlinger 自己使用的 VSYNC-sf 信号，偏移量为 sfVsyncPhaseOffsetNs 纳秒。
+* 当 VSYNC-sf 信号发生时，SurfaceFlinger 会将应用生成的 N+1# 帧采集过来进行合成，并交给 HWComposer 去显示。
+  + 首先，SurfaceFlinger 会将 z-order 中的 Layer 逐一交给 HWComposer 检查。HWComposer 根据自己的能力，决定哪些 Layer 由自己合成，并将其合成类型标记为 DEVICE，决定哪些 Layer 由 SurfaceFlinger 合成，并将其合成类型标记为 CLIENT。
+  + 接着 SurfaceFlinger 调用 RenderEngine，将合成类型标记为 CLIENT 的 Layer，用 GPU 合成。合成类型标记为 DEVICE 的 Layer，它们相应的位置都填充为(0, 0, 0, 0)。
+  + 最后，HWComposer 将合成类型标记为 DEVICE的 Layer，用 2D hwcomposer 合成。
+  + 应用生产的内容，由 Surface-Layer 这一条管线到达 SurfaceFlinger，并由 WindowManager 管理 z-order。这是图形流水线阶段一的工作。
+  + 承载合成结果的 GraphicBuffer，由 RenderSurface 提供。由 RenderSurface-DisplaySurface 这一条管线到达消费终点。这是图形流水线阶段二的工作。
+* 当 VSYNC-app 信号发生时，信号通过 Choreographer 框架到达应用程序。应用程序开始渲染 N+2# 帧。
+  + 如果应用程序渲染一帧的时间能控制在 VSYNC 的一个时钟周期以内，则其中的内容显示到屏幕上的延时可以预期为：
+  + ```(2 * VSYNC_PERIOD - (vsyncPhaseOffsetNs % VSYNC_PERIOD))```
+
+异常处理：
+* 如果 SurfaceFlinger 的合成时间超过 VSYNC 的一个时钟周期，在下次合成时，DispSync 模快会将积累的 VSYNC 信号取出，只发送一次 VSYNC 信号。这样就保证不会过度合成。
+* 如果应用渲染一帧的时间超过 VSYNC 的一个时钟周期，在下次合成时，SurfaceFlinger 还会使用旧帧的内容进行合成。
+  + 从这里可以看到一个限制，就是 Buffer Pool >= 2。
+  + 这是因为：
+    - 对于 GL Texture ID，只有绑定 EGLImage 的函数，没有解除绑定的函数。要想解除一个 EGLImage 的绑定，要么绑定新的 EGLImage，要么销毁该 GL Texture ID。
+    - SurfaceFlinger 也需要持有旧帧，这样在暴露出来的剪切域中才有内容可以合成。
+  + 所以，尽管 BufferQueue 的实现代码可以管理只有一个 GraphicBuffer 的情况，但是实际应用中，必须包含有 2 个以上的 GraphicBuffer，否则系统会陷入死锁状态。
 
