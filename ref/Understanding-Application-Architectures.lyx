@@ -1,0 +1,411 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ctex-article
+\begin_preamble
+% 如果没有这一句命令，XeTeX会出错，原因参见
+% http://bbs.ctex.org/viewthread.php?tid=60547
+\DeclareRobustCommand\nobreakspace{\leavevmode\nobreak\ }
+
+%\XeTeXlinebreaklocale "zh"
+%\XeTeXlinebreakskip = 0pt plus 1pt
+%\usepackage{setspace}
+%\onehalfspacing
+%\XeTeXinterchartokenstate=1
+
+%\usepackage[utf8]{inputenc}
+
+%\usepackage{polyglossia}
+%\setdefaultlanguage[variant=american]{english}
+%\setotherlanguage{french}
+\end_preamble
+\options UTF8,fontset=founder
+\use_default_options true
+\begin_modules
+subequations
+\end_modules
+\maintain_unincluded_children false
+\language chinese-simplified
+\language_package default
+\inputencoding utf8-plain
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures false
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\begin_inset CommandInset href
+LatexCommand href
+name "理解应用架构"
+target "https://www.codeproject.com/Articles/1120421/Understanding-Application-Architectures"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+\begin_inset CommandInset href
+LatexCommand href
+name "Gerd Wagner"
+target "https://www.codeproject.com/script/Membership/View.aspx?mid=10718738"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Date
+2 Sep 2016
+\end_layout
+
+\begin_layout Abstract
+我们讨论广泛使用但不明确的MVC架构隐喻，并指出模型类应该与存储组件分离。
+\end_layout
+
+\begin_layout Standard
+在设计复杂系统的所有情况下，无论设计新的建筑物、新的航天飞机、新的计算机或新的软件应用程序，架构都提供了一种用于定义系统结构的总体计划。任何好的建筑都是基于基本
+的工程原理的。
+\begin_inset Formula $\boldsymbol{关注分离}$
+\end_inset
+
+这有助于通过将系统分解成更小的、功能定义的部分来管理复杂性，从而使其复杂化。
+\begin_inset Formula $\boldsymbol{相互依赖最小化}$
+\end_inset
+
+保持更基本的部分独立于不太基本的部分。这样的架构也使得它更容易开发，或溯源，并独立于其它部分更新某些系统部分。
+\end_layout
+
+\begin_layout Section
+模型-视图-控制器（MVC）架构隐喻
+\end_layout
+
+\begin_layout Standard
+软件应用架构中最流行和最广泛使用的方法是Model-View-Controller代码分区模式。虽然它没有被精确地定义，并且已经以许多不同的方式实现，特别是在W
+eb应用框架中，它是基于关注点分离的原理和基本的见解，即应用程序的所有其他部分，特别是用户界面的基础是
+\begin_inset Formula $\boldsymbol{模型}$
+\end_inset
+
+。因此，即使MVC方法不能提供一个“模型”的精确定义，我们也可以认为它是一个“模型”。
+\begin_inset Formula $\boldsymbol{基于模型}$
+\end_inset
+
+方法。
+\end_layout
+
+\begin_layout Standard
+根据维基百科，第一个MVC架构被
+\begin_inset CommandInset href
+LatexCommand href
+name "Trygve Reenskaug"
+target "https://en.wikipedia.org/wiki/Trygve_Reenskaug"
+literal "false"
+
+\end_inset
+
+于上世纪70年代引入到SimultLoG-76的应用程序编程中。在
+\begin_inset CommandInset href
+LatexCommand href
+name "关于SimalTalk 80"
+target "https://web.archive.org/web/20100921030808/http://www.itu.dk/courses/VOP/E2005/VOP2005E/8_mvc_krasner_and_pope.pdf"
+literal "false"
+
+\end_inset
+
+的文章MVC被解释为“应用程序的三级划分”，它需要“分离（1）表示底层应用程序域模型的部分（2）将模型呈现给用户的方式，以及（3）用户与它交互的方式”。作者还使
+用“MVC隐喻”一词，指出他们的方法将允许程序员“通过首先定义新的类来编写应用模型，这些新的类将体现特定的应用领域特定的信息”。
+\end_layout
+
+\begin_layout Standard
+请注意，该模型被定义为包含捕获所需域信息的类。我们称之为
+\begin_inset Formula $\boldsymbol{模型类}$
+\end_inset
+
+。请注意，在这种早期MVC方法中，没有明确定义的用户界面（UI）概念。“视图”被定义为只包含UI的输出端，而用户输入端与它分离，并包含在“控制器”一词之下。这并
+不反映UI是如何组织的：通过将特定形式的应用程序输出与某些形式的用户输入相结合，比如同一硬币的两面。通用UI概念包括输出（提供给用户的信息输出，以及系统动作）和
+输入（包括由用户提供的信息输入以及执行的动作）。
+\end_layout
+
+\begin_layout Standard
+最初的SimalTalk MVC隐喻是针对（单色）基于文本屏幕的用户界面开发的，没有UI事件的一般概念。这可以解释为什么他们没有考虑UI的一个完整概念。虽然它们
+区分了模型中的对象状态和UI中的状态它们都在用户会话的范围内，但它们没有考虑模型状态和数据库状态之间的区别。
+\end_layout
+
+\begin_layout Standard
+在Martin Fowler的网络文章
+\begin_inset CommandInset href
+LatexCommand href
+name "图形用户界面架构"
+target "http://martinfowler.com/eaaDev/uiArchs.html"
+literal "false"
+
+\end_inset
+
+（2006）中，他以以下方式总结了原始MVC方法的主要原则：
+\end_layout
+
+\begin_layout Enumerate
+UI与模型的分离 
+\end_layout
+
+\begin_layout Enumerate
+将UI划分为“控制器”和“视图” 
+\end_layout
+
+\begin_layout Enumerate
+视图与模型同步（通过数据绑定机制） 
+\end_layout
+
+\begin_layout Standard
+虽然第一和第三原则是软件应用架构的基础，但是第二个原则只是一个历史意义，很快被SMALLATE的开发者抛弃了。
+\end_layout
+
+\begin_layout Standard
+与20世纪80年代相比，计算机、人机交互和软件应用架构已经发展。特别是，Web作为主要的计算平台的建立使得Web浏览器成为用户界面最重要的基础设施。
+\end_layout
+
+\begin_layout Standard
+MVC术语在今天仍然被广泛使用，特别是Web应用框架，但其含义不同于“M”、“V”和“C”。通常，“视图”表示基于HTML表单的用户界面，而“控制器”负责在“视
+图”和“模型”之间进行中介，通常通过对象关系映射（ORM）方法与底层SQL数据库技术紧密耦合，违反了最小化相互依赖性的原则。
+\end_layout
+
+\begin_layout Standard
+例如，
+\begin_inset CommandInset href
+LatexCommand href
+name "活动记录"
+target "http://martinfowler.com/eaaCatalog/activeRecord.html"
+literal "false"
+
+\end_inset
+
+有影响力的Ruby on Rails框架的范例已经被许多其他的Web应用框架（如CAKEPHP）所采用，“模型”是底层数据库系统的模式的直接表示，其中数据库的每
+个实体表由一个“模型”类表示，该类继承了用于执行创建/检索/更新/删除（CRUD）操作的数据操作方法。在这个表中，为了建模类映射方法，“模型”依赖于底层数据库的
+模式，因此与底层ORM数据存储技术紧密耦合。虽然这可能是一种适合于数据库第一开发方法的方法，其中SQL数据库是应用程序的基础，但它并不是一般的方法，它将模型转换
+为二级资产。
+\end_layout
+
+\begin_layout Standard
+此外，在基于ORM注释的框架中，如JavaEE与JPA注释、C#框架ASP.NET MVC与实体框架和数据注释，或者PHP框架SCOFRONY与理论注释，“模型”
+通过ORM注释结合到模型代码中与底层ORM技术耦合，从而使模型依赖于ORM技术的使用。所有这些框架都使用
+\begin_inset CommandInset href
+LatexCommand href
+name "数据映射器"
+target "http://martinfowler.com/eaaCatalog/dataMapper.html"
+literal "false"
+
+\end_inset
+
+基于ORM注释的CRUD操作方法。
+\end_layout
+
+\begin_layout Section
+洋葱架构隐喻
+\end_layout
+
+\begin_layout Standard
+“洋葱架构”一词是由Jeffry Palermo在2008的
+\begin_inset CommandInset href
+LatexCommand href
+name "一系列博客帖子"
+target "http://jeffreypalermo.com/blog/the-onion-architecture-part-1/"
+literal "false"
+
+\end_inset
+
+中提出的。该架构隐喻的主要原则是（1）使用依赖层次结构，其中较少的基础（或中心）部分依赖于更基本的部分，但决不是相反的；（2）最基本的部分是模型，它以模型类的形
+式实现应用程序的数据模型，而数据存储是一个模型。分离的和基本的部分，不能与模型耦合。
+\end_layout
+
+\begin_layout Standard
+事实上，Palermo和他的追随者对这个架构隐喻做了更多的介绍，比如使用“库接口”和“服务接口”，但我认为这对洋葱隐喻并不重要。此外，他们使用的是不同的术语。当
+他们使用“域模型”这个术语而不是简单的模型时，他们把“域模型”和“数据模型的实现”混淆了，这是模型类所做的。从信息设计模型导出数据模型，该模型本身可以从域信息模
+型导出。这是基于模型的软件工程中的基本开发链。
+\end_layout
+
+\begin_layout Standard
+原则上，如果数据映射方法不是基于特定于平台的ORM（注释）技术，而是依赖于某种平台无关映射逻辑，则可以用于洋葱架构中的存储管理。
+\end_layout
+
+\begin_layout Section
+模型-存储-视图-控制器（MSVC）架构模式
+\end_layout
+
+\begin_layout Standard
+应该清楚的是，涉及数据管理的任何软件应用程序的三个最重要的部分是：
+\end_layout
+
+\begin_layout Enumerate
+这个
+\begin_inset Formula $\boldsymbol{模型}$
+\end_inset
+
+类，实现应用程序的数据模型，定义数据结构和约束； 
+\end_layout
+
+\begin_layout Enumerate
+数据
+\begin_inset Formula $\boldsymbol{存储}$
+\end_inset
+
+系统，通常是SQL数据库系统，但不一定是SQL数据库系统； 
+\end_layout
+
+\begin_layout Enumerate
+这个
+\begin_inset Formula $\boldsymbol{用户界面}$
+\end_inset
+
+（UI），包括对用户的信息提供（或输出），例如，在计算机屏幕上，以及用户行为以UI事件的形式（例如键盘或鼠标事件）提供的用户输入，从而支持所有所需的用户交互。
+ 
+\end_layout
+
+\begin_layout Standard
+MSVC架构模式遵循洋葱架构隐喻的基本原理，通过将模型层不仅从UI层分离，而且从数据存储层中分离出来，并使模型成为最基本的部分，它不依赖于任何其他部分。MSVC
+架构模式也遵循MVC架构隐喻的良好部分及其广泛使用的术语，通过使用与用户界面（UI）互换的术语视图，以及术语控制器，用于表示将UI代码与底层模型类和存储管理代码
+集成所需的胶粘代码层，或MVC术语，用于将视图与模型集成。
+\end_layout
+
+\begin_layout Standard
+使用基于模型的方法，
+\begin_inset Formula $\boldsymbol{通过对应用程序的数据模型进行编码来获得应用程序的模型类}$
+\end_inset
+
+。它通常以UML类图的形式表达。因为模型和数据存储层的任务是定义和验证约束并管理持久数据，所以我们需要一个通用的模式代码来处理这个问题，以避免用于约束验证的每个
+类和每个属性样板代码，以及用于数据存储管理的每类样板代码。
+\end_layout
+
+\begin_layout Section
+“视图模型”：区分“逻辑”与“物理”用户接口
+\end_layout
+
+\begin_layout Standard
+逻辑UI模型的概念，也称为“视图模型”，是由Martin Fowler在2004中，在他的
+\begin_inset CommandInset href
+LatexCommand href
+name "表示模型"
+target "http://martinfowler.com/eaaDev/PresentationModel.html"
+literal "false"
+
+\end_inset
+
+文章中首次提出的（在不同的名称下）。他声明视图模型“将视图的状态和行为拉到[View ]模型类中。”这意味着UI的逻辑内容是从一个具体的“物理”UI中抽象出来的
+，它具有逻辑UI字段和“命令”（用户操作）的特定渲染。逻辑UI字段以UI小部件的形式呈现，它们可以有自己的状态，而逻辑UI命令以适当的UI事件的形式呈现。
+\end_layout
+
+\begin_layout Standard
+后来，在2005，John Gossman（微软）在他的博客文章
+\begin_inset CommandInset href
+LatexCommand href
+name "WPF应用程序的模型/视图/视图模型介绍"
+target "http://blogs.msdn.com/johngossman/archive/2005/10/08/478683.aspx"
+literal "false"
+
+\end_inset
+
+中采用了视图模型概念。并在架构模式首字母缩写“MVVM”下推广。 
+\end_layout
+
+\begin_layout Standard
+在创建/检索/更新/删除（CRUD）数据管理操作的用户界面中，
+\begin_inset Formula $\boldsymbol{视图模型类}$
+\end_inset
+
+将绑定到一个模型类，但可以支持多个视图（类）。视图模型类将具有绑定到支持视图的窗口小部件的属性，使用单向或双向
+\begin_inset Formula $\boldsymbol{数据绑定}$
+\end_inset
+
+和绑定到相应命令的方法（
+\begin_inset Formula $\boldsymbol{命令绑定}$
+\end_inset
+
+）
+\end_layout
+
+\begin_layout Standard
+通常，大多数视图字段直接对应于基础模型类的属性，尽管它们可能具有不同的名称。对于这些字段（或视图模型属性），需要对相应的模型属性进行数据绑定。但是，视图模型类也
+可以具有附加属性，其中一些属性可以表示不绑定到模型类属性的视图字段，而另一些可以表示UI中未显示的辅助字段。
+\end_layout
+
+\begin_layout Standard
+视图模型类的方法在用户通过创建UI命令时发出相应的命令，该命令已被绑定到该命令。
+\end_layout
+
+\begin_layout Standard
+将整个UI代码划分为视图模型部分和视图部分创建一定的开销，在某些情况下可能不合理。虽然视图模型的使用对于所有具有CRUD数据管理操作的应用程序都是合理的，但对于
+可视化用户界面来说，它可能是不合理的。
+\end_layout
+
+\begin_layout Standard
+视图模型的主要优点是：（1）它们有助于UI设计，（2）它们有助于UI逻辑的测试，以及（3）它们便于UI的维护。
+\end_layout
+
+\end_body
+\end_document
