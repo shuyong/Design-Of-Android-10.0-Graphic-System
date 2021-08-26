@@ -1,0 +1,33 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+' uncomment the following line and comment the first to use locally
+'!include <C4/C4_Context>
+
+'LAYOUT_TOP_DOWN()
+'LAYOUT_AS_SKETCH()
+'LAYOUT_WITH_LEGEND()
+
+Person(user, "User", "An Android User.")
+
+' analysis objective
+System(client, "Application", "An Android Application.")
+System(server, "SurfaceFlinger", "Android Graphic Server.")
+
+System_Ext(gpu, "GPU", "3D Component.")
+System_Ext(compositor, "HWComposer", "2D Component.")
+
+Rel_D(user, client, "Uses")
+Rel_R(client, server, "Request")
+Rel_L(server, client, "Respond")
+Rel_D(client, gpu, "Uses")
+Rel(server, gpu, "Uses")
+Rel_D(server, compositor, "Uses")
+
+'Lay_D(user, client)
+'Lay_L(client, server)
+'Lay_D(client, gpu)
+'Lay_D(server, compositor)
+
+SHOW_LEGEND()
+
+@enduml

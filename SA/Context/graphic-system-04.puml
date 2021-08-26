@@ -1,0 +1,55 @@
+@startuml
+'!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+'!include <C4/C4_Context>
+'!include <C4/C4_Container>
+'!include <C4/C4_Component>
+
+'LAYOUT_TOP_DOWN()
+'LAYOUT_AS_SKETCH()
+'LAYOUT_WITH_LEGEND()
+
+Container_Boundary(framework, "Android Framework") {
+    'Container_Boundary(producer, "Producer") {
+        Component(window, "Window", "C++")
+        Component(free, "Free Buffer", "C++")
+    '}
+}
+Container_Boundary(server, "SurfaceFlinger", "Android Graphic Server.") {
+    'Container_Boundary(queue, "Queue") {
+        Component(buffer_queue, "BufferQueue", "C++")
+        Component(back, "Back Buffer", "C++")
+        Component(front, "Front Buffer", "C++")
+    '}
+    'Container_Boundary(consumer, "Consumer") {
+        Component(layer, "Layer", "C++")
+        Component(frame, "Frame Buffer", "C++")
+    '}
+}
+
+'Lay_R(framework, server)
+'Lay_R(producer, queue)
+'Lay_R(queue, consumer)
+Lay_R(window, buffer_queue)
+Lay_R(buffer_queue, layer)
+Lay_D(window, free)
+Lay_D(buffer_queue, back)
+Lay_D(buffer_queue, front)
+Lay_D(layer, frame)
+
+Rel_R(window, buffer_queue, "queue()")
+Rel_L(buffer_queue, window, "dequeue()")
+Rel_R(buffer_queue, layer, "acquire()")
+Rel_L(layer, buffer_queue, "release()")
+Rel_D(window, free, "Uses")
+Rel_D(buffer_queue, back, "Uses")
+Rel_D(buffer_queue, front, "Uses")
+Rel_D(layer, frame, "Uses")
+Rel_L(back, free, "(same buffer)")
+Rel_R(front, frame, "(same buffer)")
+
+SHOW_LEGEND()
+
+@enduml
