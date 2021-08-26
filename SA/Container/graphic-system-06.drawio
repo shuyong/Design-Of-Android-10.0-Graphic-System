@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-08-26T17:31:37.595Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36" etag="NlwOUn6INlvbSHKDD6OM" version="14.9.9" type="github">
+<mxfile host="app.diagrams.net" modified="2021-08-26T17:59:41.162Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36" etag="eJh_9Po24iN1d_fjClLs" version="14.9.9" type="github">
   <diagram id="-vkuxwzAvVH7Rz_sly9j" name="Page-1">
     <mxGraphModel dx="2495" dy="2098" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -262,6 +262,65 @@
             <mxGeometry width="50" height="50" relative="1" as="geometry">
               <mxPoint x="40" y="-80" as="sourcePoint" />
               <mxPoint x="-130.07999999999993" y="197.03999999999996" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Software System&lt;/span&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="GPU" description="3D Component." id="rVYEheSiq6zippS44tpr-1">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#999999;fontColor=#FFFFFF;strokeColor=#828282;resizable=0;" vertex="1" parent="1">
+            <mxGeometry x="-220" y="680" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Software System&lt;/span&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="HWComposer" description="2D Component." id="rVYEheSiq6zippS44tpr-2">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#999999;fontColor=#FFFFFF;strokeColor=#828282;resizable=0;" vertex="1" parent="1">
+            <mxGeometry x="920" y="680" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="Uses" technology="GLES function call" id="rVYEheSiq6zippS44tpr-3">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="0vbsiYUbB-kdxmA2h0WD-3" target="rVYEheSiq6zippS44tpr-1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="-129.92" y="302.5" as="sourcePoint" />
+              <mxPoint x="-299.9999999999999" y="579.54" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="rVYEheSiq6zippS44tpr-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="rVYEheSiq6zippS44tpr-4">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="5" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rVYEheSiq6zippS44tpr-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="rVYEheSiq6zippS44tpr-4">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-130" y="385" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rVYEheSiq6zippS44tpr-4" value="as EGLSurface" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-40" y="380" width="90" height="10" as="geometry" />
+        </mxCell>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="Uses" technology="GLES function call" id="rVYEheSiq6zippS44tpr-8">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;exitX=0.25;exitY=1;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="QSGKsO-Dh6E3M1oI7asi-16">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="400.08" y="580" as="sourcePoint" />
+              <mxPoint x="-90" y="680" as="targetPoint" />
+              <Array as="points">
+                <mxPoint x="965" y="600" />
+                <mxPoint x="-90" y="600" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="rVYEheSiq6zippS44tpr-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="rVYEheSiq6zippS44tpr-9">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="15" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rVYEheSiq6zippS44tpr-9" value="as EGLImageKHR" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-40" y="630" width="110" height="10" as="geometry" />
+        </mxCell>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="Uses" technology="function call" id="rVYEheSiq6zippS44tpr-11">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="QSGKsO-Dh6E3M1oI7asi-16" target="rVYEheSiq6zippS44tpr-2">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="1020" y="130" as="sourcePoint" />
+              <mxPoint x="1020" y="195" as="targetPoint" />
             </mxGeometry>
           </mxCell>
         </object>
