@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-08-26T17:19:33.621Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36" etag="yHKI5TRgN0xarnOWYvDW" version="14.9.9" type="github">
+<mxfile host="app.diagrams.net" modified="2021-08-26T17:31:37.595Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36" etag="NlwOUn6INlvbSHKDD6OM" version="14.9.9" type="github">
   <diagram id="-vkuxwzAvVH7Rz_sly9j" name="Page-1">
     <mxGraphModel dx="2495" dy="2098" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -257,7 +257,7 @@
             <mxGeometry x="800" y="-80" width="110" height="20" as="geometry" />
           </mxCell>
         </object>
-        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="Uses" technology="eglSurface" id="0vbsiYUbB-kdxmA2h0WD-19">
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="Uses" technology="EGLSurface" id="0vbsiYUbB-kdxmA2h0WD-19">
           <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="0vbsiYUbB-kdxmA2h0WD-3" target="QSGKsO-Dh6E3M1oI7asi-3" edge="1">
             <mxGeometry width="50" height="50" relative="1" as="geometry">
               <mxPoint x="40" y="-80" as="sourcePoint" />
