@@ -1,0 +1,297 @@
+<mxfile host="app.diagrams.net" modified="2021-08-27T15:35:08.174Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36" etag="Dn-hbIc4ZrcGS2df7CbS" version="14.9.9" type="github">
+  <diagram id="-vkuxwzAvVH7Rz_sly9j" name="Page-1">
+    <mxGraphModel dx="2760" dy="1538" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Container: %technology%]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="Logic and Algorithm" technology="JAVA, C++, Python" description="Application Logic Level." id="QSGKsO-Dh6E3M1oI7asi-52">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3B8CD2;fontColor=#FFFFFF;strokeColor=#2F6FA6;resizable=0;" parent="1" vertex="1">
+            <mxGeometry x="150" y="250" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Container: %technology%]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="Renderer" technology="C++ (hwui, skia)" description="Rendering module of Application." id="QSGKsO-Dh6E3M1oI7asi-53">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3B8CD2;fontColor=#FFFFFF;strokeColor=#2F6FA6;resizable=0;" parent="1" vertex="1">
+            <mxGeometry x="20" y="500" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Container: %technology%]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="Composer Client" technology="C++" description="Producer" id="QSGKsO-Dh6E3M1oI7asi-54">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3B8CD2;fontColor=#FFFFFF;strokeColor=#2F6FA6;resizable=0;" parent="1" vertex="1">
+            <mxGeometry x="280" y="500" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="Uses" technology="function call" id="QSGKsO-Dh6E3M1oI7asi-60">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="QSGKsO-Dh6E3M1oI7asi-52" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="220" y="420" as="sourcePoint" />
+              <mxPoint x="120" y="500" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Container: %technology%]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="BufferQueue" technology="C++" description="Queue" id="pd69uAE432V32opmIk38-2">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3B8CD2;fontColor=#FFFFFF;strokeColor=#2F6FA6;resizable=0;" parent="1" vertex="1">
+            <mxGeometry x="620" y="500" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Container: %technology%]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="SurfaceFlinger" technology="C++" description="Consumer" id="pd69uAE432V32opmIk38-3">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3B8CD2;fontColor=#FFFFFF;strokeColor=#2F6FA6;resizable=0;" parent="1" vertex="1">
+            <mxGeometry x="1075" y="500" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="dequeue()" technology="IBinder" id="pd69uAE432V32opmIk38-4">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;exitX=0;exitY=0.75;exitDx=0;exitDy=0;" parent="1" source="pd69uAE432V32opmIk38-2" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="640" y="592.5" as="sourcePoint" />
+              <mxPoint x="460" y="590" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="queue()" technology="IBinder" id="pd69uAE432V32opmIk38-5">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;" parent="1" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="460" y="530" as="sourcePoint" />
+              <mxPoint x="620" y="530" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="acquire()" technology="IBinder" id="pd69uAE432V32opmIk38-6">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" parent="1" target="pd69uAE432V32opmIk38-3" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="800" y="530" as="sourcePoint" />
+              <mxPoint x="930" y="530" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="release()" technology="IBinder" id="pd69uAE432V32opmIk38-7">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;exitX=0;exitY=0.75;exitDx=0;exitDy=0;" parent="1" source="pd69uAE432V32opmIk38-3" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="930" y="590" as="sourcePoint" />
+              <mxPoint x="800" y="590" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Container: %technology%]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="VSYNC" technology="C++" description="VSYNC Source" id="pd69uAE432V32opmIk38-8">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3B8CD2;fontColor=#FFFFFF;strokeColor=#2F6FA6;resizable=0;" parent="1" vertex="1">
+            <mxGeometry x="1075" y="250" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="VSYNC trigger" technology="event message" id="pd69uAE432V32opmIk38-9">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="pd69uAE432V32opmIk38-8" target="pd69uAE432V32opmIk38-3" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="1069.5" y="410" as="sourcePoint" />
+              <mxPoint x="1069.5" y="500" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="pd69uAE432V32opmIk38-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="pd69uAE432V32opmIk38-11" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1160" y="414" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <object label="VSYNC&amp;nbsp;frequency" id="pd69uAE432V32opmIk38-11">
+          <mxCell style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+            <mxGeometry x="980" y="404" width="110" height="20" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="eglSwapBuffers()" technology="function call" id="pd69uAE432V32opmIk38-12">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;entryX=0.444;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryPerimeter=0;" parent="1" source="QSGKsO-Dh6E3M1oI7asi-52" target="QSGKsO-Dh6E3M1oI7asi-54" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="30" y="-90" as="sourcePoint" />
+              <mxPoint x="190" y="182.5" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="pd69uAE432V32opmIk38-16" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="pd69uAE432V32opmIk38-13" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="280" y="414" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <object label="User defined frequency" id="pd69uAE432V32opmIk38-13">
+          <mxCell style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+            <mxGeometry x="350" y="404" width="140" height="20" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="Sync" technology="Choreographer" id="pd69uAE432V32opmIk38-15">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="pd69uAE432V32opmIk38-11" target="pd69uAE432V32opmIk38-13" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="590" y="320" as="sourcePoint" />
+              <mxPoint x="790" y="320" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="pd69uAE432V32opmIk38-18" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="pd69uAE432V32opmIk38-17" target="pd69uAE432V32opmIk38-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pd69uAE432V32opmIk38-17" value="triple-buffer for over load pulse" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="615" y="450" width="190" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="DfxLDL2CgNiKGJUCG_ct-1" value="Dequeued" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
+          <mxGeometry x="640" y="860" width="140" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="DfxLDL2CgNiKGJUCG_ct-5" value="Unlocked" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
+          <mxGeometry x="40" y="710" width="140" height="52" as="geometry" />
+        </mxCell>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="EGL modifications to the render buffer are done." technology="queue()" id="DfxLDL2CgNiKGJUCG_ct-15">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;entryX=0.005;entryY=0.115;entryDx=0;entryDy=0;entryPerimeter=0;" parent="DfxLDL2CgNiKGJUCG_ct-5" target="DfxLDL2CgNiKGJUCG_ct-8" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="140" y="30" as="sourcePoint" />
+              <mxPoint x="557" y="30" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="DfxLDL2CgNiKGJUCG_ct-52" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="DfxLDL2CgNiKGJUCG_ct-7" target="DfxLDL2CgNiKGJUCG_ct-51" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DfxLDL2CgNiKGJUCG_ct-7" value="Queued" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
+          <mxGeometry x="600" y="710" width="220" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="DfxLDL2CgNiKGJUCG_ct-8" value="entry / This unlocks and post the frame." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="DfxLDL2CgNiKGJUCG_ct-7" vertex="1">
+          <mxGeometry y="26" width="220" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="DfxLDL2CgNiKGJUCG_ct-11" value="Locked" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
+          <mxGeometry x="-15" y="860" width="250" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="DfxLDL2CgNiKGJUCG_ct-12" value="entry / EGL changes to the graphic memory." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="DfxLDL2CgNiKGJUCG_ct-11" vertex="1">
+          <mxGeometry y="26" width="250" height="26" as="geometry" />
+        </mxCell>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="EGL acquires a buffer." technology="dequeue()" id="DfxLDL2CgNiKGJUCG_ct-16">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;exitX=0.464;exitY=1.192;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.45;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="DfxLDL2CgNiKGJUCG_ct-8" target="DfxLDL2CgNiKGJUCG_ct-1" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="720" y="810" as="sourcePoint" />
+              <mxPoint x="920" y="810" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="EGL requires the accessed buffer." technology="lock()" id="DfxLDL2CgNiKGJUCG_ct-17">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.988;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="DfxLDL2CgNiKGJUCG_ct-1" target="DfxLDL2CgNiKGJUCG_ct-12" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="370" y="1000" as="sourcePoint" />
+              <mxPoint x="570" y="1000" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="All changes to the buffer are completed." technology="unlock()" id="DfxLDL2CgNiKGJUCG_ct-18">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;exitX=0.46;exitY=0.019;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="DfxLDL2CgNiKGJUCG_ct-11" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="-220" y="800" as="sourcePoint" />
+              <mxPoint x="100" y="760" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="DfxLDL2CgNiKGJUCG_ct-19" value="QUEUED" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
+          <mxGeometry x="300" y="1050" width="140" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="DfxLDL2CgNiKGJUCG_ct-23" value="ACQUIRED" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
+          <mxGeometry x="1095" y="1050" width="140" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="DfxLDL2CgNiKGJUCG_ct-24" value="FREE" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
+          <mxGeometry x="1095" y="1200" width="140" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="DfxLDL2CgNiKGJUCG_ct-25" value="DEQUEUED" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
+          <mxGeometry x="300" y="1200" width="140" height="52" as="geometry" />
+        </mxCell>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="EGL acquires a frame." technology="acquire()" id="DfxLDL2CgNiKGJUCG_ct-26">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="DfxLDL2CgNiKGJUCG_ct-19" target="DfxLDL2CgNiKGJUCG_ct-23" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="709.4999999999999" y="1070.002" as="sourcePoint" />
+              <mxPoint x="710.42" y="1163.01" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="EGL modifications to the render buffer are done at consumer side." technology="release()" id="DfxLDL2CgNiKGJUCG_ct-27">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="DfxLDL2CgNiKGJUCG_ct-23" target="DfxLDL2CgNiKGJUCG_ct-24" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="1165" y="1120" as="sourcePoint" />
+              <mxPoint x="1036.1" y="1170" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="EGL modifications to the render buffer are done at producer side." technology="queue()" id="DfxLDL2CgNiKGJUCG_ct-28">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="DfxLDL2CgNiKGJUCG_ct-25" target="DfxLDL2CgNiKGJUCG_ct-19" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="370" y="1190" as="sourcePoint" />
+              <mxPoint x="1040" y="1210" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="EGL acquires a buffer." technology="dequeue()" id="DfxLDL2CgNiKGJUCG_ct-29">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="DfxLDL2CgNiKGJUCG_ct-24" target="DfxLDL2CgNiKGJUCG_ct-25" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="712.0799999999999" y="776.992" as="sourcePoint" />
+              <mxPoint x="713" y="870" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="DfxLDL2CgNiKGJUCG_ct-54" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="DfxLDL2CgNiKGJUCG_ct-30" target="DfxLDL2CgNiKGJUCG_ct-53" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1390" y="1426" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DfxLDL2CgNiKGJUCG_ct-30" value="Locked" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
+          <mxGeometry x="1040" y="1400" width="250" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="DfxLDL2CgNiKGJUCG_ct-31" value="entry / EGL changes to the graphic memory." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="DfxLDL2CgNiKGJUCG_ct-30" vertex="1">
+          <mxGeometry y="26" width="250" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="DfxLDL2CgNiKGJUCG_ct-32" value="Released" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
+          <mxGeometry x="640" y="1560" width="140" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="DfxLDL2CgNiKGJUCG_ct-33" value="entry / This unlocks." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="DfxLDL2CgNiKGJUCG_ct-32" vertex="1">
+          <mxGeometry y="26" width="140" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="DfxLDL2CgNiKGJUCG_ct-34" value="Unlocked" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
+          <mxGeometry x="1095" y="1560" width="140" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="DfxLDL2CgNiKGJUCG_ct-36" value="Acquired" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
+          <mxGeometry x="640" y="1400" width="140" height="52" as="geometry" />
+        </mxCell>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="EGL requires the accessed frame." technology="lock()" id="DfxLDL2CgNiKGJUCG_ct-37">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="DfxLDL2CgNiKGJUCG_ct-36" target="DfxLDL2CgNiKGJUCG_ct-31" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="1048" y="1500" as="sourcePoint" />
+              <mxPoint x="640" y="1500" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="EGL acquires a frame." technology="acquire()" id="DfxLDL2CgNiKGJUCG_ct-39">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="DfxLDL2CgNiKGJUCG_ct-32" target="DfxLDL2CgNiKGJUCG_ct-36" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="450" y="1086" as="sourcePoint" />
+              <mxPoint x="1065" y="1086" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="All changes to the buffer are completed." technology="unlock()" id="DfxLDL2CgNiKGJUCG_ct-41">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;entryX=0.457;entryY=0;entryDx=0;entryDy=0;exitX=0.48;exitY=1.077;exitDx=0;exitDy=0;exitPerimeter=0;entryPerimeter=0;" parent="1" source="DfxLDL2CgNiKGJUCG_ct-31" target="DfxLDL2CgNiKGJUCG_ct-34" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="1175" y="1112" as="sourcePoint" />
+              <mxPoint x="1175" y="1210" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="EGL modifications to the render buffer are done." technology="release()" id="DfxLDL2CgNiKGJUCG_ct-42">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;entryX=1.021;entryY=0.154;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryPerimeter=0;" parent="1" source="DfxLDL2CgNiKGJUCG_ct-34" target="DfxLDL2CgNiKGJUCG_ct-33" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="1135" y="1112" as="sourcePoint" />
+              <mxPoint x="1135" y="1210" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="DfxLDL2CgNiKGJUCG_ct-47" value="Buffer Statemachine in Producer " style="swimlane;" parent="1" vertex="1">
+          <mxGeometry x="-40" y="660" width="890" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="DfxLDL2CgNiKGJUCG_ct-49" value="Buffer Statemachine in Queue " style="swimlane;" parent="1" vertex="1">
+          <mxGeometry x="160" y="1000" width="1200" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="DfxLDL2CgNiKGJUCG_ct-50" value="Buffer Statemachine in Consumer " style="swimlane;" parent="1" vertex="1">
+          <mxGeometry x="520" y="1354" width="840" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="DfxLDL2CgNiKGJUCG_ct-51" value="Post the frame to consumer." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="880" y="726" width="160" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="DfxLDL2CgNiKGJUCG_ct-53" value="Post the frame to GPU or HWComposer." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="1400" y="1416" width="220" height="20" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
