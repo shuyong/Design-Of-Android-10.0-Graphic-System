@@ -53,22 +53,22 @@ Android 图形系统是多线程/进程协作架构，为了使得 Client / Serv
 
 因为流水线太长，buffer 的用户太多，这时已经无法使用队列(Queue)的 Listener 机制进行同步。于是 Android 设计了另外一种伴随着 buffer 的主动同步机制，Fence 机制。该机制可以认为也是一种 Listener 模式，它代表着它所伴随的 buffer 的 busy / free 状态。当在流水线上的任何一个模块要**真正地读或写**某一个 buffer 时，都需要主动查询该 buffer 的 busy / free 状态。当查询接口阻塞时，代表有其它模块正在使用该 buffer。当查询接口返回时，说明该 buffer 为真正的 free 状态，并且所有权已经属于该模块，则要使用 buffer 的模块要做的第一件事情就是关闭原先老的 Fence，生成新的 Fence 伴随该 buffer，这就代表着该模块正在占用该 buffer，直到工作完成，该模块关闭自己的 Fence，让其它模块的 Fence 查询接口得以返回，这就代表着该 buffer 的所有权已经转移到新的模块上。这种机制有利于并发模型。
 
-# BufferQueue 的驱动
+# BufferQueue 的驱动力
 
-那么，这个 Producer-Queue-Consumer 模型的驱动力来自于两个驱动时钟：
+这个 Producer-Queue-Consumer 模型的驱动力来自于两个驱动时钟：
 * Producer 端的用户定义频率
 * Consumer 端的 VSYNC 频率
 
 ![Android 图形流水线两个驱动时钟](graphic-system-06.png)
 
-* 在 Producer 端的触发条件是应用代码调用 eglSwapBuffers() 函数。因此用户调用 eglSwapBuffers() 函数的频率就是 Producer 端的驱动时钟。这个时钟可以不定时。
+* 在 Producer 端提交内容的触发条件是应用代码调用 eglSwapBuffers() 函数。因此用户调用 eglSwapBuffers() 函数的频率就是 Producer 端的驱动时钟。这个时钟可以不定时。
 * 在 Consumer 端的触发条件是 VSYNC 信号。这是一个相对稳定的时钟。
 * 这两个时钟可以不一致、不同步。但是，如果 Producer 端以 100Hz 频率生产内容，而 Consumer 端以 60Hz 频率消费内容，中间就有很多帧的内容被抛弃。这样做既消耗系统资源也无意义。
 * 因此，VSYNC 频率和用户定义频率需要同步，以有效且平滑地生产并显示内容。这就是 Android 图形系统中的编舞者(Choreographer)机制。 
 
 ![Android 图形流水线时钟同步](graphic-system-07.png)
 
-* 此外，BufferQueue 也对协调生产和消费这两种频率起者积极作用。因此 Android 图形系统中的 BufferQueue 是一种自适应的三缓冲(triple-buffer)设计。
+* 此外，BufferQueue 也对协调生产和消费这两种频率起着积极作用。因此 Android 图形系统中的 BufferQueue 是一种自适应的三缓冲(triple-buffer)设计。
 * BufferQueue 对于 Producer 端，在从 buffer pool 中按照 Buffer ID 的最小编号选取。
   - 这可以使得申请的 buffer 的个数最小。
   - 相应的，也使得已申请的 buffer 尽快被复用到，使得新帧可以尽快被显示出去，延时最小。
@@ -102,7 +102,7 @@ Consumer 端的循环有：
 * C. 已被修改的帧做为 EGLImageKHR 绑定到一个 Texture / FBO ID 上。原先绑定的 EGLImageKHR 被顶出来成为 free buffer。
 * D. Layer 调用 release() 方法将 free buffer 退回 BufferQueue。
 * E. Layer 调用 OpenGLES 函数合成部分 buffer 的内容。
-* F. Layer 调用 HWComposer 函数合成剩余的 buffer 的内容，并将总的合成内容显示到平面上。
+* F. Layer 调用 HWComposer 函数合成剩余的 buffer 的内容，并将总的合成内容显示到屏幕上。
 
 在 Producer-Queue-Consumer 模式中，当 buffer 数量有限时，两端的驱动频率自然地由 Queue 阻塞而得以协调。大致的时序图如下：
 
@@ -125,7 +125,7 @@ Consumer 端的循环有：
 
 Android 图形系统是多进程/多线程协作的并发系统，为了减小阻塞，Producer/Consumer 两端需要采用尽快交付策略，也就是利用上一节所讨论的 Fence 机制。Producer 端的 CPU 处理完渲染配置事务后，不必等 GPU 渲染完成，就可以将 frame buffer 交付给 Queue。Consumer 端取出 frame buffer 后，在**真正读取**内容前，会检查伴随的 Fence，如果 GPU 还没有渲染完成，自然陷入等待中，直到渲染完成就自动返回，Consumer 端就可以做后续的合成工作。当 Consumer 端处理完合成配置事务后，不必等待 GPU/HWComposer 合成完成，就可以将 free buffer 交付给 Queue。Producer 端得到 free buffer 后，在**真正写入**内容前，会检查伴随的 Fence，如果还有用户还在读取该 buffer 中的内容则陷入等待，直到读取完成就自动返回，Producer 端就可以做后续的渲染工作。通过 Fence 机制，充分利用了系统的多核异构的并发特性，有效地减小了 buffer 在流水线中的阻塞时间。
 
-编舞者(Choreographer)进行 Producer/Consumer 两端频率的协调之后，图形流水线运转得更顺畅。不过同步并发也会带来一个新的问题，Producer 端的第 4 步可能会和 Consumer 端的第 E 步竞争 GPU 资源，Consumer 端的第 F 步可能会和底层显示驱动竞争 HWComposer 资源。因此频率协调之后，Producer/Consumer 两端的执行时间需要有相位偏移(phase offset)，这将在后面讨论。
+编舞者(Choreographer)进行 Producer/Consumer 两端频率的协调之后，图形流水线运转得更顺畅。不过同步并发也会带来一个新的问题，Producer 端的第 4 步可能会和 Consumer 端的第 E 步竞争 GPU 资源，Consumer 端的第 F 步可能会和底层显示驱动竞争 HWComposer 资源。因此频率协调之后，Producer/Consumer 两端的执行时间点需要有相位偏移(phase offset)，这将在后面讨论。
 
 # Buffer 的状态机
 
@@ -168,9 +168,9 @@ Android 图形系统是多进程/多线程协作的并发系统，为了减小�
 
 每一对 Surface-Layer 存在一个 BufferQueue，对应一个应用窗口。而多窗口系统有很多个 Surface 同时存在，并且应用程序绘图的节拍由各自调用 eglSwapBuffers() 函数的频率决定。图形显示节拍，每一对 RenderSurface-DisplaySurface，对应一个显示设备，存在一个 BufferQueue，只在 surfaceflinger service 内部存在。显示设备一般较少，大多数情况下只有一个且必然要存在一个显示设备，否则 Android 系统无法启动。图形显示节拍由 VSYNC 决定，如果存在多个显示设备，则只由主显示设备的 VSYNC 决定。
 
-这时候又回到另外的话题，如果多个窗口的刷新频率能和 VSYNC 同步，则显示回更顺滑。这就是编舞者(Choreographer)机制要解决的问题。这在后面讨论。
+这时候又回到前面的话题，如果多个窗口的刷新频率能和 VSYNC 同步，则显示会更顺滑。这就是编舞者(Choreographer)机制要解决的问题。这在后面讨论。
 
-在合成(Composition)操作期间，需要对 z-order 中的 Dirty Layer 进行三次扫描。第一遍是从底到顶扫描，记录每个 Layer 暴露的区域，并且标记各个 buffer 用哪个设备合成更合适(GPU or HWComposer)。这是因为根据格式和尺寸的不同，还有根据各个厂商硬件的不同，有些 buffer 适合用 GPU 合成而有些适合用 HWComposer 合成。第二遍是从顶到底扫描，对合适的 buffer 用 GPU 进行合成操作，第三遍也是从顶到底扫描，对剩余的 buffer 用 HWComposer 进行合成操作。
+在合成(Composition)操作期间，需要对 z-order 中的 Dirty Layer 进行三次扫描。第一遍是从底到顶扫描，记录每个 Layer 暴露的区域，并且标记各个 buffer 用哪个设备合成更合适(GPU or HWComposer)。这是因为根据内容格式和尺寸的不同，还有根据各个厂商硬件的不同，有些 buffer 适合用 GPU 合成而有些适合用 HWComposer 合成。第二遍是从顶到底扫描，对合适的 buffer 用 GPU 进行合成操作，第三遍也是从顶到底扫描，对剩余的 buffer 用 HWComposer 进行合成操作。
 
 显示的最关键操作就是在 z-order 的最底层插入了由第二阶段的 BufferQueue 提供的 back buffer，该 buffer 实际上是 device frame buffer，写在上面的内容可以显示到屏幕上，条件是从 back 变成 front 状态。这样，back buffer 就承接了合成结果，并在下一个 VSYNC 到来时交换为 front buffer 并显示在屏幕上。
 
@@ -180,7 +180,7 @@ Android 图形系统是多进程/多线程协作的并发系统，为了减小�
 
 # 编舞者(Choreographer)的设计
 
-当每个窗口渲染的频率和 surfaceflinger 的合成频率以 VSYNC 信号同步以后，会出现对 GPU / HWComposer 的集中式爆发使用。这样的设备竞争不利于平滑显示。所以 Android 图形流水线的执行需要有相位偏移，这是编舞者(Choreographer)的设计细节。
+当每个窗口渲染的频率和 surfaceflinger 的合成频率以 VSYNC 信号同步以后，会出现对 GPU / HWComposer 的集中式爆发使用。这样的设备竞争不利于平滑显示。所以 Android 图形流水线的执行时间点需要有相位偏移，这是编舞者(Choreographer)的设计细节。
 
 Choreographer 框架要协调 3 类事件的周期启动时间：
 1. HW_VSYNC_0 - 屏幕开始显示一帧内容。
