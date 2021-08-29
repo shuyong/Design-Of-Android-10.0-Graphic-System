@@ -51,7 +51,7 @@ Android 图形系统是多线程/进程协作架构，为了使得 Client / Serv
 
 在 Android 图形系统中经常采用对称设计，但是在这个 Listener 模式的实现中，针对 Producer 端的 Listener 类并没有被使用。因为在 Android 图形系统流水线中，Free Buffer 的含义相当微妙。并不是说当 Consumer 端通过 release() 方法将 buffer 放入队列(Queue)后，buffer 就成为 free 状态。相反，为了尽可能发挥并行效率，在 Consumer 端的线程，将 CPU 能做的事情做完后，将 frame 交给了 GPU 之后，就会将该 buffer 的管理数据结构通过 release() 方法退回给 Queue，使得 Producer 端的线程无需长时间陷入忙等待就获得一个虚拟的 free buffer。因为如果幸运的话，因为线程的切换，当 Producer 端的线程被激活并获得一个 buffer 时，有一定的时间，并且线程还会运行一些管理代码，也需要一些时间，当该线程真正需要将内容写入 buffer 时，也许 GPU 就已经使用完该 buffer，于是该 buffer 就已经成为真正的 free buffer。这样，利用多核异构的并发特性，整个系统的利用率最高。
 
-因为流水线太长，buffer 的用户太多，这时已经无法使用队列(Queue)的 Listener 机制进行同步。于是 Android 设计了另外一种伴随着 buffer 的主动同步机制，Fence 机制。该机制可以认为也是一种 Listener 模式，它代表着它所伴随的 buffer 的 busy / free 状态。当在流水线上的任何一个模块要**真正地**读或写某一个 buffer 时，都需要主动查询该 buffer 的 busy / free 状态。当查询接口阻塞时，代表有其它模块正在使用该 buffer。当查询接口返回时，说明该 buffer 为真正的 free 状态，并且所有权已经属于该模块，则要使用 buffer 的模块要做的第一件事情就是关闭原先老的 Fence，生成新的 Fence 伴随该 buffer，这就代表着该模块正在占用该 buffer，直到工作完成，该模块关闭自己的 Fence，让其它模块的 Fence 查询接口得以返回，这就代表着该 buffer 的所有权已经转移到新的模块上。这种机制有利于并发模型。
+因为流水线太长，buffer 的用户太多，这时已经无法使用队列(Queue)的 Listener 机制进行同步。于是 Android 设计了另外一种伴随着 buffer 的主动同步机制，Fence 机制。该机制可以认为也是一种 Listener 模式，它代表着它所伴随的 buffer 的 busy / free 状态。当在流水线上的任何一个模块要**真正地读或写**某一个 buffer 时，都需要主动查询该 buffer 的 busy / free 状态。当查询接口阻塞时，代表有其它模块正在使用该 buffer。当查询接口返回时，说明该 buffer 为真正的 free 状态，并且所有权已经属于该模块，则要使用 buffer 的模块要做的第一件事情就是关闭原先老的 Fence，生成新的 Fence 伴随该 buffer，这就代表着该模块正在占用该 buffer，直到工作完成，该模块关闭自己的 Fence，让其它模块的 Fence 查询接口得以返回，这就代表着该 buffer 的所有权已经转移到新的模块上。这种机制有利于并发模型。
 
 # BufferQueue 的驱动
 
@@ -92,19 +92,19 @@ Producer 端的循环我们可以认为是从调用 eglSwapBuffers() 函数开�
 5. Window 是以 EGLSurface 接口提供给 OpenGLES 模块使用。渲染函数使用 OpenGLES 函数生产内容。
 
 Queue 的循环有：
-α. 交换 back / front buffer。
-β. BufferQueue 调用 Listener 发消息。
-γ. Listener 将 onFrameAvailable() 消息跨线程发给 SurfaceFlinger。注意，此时 SurfaceFlinger 并没有启动合成任务，在此上下文中，它只是将已被修改的帧的编号记录下来。
+* α. 交换 back / front buffer。
+* β. BufferQueue 调用 Listener 发消息。
+* γ. Listener 将 onFrameAvailable() 消息跨线程发给 SurfaceFlinger。注意，此时 SurfaceFlinger 并没有启动合成任务，在此上下文中，它只是将已被修改的帧的编号记录下来。
 
 Consumer 端的循环有：
-A. VSYNC 消息到达，SurfaceFlinger 启动合成任务。
-B. Layer 调用 acquire() 方法获取已被修改的帧。
-C. 已被修改的帧做为 EGLImageKHR 绑定到一个 Texture / FBO ID 上。原先绑定的 EGLImageKHR 被顶出来成为 free buffer。
-D. Layer 调用 release() 方法将 free buffer 退回 BufferQueue。
-E. Layer 调用 OpenGLES 函数合成部分 buffer 的内容。
-F. Layer 调用 HWComposer 函数合成剩余的 buffer 的内容，并将总的合成内容显示到平面上。
+* A. VSYNC 消息到达，SurfaceFlinger 启动合成任务。
+* B. Layer 调用 acquire() 方法获取已被修改的帧。
+* C. 已被修改的帧做为 EGLImageKHR 绑定到一个 Texture / FBO ID 上。原先绑定的 EGLImageKHR 被顶出来成为 free buffer。
+* D. Layer 调用 release() 方法将 free buffer 退回 BufferQueue。
+* E. Layer 调用 OpenGLES 函数合成部分 buffer 的内容。
+* F. Layer 调用 HWComposer 函数合成剩余的 buffer 的内容，并将总的合成内容显示到平面上。
 
-在 Producer-Queue-Consumer 模式中，当 buffer 数量有限时，两端的驱动频率自然地在 Queue 中阻塞就得以协调。大致的时序图如下：
+在 Producer-Queue-Consumer 模式中，当 buffer 数量有限时，两端的驱动频率自然地由 Queue 阻塞而得以协调。大致的时序图如下：
 
 | No. | Producer         | No. | Queue              | No. | Consumer         |
 |:---:|------------------|:---:|--------------------|:---:|------------------|
@@ -123,7 +123,7 @@ F. Layer 调用 HWComposer 函数合成剩余的 buffer 的内容，并将总的
 | 4   | Call Renderer    |     |                    |     |                  |
 | 5   | Call OpenGLES    |     |                    |     |                  |
 
-Android 图形系统是多进程/多线程协作的并发系统，为了减小阻塞，Producer/Consumer 两端需要采用尽快交付策略，也就是利用上一节所讨论的 Fence 机制。Producer 端的 CPU 处理完渲染配置事务后，不必等 GPU 渲染完成，就可以将 frame buffer 交付给 Queue。Consumer 端取出 frame buffer 后，在**真正**读取内容前，会检查伴随的 Fence，如果 GPU 还没有渲染完成，自然陷入等待中，直到渲染完成就自动返回，Consumer 端就可以做后续的合成工作。当 Consumer 端处理完合成配置事务后，不必等待 GPU/HWComposer 合成完成，就可以将 free buffer 交付给 Queue。Producer 端得到 free buffer 后，在**真正**写入内容前，会检查伴随的 Fence，如果还有用户还在读取该 buffer 中的内容则陷入等待，直到读取完成就自动返回，Producer 端就可以做后续的渲染工作。通过 Fence 机制，充分利用了系统的多核异构的并发特性，有效地减小了 buffer 在流水线中的阻塞时间。
+Android 图形系统是多进程/多线程协作的并发系统，为了减小阻塞，Producer/Consumer 两端需要采用尽快交付策略，也就是利用上一节所讨论的 Fence 机制。Producer 端的 CPU 处理完渲染配置事务后，不必等 GPU 渲染完成，就可以将 frame buffer 交付给 Queue。Consumer 端取出 frame buffer 后，在**真正读取**内容前，会检查伴随的 Fence，如果 GPU 还没有渲染完成，自然陷入等待中，直到渲染完成就自动返回，Consumer 端就可以做后续的合成工作。当 Consumer 端处理完合成配置事务后，不必等待 GPU/HWComposer 合成完成，就可以将 free buffer 交付给 Queue。Producer 端得到 free buffer 后，在**真正写入**内容前，会检查伴随的 Fence，如果还有用户还在读取该 buffer 中的内容则陷入等待，直到读取完成就自动返回，Producer 端就可以做后续的渲染工作。通过 Fence 机制，充分利用了系统的多核异构的并发特性，有效地减小了 buffer 在流水线中的阻塞时间。
 
 编舞者(Choreographer)进行 Producer/Consumer 两端频率的协调之后，图形流水线运转得更顺畅。不过同步并发也会带来一个新的问题，Producer 端的第 4 步可能会和 Consumer 端的第 E 步竞争 GPU 资源，Consumer 端的第 F 步可能会和底层显示驱动竞争 HWComposer 资源。因此频率协调之后，Producer/Consumer 两端的执行时间需要有相位偏移(phase offset)，这将在后面讨论。
 
@@ -176,7 +176,7 @@ Android 图形系统是多进程/多线程协作的并发系统，为了减小�
 
 所以第二阶段的 BufferQueue 有点特殊，它只管理 device frame buffer，并且固定只有 back & front 两个 buffer，因为这样设计可以保证最小的显示延迟。当然，如果这条流水线是虚拟显示设备，则可以是普通的 buffer，后面的流水线还附加有更多的处理模块，如编码模块和WIFI模块等等。
 
-因此，两阶段(2-stage)的显示流水线设计，使得正在显示过程中的内容不会被修改而产生撕裂效果。从 buffer 在流水线中的应用可以看出，在同一时刻，一个 buffer 只有一个应用方向，要么**只写(write only)**要么**只读(read only)**，这是通过大家都主动使用主动式同步接口(Fence)来保证的。
+因此，两阶段(2-stage)的显示流水线设计，使得正在显示过程中的内容不会被修改而产生撕裂效果。从 buffer 在流水线中的应用可以看出，在同一时刻，一个 buffer 只有一个应用方向，**要么只写(write only)要么只读(read only)**，这是通过大家都主动使用主动式同步接口(Fence)来保证的。
 
 # 编舞者(Choreographer)的设计
 
