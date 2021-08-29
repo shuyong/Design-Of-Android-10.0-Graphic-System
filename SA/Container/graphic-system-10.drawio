@@ -1,0 +1,304 @@
+<mxfile host="app.diagrams.net" modified="2021-08-29T03:37:33.067Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36" etag="WB7N08P3QMXtiE-B736q" version="14.9.9" type="github">
+  <diagram id="-vkuxwzAvVH7Rz_sly9j" name="Page-1">
+    <mxGraphModel dx="1853" dy="1571" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Container: %technology%]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="Surface" technology="C++" description="Producer" id="QSGKsO-Dh6E3M1oI7asi-54">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3B8CD2;fontColor=#FFFFFF;strokeColor=#2F6FA6;resizable=0;" parent="1" vertex="1">
+            <mxGeometry x="280" y="510" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Container: %technology%]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="BufferQueue" technology="C++" description="Queue" id="pd69uAE432V32opmIk38-2">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3B8CD2;fontColor=#FFFFFF;strokeColor=#2F6FA6;resizable=0;" parent="1" vertex="1">
+            <mxGeometry x="620" y="510" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Container: %technology%]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="Layer" technology="C++" description="Consumer" id="pd69uAE432V32opmIk38-3">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3B8CD2;fontColor=#FFFFFF;strokeColor=#2F6FA6;resizable=0;" parent="1" vertex="1">
+            <mxGeometry x="970" y="500" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="dequeue()" technology="IBinder" id="pd69uAE432V32opmIk38-4">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;exitX=0;exitY=0.75;exitDx=0;exitDy=0;" parent="1" source="pd69uAE432V32opmIk38-2" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="640" y="602.5" as="sourcePoint" />
+              <mxPoint x="460" y="600" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="queue()" technology="IBinder" id="pd69uAE432V32opmIk38-5">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;" parent="1" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="460" y="540" as="sourcePoint" />
+              <mxPoint x="620" y="540" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="acquire()" technology="IBinder" id="pd69uAE432V32opmIk38-6">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" parent="1" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="800" y="540" as="sourcePoint" />
+              <mxPoint x="970" y="540" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="release()" technology="IBinder" id="pd69uAE432V32opmIk38-7">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;exitX=0;exitY=0.75;exitDx=0;exitDy=0;" parent="1" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="970" y="600" as="sourcePoint" />
+              <mxPoint x="800" y="600" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Container: %technology%]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="Surface" technology="C++" description="Producer" id="Uoe2LqP0X9fMWCQAsf6q-7">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3B8CD2;fontColor=#FFFFFF;strokeColor=#2F6FA6;resizable=0;" parent="1" vertex="1">
+            <mxGeometry x="280" y="720" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Container: %technology%]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="BufferQueue" technology="C++" description="Queue" id="Uoe2LqP0X9fMWCQAsf6q-8">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3B8CD2;fontColor=#FFFFFF;strokeColor=#2F6FA6;resizable=0;" parent="1" vertex="1">
+            <mxGeometry x="620" y="720" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Container: %technology%]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="Layer" technology="C++" description="Consumer" id="Uoe2LqP0X9fMWCQAsf6q-9">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3B8CD2;fontColor=#FFFFFF;strokeColor=#2F6FA6;resizable=0;" parent="1" vertex="1">
+            <mxGeometry x="970" y="720" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="dequeue()" technology="IBinder" id="Uoe2LqP0X9fMWCQAsf6q-10">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;exitX=0;exitY=0.75;exitDx=0;exitDy=0;" parent="1" source="Uoe2LqP0X9fMWCQAsf6q-8" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="640" y="812.5" as="sourcePoint" />
+              <mxPoint x="460" y="810" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="queue()" technology="IBinder" id="Uoe2LqP0X9fMWCQAsf6q-11">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;" parent="1" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="460" y="750" as="sourcePoint" />
+              <mxPoint x="620" y="750" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="acquire()" technology="IBinder" id="Uoe2LqP0X9fMWCQAsf6q-12">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" parent="1" target="Uoe2LqP0X9fMWCQAsf6q-9" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="800" y="750" as="sourcePoint" />
+              <mxPoint x="930" y="750" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="release()" technology="IBinder" id="Uoe2LqP0X9fMWCQAsf6q-13">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;exitX=0;exitY=0.75;exitDx=0;exitDy=0;" parent="1" source="Uoe2LqP0X9fMWCQAsf6q-9" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="930" y="810" as="sourcePoint" />
+              <mxPoint x="800" y="810" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Container: %technology%]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="Surface" technology="C++" description="Producer" id="Uoe2LqP0X9fMWCQAsf6q-14">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3B8CD2;fontColor=#FFFFFF;strokeColor=#2F6FA6;resizable=0;" parent="1" vertex="1">
+            <mxGeometry x="280" y="930" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Container: %technology%]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="BufferQueue" technology="C++" description="Queue" id="Uoe2LqP0X9fMWCQAsf6q-15">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3B8CD2;fontColor=#FFFFFF;strokeColor=#2F6FA6;resizable=0;" parent="1" vertex="1">
+            <mxGeometry x="620" y="930" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Container: %technology%]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="Layer" technology="C++" description="Consumer" id="Uoe2LqP0X9fMWCQAsf6q-16">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3B8CD2;fontColor=#FFFFFF;strokeColor=#2F6FA6;resizable=0;" parent="1" vertex="1">
+            <mxGeometry x="970" y="930" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="dequeue()" technology="IBinder" id="Uoe2LqP0X9fMWCQAsf6q-17">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;exitX=0;exitY=0.75;exitDx=0;exitDy=0;" parent="1" source="Uoe2LqP0X9fMWCQAsf6q-15" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="640" y="1022.5" as="sourcePoint" />
+              <mxPoint x="460" y="1020" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="queue()" technology="IBinder" id="Uoe2LqP0X9fMWCQAsf6q-18">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;" parent="1" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="460" y="960" as="sourcePoint" />
+              <mxPoint x="620" y="960" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="acquire()" technology="IBinder" id="Uoe2LqP0X9fMWCQAsf6q-19">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" parent="1" target="Uoe2LqP0X9fMWCQAsf6q-16" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="800" y="960" as="sourcePoint" />
+              <mxPoint x="930" y="960" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="release()" technology="IBinder" id="Uoe2LqP0X9fMWCQAsf6q-20">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;exitX=0;exitY=0.75;exitDx=0;exitDy=0;" parent="1" source="Uoe2LqP0X9fMWCQAsf6q-16" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="930" y="1020" as="sourcePoint" />
+              <mxPoint x="800" y="1020" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="Uoe2LqP0X9fMWCQAsf6q-23" value="B" style="html=1;fontFamily=Helvetica;opacity=70;fillColor=#e51400;strokeColor=#B20000;fontColor=#ffffff;" parent="1" vertex="1">
+          <mxGeometry x="120" y="760" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Uoe2LqP0X9fMWCQAsf6q-24" value="A" style="html=1;fontFamily=Helvetica;fontColor=#000000;opacity=70;fillColor=#e3c800;strokeColor=#B09500;" parent="1" vertex="1">
+          <mxGeometry x="120" y="520" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Uoe2LqP0X9fMWCQAsf6q-25" value="C" style="html=1;fontFamily=Helvetica;fontColor=#ffffff;opacity=70;fillColor=#0050ef;strokeColor=#001DBC;" parent="1" vertex="1">
+          <mxGeometry x="140" y="950" width="40" height="80" as="geometry" />
+        </mxCell>
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Container: %technology%]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="BufferLayerConsumer" technology="C++" description="Connector" id="Uoe2LqP0X9fMWCQAsf6q-26">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3B8CD2;fontColor=#FFFFFF;strokeColor=#2F6FA6;resizable=0;fontFamily=Helvetica;" parent="1" vertex="1">
+            <mxGeometry x="1320" y="720" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Container: %technology%]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="RenderSurface" technology="C++" description="Producer" id="Uoe2LqP0X9fMWCQAsf6q-27">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3B8CD2;fontColor=#FFFFFF;strokeColor=#2F6FA6;resizable=0;" parent="1" vertex="1">
+            <mxGeometry x="1670" y="720" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Container: %technology%]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="BufferQueue" technology="C++" description="Queue" id="Uoe2LqP0X9fMWCQAsf6q-28">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3B8CD2;fontColor=#FFFFFF;strokeColor=#2F6FA6;resizable=0;" parent="1" vertex="1">
+            <mxGeometry x="2010" y="720" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Container: %technology%]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="DisplaySurface" technology="C++" description="Consumer" id="Uoe2LqP0X9fMWCQAsf6q-29">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3B8CD2;fontColor=#FFFFFF;strokeColor=#2F6FA6;resizable=0;" parent="1" vertex="1">
+            <mxGeometry x="2360" y="720" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="dequeue()" technology="IBinder" id="Uoe2LqP0X9fMWCQAsf6q-30">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;exitX=0;exitY=0.75;exitDx=0;exitDy=0;" parent="1" source="Uoe2LqP0X9fMWCQAsf6q-28" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="2030" y="812.5" as="sourcePoint" />
+              <mxPoint x="1850" y="810" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="queue()" technology="IBinder" id="Uoe2LqP0X9fMWCQAsf6q-31">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;" parent="1" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="1850" y="750" as="sourcePoint" />
+              <mxPoint x="2010" y="750" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="acquire()" technology="IBinder" id="Uoe2LqP0X9fMWCQAsf6q-32">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" parent="1" target="Uoe2LqP0X9fMWCQAsf6q-29" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="2190" y="750" as="sourcePoint" />
+              <mxPoint x="2320" y="750" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="release()" technology="IBinder" id="Uoe2LqP0X9fMWCQAsf6q-33">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;exitX=0;exitY=0.75;exitDx=0;exitDy=0;" parent="1" source="Uoe2LqP0X9fMWCQAsf6q-29" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="2320" y="810" as="sourcePoint" />
+              <mxPoint x="2190" y="810" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="Uoe2LqP0X9fMWCQAsf6q-36" value="z-order" style="html=1;verticalAlign=bottom;startArrow=oval;startFill=1;endArrow=block;startSize=8;fontFamily=Helvetica;fontColor=#000000;" parent="1" edge="1">
+          <mxGeometry width="60" relative="1" as="geometry">
+            <mxPoint x="1320" y="940" as="sourcePoint" />
+            <mxPoint x="1040" y="1220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Uoe2LqP0X9fMWCQAsf6q-37" value="A" style="html=1;fontFamily=Helvetica;fontColor=#000000;opacity=70;fillColor=#e3c800;strokeColor=#B09500;" parent="1" vertex="1">
+          <mxGeometry x="1240" y="1010" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Uoe2LqP0X9fMWCQAsf6q-38" value="B" style="html=1;fontFamily=Helvetica;opacity=70;fillColor=#e51400;strokeColor=#B20000;fontColor=#ffffff;" parent="1" vertex="1">
+          <mxGeometry x="1169" y="1100" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Uoe2LqP0X9fMWCQAsf6q-39" value="C" style="html=1;fontFamily=Helvetica;fontColor=#ffffff;opacity=70;fillColor=#0050ef;strokeColor=#001DBC;" parent="1" vertex="1">
+          <mxGeometry x="1120" y="1150" width="40" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Uoe2LqP0X9fMWCQAsf6q-40" value="background" style="html=1;fontFamily=Helvetica;fillColor=none;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="1320" y="880" width="120" height="120" as="geometry" />
+        </mxCell>
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Component: %technology%]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="Back Buffer" technology="mmap()" description="Device Frame Buffer" id="Uoe2LqP0X9fMWCQAsf6q-41">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#85baf0;fontColor=#000000;strokeColor=#6992BD;resizable=0;fontFamily=Helvetica;" parent="1" vertex="1">
+            <mxGeometry x="1900" y="880" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Component: %technology%]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="Front Buffer" technology="mmap()" description="Device Frame Buffer" id="Uoe2LqP0X9fMWCQAsf6q-42">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#85baf0;fontColor=#000000;strokeColor=#6992BD;resizable=0;fontFamily=Helvetica;" parent="1" vertex="1">
+            <mxGeometry x="2120" y="880" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="Uses" technology="function call" id="Uoe2LqP0X9fMWCQAsf6q-43">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.367;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" target="Uoe2LqP0X9fMWCQAsf6q-41" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="2096.06" y="840" as="sourcePoint" />
+              <mxPoint x="2010" y="895" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object label="&lt;b&gt;%name%&lt;/b&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;[%technology%]" placeholders="1" name="Uses" technology="function call" id="Uoe2LqP0X9fMWCQAsf6q-44">
+          <mxCell style="endArrow=block;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;dashed=1;dashPattern=8 8;strokeColor=#828282;elbow=vertical;entryX=0.556;entryY=0.008;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryPerimeter=0;" parent="1" source="Uoe2LqP0X9fMWCQAsf6q-28" target="Uoe2LqP0X9fMWCQAsf6q-42" edge="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="2106.06" y="850" as="sourcePoint" />
+              <mxPoint x="2000" y="890" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <mxCell id="Uoe2LqP0X9fMWCQAsf6q-46" value="Composition direction" style="html=1;verticalAlign=bottom;endArrow=block;fontFamily=Helvetica;fontColor=#000000;" parent="1" edge="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="1200" y="1260" as="sourcePoint" />
+            <mxPoint x="1440" y="1020" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Uoe2LqP0X9fMWCQAsf6q-48" value="provides" style="html=1;verticalAlign=bottom;endArrow=block;fontFamily=Helvetica;fontColor=#000000;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="Uoe2LqP0X9fMWCQAsf6q-41" target="Uoe2LqP0X9fMWCQAsf6q-40" edge="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="1210" y="1270" as="sourcePoint" />
+            <mxPoint x="1450" y="1030" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Software System&lt;/span&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="GPU" description="3D Component." id="Uoe2LqP0X9fMWCQAsf6q-50">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#999999;fontColor=#FFFFFF;strokeColor=#828282;resizable=0;" parent="1" vertex="1">
+            <mxGeometry x="1280" y="1200" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Software System&lt;/span&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="HWComposer" description="2D Component." id="Uoe2LqP0X9fMWCQAsf6q-51">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#999999;fontColor=#FFFFFF;strokeColor=#828282;resizable=0;" parent="1" vertex="1">
+            <mxGeometry x="1440" y="1040" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <object label="&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;%name%&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;[Software System&lt;/span&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 8px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;1&quot;&gt;%description%&lt;/font&gt;&lt;/div&gt;" placeholders="1" name="Display" description="Display Device." id="Uoe2LqP0X9fMWCQAsf6q-52">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;fillColor=#999999;fontColor=#FFFFFF;strokeColor=#828282;resizable=0;" parent="1" vertex="1">
+            <mxGeometry x="2360" y="880" width="180" height="120" as="geometry" />
+          </mxCell>
+        </object>
+        <mxCell id="Uoe2LqP0X9fMWCQAsf6q-53" value="shows" style="html=1;verticalAlign=bottom;endArrow=block;fontFamily=Helvetica;fontColor=#000000;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" target="Uoe2LqP0X9fMWCQAsf6q-52" edge="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="2300" y="940" as="sourcePoint" />
+            <mxPoint x="1450" y="950" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Uoe2LqP0X9fMWCQAsf6q-54" value="background" style="html=1;fontFamily=Helvetica;fillColor=none;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="2150" y="1040" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Uoe2LqP0X9fMWCQAsf6q-55" value="A" style="html=1;fontFamily=Helvetica;fontColor=#000000;opacity=70;fillColor=#e3c800;strokeColor=#B09500;" parent="1" vertex="1">
+          <mxGeometry x="2170" y="1050" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Uoe2LqP0X9fMWCQAsf6q-56" value="B" style="html=1;fontFamily=Helvetica;opacity=70;fillColor=#e51400;strokeColor=#B20000;fontColor=#ffffff;" parent="1" vertex="1">
+          <mxGeometry x="2180" y="1110" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Uoe2LqP0X9fMWCQAsf6q-57" value="C" style="html=1;fontFamily=Helvetica;fontColor=#ffffff;opacity=70;fillColor=#0050ef;strokeColor=#001DBC;" parent="1" vertex="1">
+          <mxGeometry x="2160" y="1060" width="40" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Uoe2LqP0X9fMWCQAsf6q-58" value="Composition result" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Helvetica;fontColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="2155" y="1010" width="110" height="20" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
