@@ -204,11 +204,36 @@ Choreographer 框架要协调 3 类事件的周期启动时间：
 
 更多的设计细节在相关的类的协作图中讨论。
 
-# 性能(Performance)指标
+# 重要的品质属性
 
-# 可移植性(Portability)的实现
+软件架构设计所关注的品质属性(Quality Attributes)有很多项。这里我们从总体上关心两项：
+* 性能(Performance)指标
+* 可移植性(Portability)
 
-设计模式，访问者模式(Visitor Pattern)
+从软件架构看，性能(Performance)指标是时间横轴的约束，可移植性(Portability)是架构纵轴的约束。
+
+![Android 图形系统品质属性](graphic-system-11.png)
+
+性能(Performance)指标是显示最小延迟公式：
+```C++
+(2 * VSYNC_PERIOD - (vsyncPhaseOffsetNs % VSYNC_PERIOD))
+```
+
+也就是，如果一个应用在 VSYNC 信号到达时开始渲染一帧内容，如果它能在一个 VSYNC 节拍内完成渲染工作并提交，则该帧能在从现在算起的两个 VSYNC 节拍内被显示到屏幕上。这是一个实时显示的要求，在游戏或 VR 中就有很好的操作跟随性。
+
+Android 图形系统软件架构，从总体上看是一种半同步/半异步(Half-sync/Half-async)架构。从设计模式看，是 Producer-Consumer 模式的变种，Thread Pool 模式，更进一步的，是其变种，Active Object 设计模式。之所以采用这么复杂的设计模式，就是为了充分利用多核异构架构，实现更好的性能。
+
+从系统架构的纵向看，则是一个多层架构，大致可以分为：
+0. Application
+1. Framework Interface
+2. Framework Implementation
+3. Framework Internal
+4. HIDL Interface
+5. HIDL Implementation
+6. HAL Interface
+7. HAL plugin
+
+之所以采用这么复杂的分层模式，主要就是为了兼容性，使得 Android 可以在各种平台，各种硬件配置，各种时代的驱动软件上可以运行。特别是 HIDL 层代码，HAL Interface Definition Language (HIDL)，其实就是在 Framework / HAL 两层之间的一个适配层，并且使得接口和实现可以跨进程分布。HIDL 层的实现，所采用的设计模式为访问者模式(Visitor Pattern)。
 
 # 对称设计
 
