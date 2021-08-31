@@ -224,6 +224,7 @@ Choreographer 框架要协调 3 类事件的周期启动时间：
 Android 图形系统软件架构，从总体上看是一种半同步/半异步(Half-sync/Half-async)架构。从设计模式看，是 Producer-Consumer 模式的变种，Thread Pool 模式，更进一步的，是其变种，Active Object 设计模式。之所以采用这么复杂的设计模式，就是为了充分利用多核异构架构，实现更好的性能。
 
 从系统架构的纵向看，则是一个多层架构，大致可以分为：
+
 0. Application
 1. Framework Interface
 2. Framework Implementation
