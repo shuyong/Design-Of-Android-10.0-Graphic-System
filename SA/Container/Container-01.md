@@ -170,7 +170,7 @@ Android 图形系统是多进程/多线程协作的并发系统，为了减小�
 
 这时候又回到前面的话题，如果多个窗口的刷新频率能和 VSYNC 同步，则显示会更顺滑。这就是编舞者(Choreographer)机制要解决的问题。这在后面讨论。
 
-在合成(Composition)操作期间，需要对 z-order 中的 Dirty Layer 进行三次扫描。第一遍是从底到顶扫描，记录每个 Layer 暴露的区域，并且标记各个 buffer 用哪个设备合成更合适(GPU or HWComposer)。这是因为根据内容格式和尺寸的不同，还有根据各个厂商硬件的不同，有些 buffer 适合用 GPU 合成而有些适合用 HWComposer 合成。第二遍是从顶到底扫描，对合适的 buffer 用 GPU 进行合成操作，第三遍也是从顶到底扫描，对剩余的 buffer 用 HWComposer 进行合成操作。
+在合成(Composition)操作期间，需要对 z-order 中的 Dirty Layer 进行三次扫描。第一遍是从顶到底扫描，记录每个 Layer 暴露的区域，并且标记各个 buffer 用哪个设备合成更合适(GPU or HWComposer)。这是因为根据内容格式和尺寸的不同，还有根据各个厂商硬件的不同，有些 buffer 适合用 GPU 合成而有些适合用 HWComposer 合成。第二遍是从底到顶扫描，对合适的 buffer 用 GPU 进行合成操作，第三遍也是从底到顶扫描，对剩余的 buffer 用 HWComposer 进行合成操作。
 
 显示的最关键操作就是在 z-order 的最底层插入了由第二阶段的 BufferQueue 提供的 back buffer，该 buffer 实际上是 device frame buffer，写在上面的内容可以显示到屏幕上，条件是从 back 变成 front 状态。这样，back buffer 就承接了合成结果，并在下一个 VSYNC 到来时交换为 front buffer 并显示在屏幕上。
 
